@@ -1,0 +1,157 @@
+@charset "UTF-8";
+@font-face {
+  font-family: Led;
+  /* Гарнитура шрифта */
+  src: url(../fonts/led.ttf);
+  /* Путь к файлу со шрифтом */ }
+
+.display {
+  font-family: Led, 'Comic Sans MS', cursive;
+  white-space: pre-wrap; }
+
+table.mk52 {
+  background: #3F3F49;
+  border-collapse: collapse;
+  border-spacing: 0; }
+  table.mk52 td {
+    padding: 0; }
+  table.mk52 .display {
+    font-family: Led, 'Comic Sans MS', cursive;
+    font-size: 19pt;
+    color: yellow;
+    white-space: pre-wrap;
+    opacity: 1 !important;
+    filter: "alpha(opacity=100)" !important; }
+  table.mk52 .display.wait {
+    opacity: 0.2 !important;
+    filter: "alpha(opacity=20)" !important; }
+  table.mk52 .keyboard {
+    font-size: 12pt;
+    background: #2F2B39;
+    border: none; }
+    table.mk52 .keyboard tr {
+      height: 50px;
+      border: none; }
+    table.mk52 .keyboard tr td {
+      font-size: 0.8em;
+      border: none;
+      margin: 0px;
+      padding: 0px 5px;
+      width: 58px;
+      max-width: 58px;
+      height: 50px;
+      max-height: 50px;
+      text-align: center;
+      vertical-align: center;
+      color: #EBD108; }
+    table.mk52 .keyboard tr td i {
+      color: #4BA9F3;
+      font-style: normal; }
+    table.mk52 .keyboard tr td b {
+      color: #ECF0E4;
+      font-weight: normal;
+      font-style: italic; }
+    table.mk52 .keyboard tr td span,
+    table.mk52 .keyboard tr td span:active,
+    table.mk52 .keyboard tr td span:focus,
+    table.mk52 .keyboard tr td span:hover {
+      font-size: 1.2em;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid #adadad;
+      color: #ECF0E4;
+      font-weight: bold;
+      vertical-align: middle; }
+    table.mk52 .keyboard tr td span.w {
+      color: #2F2B39;
+      background-color: #ECF0E4; }
+    table.mk52 .keyboard tr td span.f {
+      color: #2F2B39;
+      background-color: yellow; }
+    table.mk52 .keyboard tr td span.k {
+      color: #ECF0E4;
+      background-color: #4BA9F3; }
+    table.mk52 .keyboard tr td span.r {
+      color: #ECF0E4;
+      background-color: red; }
+  table.mk52 .mk_a0 {
+    background: url(../images/calc/a0.png) no-repeat;
+    height: 66px; }
+  table.mk52 .mk_a3 {
+    background: url(../images/calc/a3a.png) no-repeat 50% 0px, url(../images/calc/a3.png) repeat-x;
+    height: 66px; }
+  table.mk52 .mk_a4 {
+    background: url(../images/calc/a4.png) no-repeat;
+    width: 33px;
+    height: 66px; }
+  table.mk52 .mk_b0 {
+    background: url(../images/calc/b0.png) repeat-y;
+    width: 40px; }
+  table.mk52 .mk_b1 {
+    background: url(../images/calc/b1.png) no-repeat;
+    width: 206px;
+    height: 66px;
+    text-align: center; }
+  table.mk52 .mk_b2 {
+    background: url(../images/calc/b2.png) repeat-y;
+    width: 55px; }
+  table.mk52 .mk_b4 {
+    background: url(../images/calc/b4.png) repeat-y;
+    width: 33px; }
+  table.mk52 .mk_c0 {
+    background: url(../images/calc/c0.png) no-repeat;
+    width: 40px;
+    height: 41px; }
+  table.mk52 .mk_c1 {
+    background: url(../images/calc/c1.png) repeat-x;
+    width: 206px;
+    height: 41px; }
+  table.mk52 .mk_c2 {
+    background: url(../images/calc/c2.png) no-repeat;
+    width: 55px;
+    height: 41px; }
+  table.mk52 .mk_d0 {
+    background: url(../images/calc/d0.png) repeat-y;
+    width: 40px;
+    height: 98px; }
+  table.mk52 .mk_d1 {
+    background: url(../images/calc/d1.png) no-repeat, url(../images/calc/d1b.png);
+    width: 206px; }
+  table.mk52 .mk_d2 {
+    background: url(../images/calc/d2.png) repeat-y;
+    width: 55px; }
+  table.mk52 .mk_e0 {
+    background: url(../images/calc/e0.png) no-repeat;
+    width: 40px;
+    height: 17px; }
+  table.mk52 .mk_e1 {
+    background: url(../images/calc/e1.png) repeat-x;
+    height: 17px; }
+  table.mk52 .mk_e2 {
+    background: url(../images/calc/e2.png) no-repeat;
+    width: 55px;
+    height: 17px; }
+  table.mk52 .mk_e3 {
+    background: url(../images/calc/e3.png) repeat-x;
+    height: 17px; }
+  table.mk52 .mk_e4 {
+    background: url(../images/calc/e4.png) no-repeat;
+    width: 33px;
+    height: 17px; }
+
+.programm {
+  border: 1px solid grey;
+  width: 770px; }
+
+.programm tr th,
+.programm tr td {
+  border: 1px solid grey;
+  width: 70px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle; }
+
+.programm tr th {
+  font-weight: bold; }

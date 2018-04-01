@@ -1,0 +1,1 @@
+{"version":3,"file":"actions.js","sourceRoot":"","sources":["../../../src/client/app/actions.ts"],"names":[],"mappings":";;AACA,mCAAuC;AAEvC;IACI,OAAO;QACH,IAAI,EAAE,oBAAW,CAAC,QAAQ;KAC7B,CAAC;AACN,CAAC;AAJD,0BAIC;AAED,qBAA4B,IAAI;IAC5B,OAAO;QACH,IAAI,EAAE,oBAAW,CAAC,YAAY;QAC9B,IAAI,MAAA;KACP,CAAC;AACN,CAAC;AALD,kCAKC"}
