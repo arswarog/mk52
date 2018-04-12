@@ -1,5 +1,71 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var nextTodoId = 0;
+var ActionTypes;
+(function (ActionTypes) {
+    ActionTypes["SET_STATE"] = "SET_STATE";
+    ActionTypes["ADD_ITEM"] = "ADD_ITEM";
+    ActionTypes["PRESS_BUTTON"] = "PRESS_BUTTON";
+    ActionTypes["LOAD"] = "LOAD";
+})(ActionTypes = exports.ActionTypes || (exports.ActionTypes = {}));
+exports.addTodo = function (text) { return ({
+    type: 'ADD_TODO',
+    id: nextTodoId++,
+    text: text,
+}); };
+exports.setVisibilityFilter = function (filter) { return ({
+    type: 'SET_VISIBILITY_FILTER',
+    filter: filter,
+}); };
+exports.toggleTodo = function (id) { return ({
+    type: 'TOGGLE_TODO',
+    id: id,
+}); };
+exports.VisibilityFilters = {
+    SHOW_ALL: 'SHOW_ALL',
+    SHOW_COMPLETED: 'SHOW_COMPLETED',
+    SHOW_ACTIVE: 'SHOW_ACTIVE',
+};
+
+},{}],2:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var MkEvents;
+(function (MkEvents) {
+    MkEvents["SetState"] = "MK_SET_STATE";
+    MkEvents["SetDisplay"] = "MK_SET_DISPLAY";
+    MkEvents["PressButton"] = "MK_PRESS_BUTTON";
+    MkEvents["Loaded"] = "MK_LOADED";
+})(MkEvents = exports.MkEvents || (exports.MkEvents = {}));
+function setState(state) {
+    return {
+        type: MkEvents.SetState,
+        state: state,
+    };
+}
+exports.setState = setState;
+function pressButton(code) {
+    return {
+        type: MkEvents.PressButton,
+        code: code,
+    };
+}
+exports.pressButton = pressButton;
+//export function setDisplay(display: MKDisplay) {
+//    return {
+//        type: MkEvents.SetDisplay,
+//        display,
+//    };
+//}
+//
+//export function const toggleTodo = id => ( {
+//    type: 'TOGGLE_TODO',
+//    id,
+//} );
+
+},{}],3:[function(require,module,exports){
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -12,98 +78,35 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var Actions = require("./app/actions");
-var Main_1 = require("./components/Main");
-var react_redux_1 = require("react-redux");
-var AppComponent = /** @class */ (function (_super) {
-    __extends(AppComponent, _super);
-    function AppComponent(a, b) {
-        var _this = _super.call(this, a, b) || this;
-        _this.onClick = _this.onClick.bind(_this);
+var Calculator_1 = require("../containers/Calculator");
+var App = /** @class */ (function (_super) {
+    __extends(App, _super);
+    function App(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            value: 0,
+        };
+        _this.alert = _this.alert.bind(_this);
         return _this;
     }
-    AppComponent.prototype.onClick = function (e) {
-        console.log('App onClick state', this.state);
-        console.log('App onClick props', this.props);
-        console.log('click');
-        this.props.addItem();
+    App.prototype.alert = function (code) {
+        //        console.log(this.props, this.props.onAddItem, this.state);
+        //        this.props.pressButton();
+        this.setState({ newItem: " " });
     };
-    AppComponent.prototype.render = function () {
-        console.log('App render state', this.state);
-        console.log('App render props', this.props);
-        return React.createElement(Main_1.Main, { pressButton: this.props.pressButton, calc: this.props.calc, counter: this.props.counter, counter2: this.props.counter2, display: this.props.display });
+    App.prototype.render = function () {
+        console.log('Main render', this.props);
+        //        let calc = this.props.calc;
+        //        let stack = calc.stack;
+        return (React.createElement("div", null,
+            "Hello world",
+            React.createElement(Calculator_1.Calculator, null)));
     };
-    return AppComponent;
+    return App;
 }(React.Component));
-exports.AppComponent = AppComponent;
-function mapStateToProps(state) {
-    //    console.log(state);
-    return Object.assign({}, state);
-}
-exports.App = react_redux_1.connect(mapStateToProps, Actions)(AppComponent);
+exports.App = App;
 
-},{"./app/actions":2,"./components/Main":8,"react":68,"react-redux":50}],2:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var atypes_1 = require("./atypes");
-function addItem() {
-    return {
-        type: atypes_1.ActionTypes.ADD_ITEM,
-    };
-}
-exports.addItem = addItem;
-function pressButton(code) {
-    return {
-        type: atypes_1.ActionTypes.PRESS_BUTTON,
-        code: code,
-    };
-}
-exports.pressButton = pressButton;
-
-},{"./atypes":3}],3:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var ActionTypes;
-(function (ActionTypes) {
-    ActionTypes["SET_STATE"] = "SET_STATE";
-    ActionTypes["ADD_ITEM"] = "ADD_ITEM";
-    ActionTypes["PRESS_BUTTON"] = "PRESS_BUTTON";
-    ActionTypes["LOAD"] = "LOAD";
-})(ActionTypes = exports.ActionTypes || (exports.ActionTypes = {}));
-
-},{}],4:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var atypes_1 = require("./atypes");
-exports.reducer = function (state, action) {
-    if (state === void 0) { state = {}; }
-    console.log('ACT', action);
-    switch (action.type) {
-        case atypes_1.ActionTypes.SET_STATE:
-            return action.state;
-        case atypes_1.ActionTypes.ADD_ITEM:
-            state = Object.assign({}, state);
-            state.display = state.calc.display;
-            state.counter++;
-            return state;
-        case atypes_1.ActionTypes.LOAD:
-            state = Object.assign({}, state);
-            state.calc.start();
-            state.display = state.calc.display;
-            state.counter++;
-            return state;
-        case atypes_1.ActionTypes.PRESS_BUTTON:
-            state = Object.assign({}, state);
-            state.calc.press(action.code);
-            state.display = state.calc.display;
-            state.counter++;
-            console.log('-----', state.display);
-            return state;
-    }
-    return state;
-};
-
-},{"./atypes":3}],5:[function(require,module,exports){
+},{"../containers/Calculator":7,"react":71}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -139,70 +142,45 @@ var Button = /** @class */ (function (_super) {
 }(React.Component));
 exports.Button = Button;
 
-},{"react":68}],6:[function(require,module,exports){
+},{"react":71}],5:[function(require,module,exports){
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Keyboard_1 = require("./Keyboard");
-var Calculator = /** @class */ (function (_super) {
-    __extends(Calculator, _super);
-    function Calculator(props, state) {
-        var _this = _super.call(this, props, state) || this;
-        _this.press = _this.press.bind(_this);
-        return _this;
-    }
-    Calculator.prototype.press = function (code) {
-        console.log('code:', code);
-        this.props.pressButton(code);
-    };
-    Calculator.prototype.render = function () {
-        var _this = this;
-        var calc = this.props.calc;
-        return (React.createElement("table", { className: "mk52" },
-            React.createElement("tbody", null,
-                React.createElement("tr", null,
-                    React.createElement("td", { className: "mk_a0", colSpan: 3 }, "\u00A0"),
-                    React.createElement("td", { className: "mk_a3" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_a4" }, "\u00A0")),
-                React.createElement("tr", null,
-                    React.createElement("td", { className: "mk_b0" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_b1" },
-                        React.createElement("span", { className: "display", "ng-class": "{wait: wait, run: run}" }, this.props.display.real)),
-                    React.createElement("td", { className: "mk_b2" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_b3", rowSpan: 3 },
-                        React.createElement(Keyboard_1.Keyboard, { keyboard: this.props.keyboardConfig, press: this.press })),
-                    React.createElement("td", { className: "mk_b4", rowSpan: 3 }, "\u00A0")),
-                React.createElement("tr", null,
-                    React.createElement("td", { className: "mk_c0" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_c1" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_c2" }, "\u00A0")),
-                React.createElement("tr", null,
-                    React.createElement("td", { className: "mk_d0" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_d1" },
-                        React.createElement("button", { className: "btn btn-default", onClick: function () { return _this.press('reset'); } }, "Reset")),
-                    React.createElement("td", { className: "mk_d2" }, "\u00A0")),
-                React.createElement("tr", null,
-                    React.createElement("td", { className: "mk_e0" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_e1" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_e2" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_e3" }, "\u00A0"),
-                    React.createElement("td", { className: "mk_e4" }, "\u00A0")))));
-    };
-    return Calculator;
-}(React.Component));
-exports.Calculator = Calculator;
+exports.CalculatorComponent = function (_a) {
+    var keyboard = _a.keyboard, display = _a.display, counter = _a.counter, className = _a.className, pressButton = _a.pressButton;
+    return (React.createElement("table", { className: "mk52" },
+        React.createElement("tbody", null,
+            React.createElement("tr", null,
+                React.createElement("td", { className: "mk_a0", colSpan: 3 }, "\u00A0"),
+                React.createElement("td", { className: "mk_a3" }, "\u00A0"),
+                React.createElement("td", { className: "mk_a4" }, "\u00A0")),
+            React.createElement("tr", null,
+                React.createElement("td", { className: "mk_b0" }, "\u00A0"),
+                React.createElement("td", { className: "mk_b1" },
+                    React.createElement("span", { className: className }, counter)),
+                React.createElement("td", { className: "mk_b2" }, "\u00A0"),
+                React.createElement("td", { className: "mk_b3", rowSpan: 3 },
+                    React.createElement(Keyboard_1.Keyboard, { keyboard: keyboard, pressButton: pressButton })),
+                React.createElement("td", { className: "mk_b4", rowSpan: 3 }, "\u00A0")),
+            React.createElement("tr", null,
+                React.createElement("td", { className: "mk_c0" }, "\u00A0"),
+                React.createElement("td", { className: "mk_c1" }, "\u00A0"),
+                React.createElement("td", { className: "mk_c2" }, "\u00A0")),
+            React.createElement("tr", null,
+                React.createElement("td", { className: "mk_d0" }, "\u00A0"),
+                React.createElement("td", { className: "mk_d1" },
+                    React.createElement("button", { className: "btn btn-default", onClick: function () { return pressButton('reset'); } }, "Reset")),
+                React.createElement("td", { className: "mk_d2" }, "\u00A0")),
+            React.createElement("tr", null,
+                React.createElement("td", { className: "mk_e0" }, "\u00A0"),
+                React.createElement("td", { className: "mk_e1" }, "\u00A0"),
+                React.createElement("td", { className: "mk_e2" }, "\u00A0"),
+                React.createElement("td", { className: "mk_e3" }, "\u00A0"),
+                React.createElement("td", { className: "mk_e4" }, "\u00A0")))));
+};
 
-},{"./Keyboard":7,"react":68}],7:[function(require,module,exports){
+},{"./Keyboard":6,"react":71}],6:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -239,7 +217,7 @@ var Keyboard = /** @class */ (function (_super) {
                 modeK: false,
                 modeF: false,
             });
-            return this.props.press(key);
+            return this.props.pressButton(key);
         }
         var state = {};
         if (this.state.modeK || this.state.modeF) {
@@ -266,189 +244,30 @@ var Keyboard = /** @class */ (function (_super) {
 }(React.Component));
 exports.Keyboard = Keyboard;
 
-},{"./Button":5,"react":68}],8:[function(require,module,exports){
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var Calculator_1 = require("./Calculator");
-var Main = /** @class */ (function (_super) {
-    __extends(Main, _super);
-    function Main(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            value: 0,
-        };
-        _this.alert = _this.alert.bind(_this);
-        return _this;
-    }
-    Main.prototype.alert = function (code) {
-        //        console.log(this.props, this.props.onAddItem, this.state);
-        this.props.pressButton();
-        this.setState({ newItem: " " });
-    };
-    Main.prototype.render = function () {
-        console.log('Main render', this.props);
-        var calc = this.props.calc;
-        var stack = calc.stack;
-        console.log(stack);
-        var stackList = ['t', 'z', 'y', 'x', 'x1'].map(function (r) { return React.createElement("tr", { key: r },
-            React.createElement("td", null, r),
-            React.createElement("td", { className: "display" }, stack[r].real),
-            React.createElement("td", null, stack[r].value)); });
-        return (React.createElement("div", null,
-            React.createElement("b", null, this.props.counter),
-            " / ",
-            React.createElement("b", null, this.props.counter2),
-            React.createElement(Calculator_1.Calculator, { calc: this.props.calc, display: this.props.display, pressButton: this.props.pressButton, keyboardConfig: this.props.calc.getKeyboardConfig() }),
-            React.createElement("table", { onClick: this.alert },
-                React.createElement("thead", null,
-                    React.createElement("tr", null,
-                        React.createElement("td", null, "#"),
-                        React.createElement("td", null, "Real"),
-                        React.createElement("td", null, "Value"))),
-                React.createElement("tbody", null, stackList))));
-    };
-    return Main;
-}(React.Component));
-exports.Main = Main;
-
-},{"./Calculator":6,"react":68}],9:[function(require,module,exports){
+},{"./Button":4,"react":71}],7:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var Redux = require("redux");
-var ReactDOM = require("react-dom");
-var App_1 = require("./App");
-var store_1 = require("./app/store");
 var react_redux_1 = require("react-redux");
-var atypes_1 = require("./app/atypes");
-var MK52_1 = require("../emk/MK52");
-var store = Redux.createStore(store_1.reducer);
-store.dispatch({
-    type: atypes_1.ActionTypes.SET_STATE,
-    state: {
-        calc: new MK52_1.MK52(),
-        display: new MK52_1.MKDisplay(MK52_1.DisplayMode.Loading),
-        counter: 0,
-        counter2: 1,
-    },
-});
-setTimeout(function () { return store.dispatch({
-    type: atypes_1.ActionTypes.LOAD,
-    state: {
-        calc: new MK52_1.MK52(),
-        display: new MK52_1.MKDisplay(MK52_1.DisplayMode.Loading),
-        counter: 0,
-        counter2: 1,
-    },
-}); }, 500);
-ReactDOM.render(React.createElement(react_redux_1.Provider, { store: store },
-    React.createElement(App_1.App, null)), document.getElementById("app"));
+var Calculator_1 = require("../components/Calculator");
+var mk52_1 = require("../actions/mk52");
+var getDisplayClassName = function (state) {
+    //    ng-class="{wait: wait, run: run}"
+    return 'display';
+};
+var mapStateToProps = function (state) { return ({
+    display: null,
+    counter: state.mk52.counter,
+    className: getDisplayClassName(state.mk52),
+    keyboard: state.mk52.keyboard,
+}); };
+var mapDispatchToProps = function (dispatch) { return ({
+    pressButton: function (code) { return dispatch(mk52_1.pressButton(code)); },
+}); };
+exports.Calculator = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Calculator_1.CalculatorComponent);
 
-},{"../emk/MK52":10,"./App":1,"./app/atypes":3,"./app/store":4,"react":68,"react-dom":39,"react-redux":50,"redux":75}],10:[function(require,module,exports){
+},{"../actions/mk52":2,"../components/Calculator":5,"react-redux":53}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var MKController_1 = require("./MKController");
-var register_1 = require("./register");
-var DisplayMode;
-(function (DisplayMode) {
-    DisplayMode["Loading"] = "loading";
-    DisplayMode["Simple"] = "simple";
-    DisplayMode["Normal"] = "normal";
-    DisplayMode["Hex"] = "hex";
-    DisplayMode["Error"] = "error";
-})(DisplayMode = exports.DisplayMode || (exports.DisplayMode = {}));
-var MK52 = /** @class */ (function () {
-    function MK52() {
-        this.mk = new MKController_1.MKController();
-        console.log('Create MK52');
-    }
-    Object.defineProperty(MK52.prototype, "display", {
-        get: function () {
-            if (this.mk)
-                return this.mk.display;
-            else
-                return new MKDisplay(DisplayMode.Loading);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MK52.prototype, "stack", {
-        get: function () {
-            var stack = this.mk.stack;
-            return {
-                x1: new MKDisplay(stack.x1),
-                x: new MKDisplay(stack.x),
-                y: new MKDisplay(stack.y),
-                z: new MKDisplay(stack.z),
-                t: new MKDisplay(stack.t),
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MK52.prototype.start = function (timeout) {
-        if (timeout === void 0) { timeout = 200; }
-        this.timeout = timeout;
-        this.mk.start();
-    };
-    MK52.prototype.press = function (code) {
-        this.mk.press(code);
-    };
-    MK52.prototype.getKeyboardConfig = function () {
-        return [
-            [
-                new MKButton('A1', 'F', 'f', null),
-                new MKButton('A2', 'ШГ→', 'b', null, 'x<0', null),
-                new MKButton('A3', 'П→X', 'b', null, 'L0', null),
-                new MKButton('A4', '7', 'w', '07', 'sin', null, '[x]', null),
-                new MKButton('A5', '8', 'w', '08', 'cos', null, '{x}', null),
-                new MKButton('A6', '9', 'w', '09', 'tg', null, 'max', null),
-                new MKButton('A7', '-', 'w', '11', '√', null),
-                new MKButton('A8', '÷', 'w', '13', '1/x', null),
-            ], [
-                new MKButton('B1', 'K', 'k', null),
-                new MKButton('B2', 'ШГ←', 'b', null, 'x=0', null),
-                new MKButton('B3', 'X→П', 'b', null, 'L1', null),
-                new MKButton('B4', '4', 'w', '04', 'sin⁻¹', null, '|x|', null),
-                new MKButton('B5', '5', 'w', '05', 'cos⁻¹', null, 'ЗН', null),
-                new MKButton('B6', '6', 'w', '06', 'tg⁻¹', null, '°′', null),
-                new MKButton('B7', '+', 'w', '10', 'π', null, '°′', null),
-                new MKButton('B8', '×', 'w', '12', 'x²'),
-            ], [
-                new MKButton('C1', '⇵', 'b', null),
-                new MKButton('C2', 'В/О', 'b', null, 'x⩾0', null),
-                new MKButton('C3', 'БП', 'b', null, 'L2', null),
-                new MKButton('C4', '1', 'w', '01', 'eⁿ', null),
-                new MKButton('C5', '2', 'w', '02', 'lg', null),
-                new MKButton('C6', '3', 'w', '03', 'ln', null, '°′″', null),
-                new MKButton('C7', '↔', 'w', null, 'xⁿ', null, '°′″', null),
-                new MKButton('C8', 'В↑', 'w', '0E', 'Bx', null, 'СЧ', null, 'e'),
-            ], [
-                new MKButton('D1', 'А↑', 'b', null),
-                new MKButton('D2', 'С/П', 'b', null, 'x≠0'),
-                new MKButton('D3', 'ПП', 'b', null, 'L3'),
-                new MKButton('D4', '0', 'w', '00', '10ⁿ', null, 'НОП', null),
-                new MKButton('D5', '·', 'w', null, '⟳', null, '∧', null, 'a'),
-                new MKButton('D6', '/-/', 'w', null, 'АВТ', null, '∨', null, 'b'),
-                new MKButton('D7', 'ВП', 'w', '0C', 'ПРГ', null, '⊕', null, 'c'),
-                new MKButton('D8', 'СX', 'r', null, 'CF', null, 'ИНВ', null, 'd'),
-            ],
-        ];
-    };
-    return MK52;
-}());
-exports.MK52 = MK52;
 var MKButton = /** @class */ (function () {
     function MKButton(key, text, color, code, f, codef, k, codek, register) {
         if (color === void 0) { color = 'b'; }
@@ -465,6 +284,78 @@ var MKButton = /** @class */ (function () {
     return MKButton;
 }());
 exports.MKButton = MKButton;
+var CoreMode;
+(function (CoreMode) {
+    CoreMode[CoreMode["Default"] = 0] = "Default";
+    CoreMode[CoreMode["AddToMantissa"] = 1] = "AddToMantissa";
+    CoreMode[CoreMode["AddToMagnitude"] = 2] = "AddToMagnitude";
+    CoreMode[CoreMode["Added"] = 3] = "Added";
+})(CoreMode = exports.CoreMode || (exports.CoreMode = {}));
+
+},{}],9:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var mkdisplay_1 = require("./mkdisplay");
+exports.MKDisplay = mkdisplay_1.MKDisplay;
+var mk52keyboard_1 = require("./mk52keyboard");
+exports.MK52Keyboard = mk52keyboard_1.MK52Keyboard;
+
+},{"./mk52keyboard":10,"./mkdisplay":11}],10:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var common_1 = require("./common");
+exports.MK52Keyboard = [
+    [
+        new common_1.MKButton('A1', 'F', 'f', null),
+        new common_1.MKButton('A2', 'ШГ→', 'b', null, 'x<0', null),
+        new common_1.MKButton('A3', 'П→X', 'b', null, 'L0', null),
+        new common_1.MKButton('A4', '7', 'w', '07', 'sin', null, '[x]', null),
+        new common_1.MKButton('A5', '8', 'w', '08', 'cos', null, '{x}', null),
+        new common_1.MKButton('A6', '9', 'w', '09', 'tg', null, 'max', null),
+        new common_1.MKButton('A7', '-', 'w', '11', '√', null),
+        new common_1.MKButton('A8', '÷', 'w', '13', '1/x', null),
+    ], [
+        new common_1.MKButton('B1', 'K', 'k', null),
+        new common_1.MKButton('B2', 'ШГ←', 'b', null, 'x=0', null),
+        new common_1.MKButton('B3', 'X→П', 'b', null, 'L1', null),
+        new common_1.MKButton('B4', '4', 'w', '04', 'sin⁻¹', null, '|x|', null),
+        new common_1.MKButton('B5', '5', 'w', '05', 'cos⁻¹', null, 'ЗН', null),
+        new common_1.MKButton('B6', '6', 'w', '06', 'tg⁻¹', null, '°′', null),
+        new common_1.MKButton('B7', '+', 'w', '10', 'π', null, '°′', null),
+        new common_1.MKButton('B8', '×', 'w', '12', 'x²'),
+    ], [
+        new common_1.MKButton('C1', '⇵', 'b', null),
+        new common_1.MKButton('C2', 'В/О', 'b', null, 'x⩾0', null),
+        new common_1.MKButton('C3', 'БП', 'b', null, 'L2', null),
+        new common_1.MKButton('C4', '1', 'w', '01', 'eⁿ', null),
+        new common_1.MKButton('C5', '2', 'w', '02', 'lg', null),
+        new common_1.MKButton('C6', '3', 'w', '03', 'ln', null, '°′″', null),
+        new common_1.MKButton('C7', '↔', 'w', null, 'xⁿ', null, '°′″', null),
+        new common_1.MKButton('C8', 'В↑', 'w', '0E', 'Bx', '0F', 'СЧ', null, 'e'),
+    ], [
+        new common_1.MKButton('D1', 'А↑', 'b', null),
+        new common_1.MKButton('D2', 'С/П', 'b', null, 'x≠0'),
+        new common_1.MKButton('D3', 'ПП', 'b', null, 'L3'),
+        new common_1.MKButton('D4', '0', 'w', '00', '10ⁿ', null, 'НОП', null),
+        new common_1.MKButton('D5', '·', 'w', null, '⟳', null, '∧', null, 'a'),
+        new common_1.MKButton('D6', '/-/', 'w', null, 'АВТ', null, '∨', null, 'b'),
+        new common_1.MKButton('D7', 'ВП', 'w', '0C', 'ПРГ', null, '⊕', null, 'c'),
+        new common_1.MKButton('D8', 'СX', 'r', null, 'CF', null, 'ИНВ', null, 'd'),
+    ],
+];
+
+},{"./common":8}],11:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var register_1 = require("./register");
+var DisplayMode;
+(function (DisplayMode) {
+    DisplayMode["Loading"] = "loading";
+    DisplayMode["Simple"] = "simple";
+    DisplayMode["Normal"] = "normal";
+    DisplayMode["Hex"] = "hex";
+    DisplayMode["Error"] = "error";
+})(DisplayMode = exports.DisplayMode || (exports.DisplayMode = {}));
 var MKDisplay = /** @class */ (function () {
     function MKDisplay(register) {
         this.register = null;
@@ -505,7 +396,6 @@ var MKDisplay = /** @class */ (function () {
         this.normalize();
     }
     MKDisplay.prototype.normal = function () {
-        console.log('-----', this.register);
         var delta = this.register.magnToNormal;
         var mant = this.register.mant / Math.pow(10, delta);
         this.mantMinus = false;
@@ -604,7 +494,7 @@ var MKDisplay = /** @class */ (function () {
     MKDisplay.prototype.normalize = function () {
         var manLen = this.mant.reduce(function (len, num) { return num === register_1.Digit.dot ? len : len + 1; }, 0);
         for (; manLen < 8; manLen++)
-            this.mant.unshift(register_1.Digit.empty);
+            this.mant.push(register_1.Digit.empty);
         var signLen = this.mant.reduce(function (len, num) { return num === register_1.Digit.dot ? len : len + 1; }, 0);
         for (; signLen < 2; signLen++)
             this.sign.unshift(register_1.Digit.empty);
@@ -616,7 +506,6 @@ var MKDisplay = /** @class */ (function () {
             result.push.apply(result, this.mant);
             result.push(this.signMinus ? register_1.Digit.minus : register_1.Digit.empty);
             result.push.apply(result, this.sign);
-            console.log(result);
             return result;
         },
         enumerable: true,
@@ -637,280 +526,7 @@ var MKDisplay = /** @class */ (function () {
 }());
 exports.MKDisplay = MKDisplay;
 
-},{"./MKController":12,"./register":13}],11:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var register_1 = require("./register");
-var Registers = /** @class */ (function () {
-    function Registers() {
-    }
-    return Registers;
-}());
-exports.Registers = Registers;
-var CoreMode;
-(function (CoreMode) {
-    CoreMode[CoreMode["Default"] = 0] = "Default";
-    CoreMode[CoreMode["AddToMantissa"] = 1] = "AddToMantissa";
-    CoreMode[CoreMode["AddToMagnitude"] = 2] = "AddToMagnitude";
-    CoreMode[CoreMode["Added"] = 3] = "Added";
-})(CoreMode = exports.CoreMode || (exports.CoreMode = {}));
-var MK52Core = /** @class */ (function () {
-    function MK52Core() {
-        this.mode = CoreMode.Default;
-        this.x1 = new register_1.Register();
-        this.x = new register_1.Register();
-        this.y = new register_1.Register();
-        this.z = new register_1.Register();
-        this.t = new register_1.Register();
-        this.ip = 0;
-        this.registers = new Registers();
-    }
-    Object.defineProperty(MK52Core.prototype, "display", {
-        get: function () {
-            if (this.mode === CoreMode.AddToMantissa || this.mode === CoreMode.AddToMagnitude)
-                return new register_1.Register(parseFloat(this.inputBuffer.mantissa));
-            return this.x;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MK52Core.prototype.exec = function (code) {
-        var fn = "exec" + code;
-        if (!code || !(fn in this)) {
-            console.log('Invalid command');
-            return false;
-        }
-        if (this.mode !== CoreMode.Default) {
-            if ([
-                '00', '01', '02', '03', '04',
-                '05', '06', '07', '08', '09',
-                '0C', '0E',
-            ].indexOf(code) === -1) {
-                this.mode = CoreMode.Default;
-            }
-        }
-        return this[fn]();
-    };
-    MK52Core.prototype.stackDown = function () {
-        this.x1 = new register_1.Register(this.x);
-        this.x = new register_1.Register(this.y);
-        this.y = new register_1.Register(this.z);
-        this.z = new register_1.Register(this.t);
-    };
-    MK52Core.prototype.input = function (value) {
-        switch (this.mode) {
-            case CoreMode.AddToMantissa:
-                if (this.inputBuffer.mantissa.length < 8)
-                    this.inputBuffer.mantissa += '' + value;
-                this.x = this.fromBuffer();
-                break;
-            case CoreMode.AddToMagnitude:
-                if (this.inputBuffer.magnitude.length < 2)
-                    this.inputBuffer.magnitude += '' + value;
-                this.x = this.fromBuffer();
-                break;
-            case CoreMode.Default:
-            default:
-                this.exec0E();
-            case CoreMode.Added:
-                this.mode = CoreMode.AddToMantissa;
-                this.inputBuffer = {
-                    sign: 1,
-                    mantissa: '' + value,
-                    m_sign: 1,
-                    magnitude: '',
-                };
-                break;
-        }
-        console.log("Digit " + value + " mode " + this.mode, this.inputBuffer);
-    };
-    MK52Core.prototype.fromBuffer = function () {
-        var mant = parseFloat(this.inputBuffer.mantissa);
-        var magn = this.inputBuffer.magnitude ? parseInt(this.inputBuffer.magnitude) : 0;
-        return new register_1.Register(mant, magn);
-    };
-    /**
-     * Ввод 0
-     * Operation "0"
-     */
-    MK52Core.prototype.exec00 = function () {
-        return this.input(register_1.Digit.h0);
-    };
-    /**
-     * Ввод 1
-     * Operation "1"
-     */
-    MK52Core.prototype.exec01 = function () {
-        return this.input(register_1.Digit.h1);
-    };
-    /**
-     * Ввод 2
-     * Operation "2"
-     */
-    MK52Core.prototype.exec02 = function () {
-        return this.input(register_1.Digit.h2);
-    };
-    /**
-     * Ввод 3
-     * Operation "3"
-     */
-    MK52Core.prototype.exec03 = function () {
-        return this.input(register_1.Digit.h3);
-    };
-    /**
-     * Ввод 4
-     * Operation "4"
-     */
-    MK52Core.prototype.exec04 = function () {
-        return this.input(register_1.Digit.h4);
-    };
-    /**
-     * Ввод 5
-     * Operation "5"
-     */
-    MK52Core.prototype.exec05 = function () {
-        return this.input(register_1.Digit.h5);
-    };
-    /**
-     * Ввод 6
-     * Operation "6"
-     */
-    MK52Core.prototype.exec06 = function () {
-        return this.input(register_1.Digit.h6);
-    };
-    /**
-     * Ввод 7
-     * Operation "7"
-     */
-    MK52Core.prototype.exec07 = function () {
-        return this.input(register_1.Digit.h7);
-    };
-    /**
-     * Ввод 8
-     * Operation "8"
-     */
-    MK52Core.prototype.exec08 = function () {
-        return this.input(register_1.Digit.h8);
-    };
-    /**
-     * Ввод 9
-     * Operation "9"
-     */
-    MK52Core.prototype.exec09 = function () {
-        return this.input(register_1.Digit.h9);
-    };
-    /**
-     * Ввод порядка
-     * Operation "ВП"
-     */
-    MK52Core.prototype.exec0C = function () {
-        if (this.mode == CoreMode.AddToMantissa)
-            this.mode = CoreMode.AddToMagnitude;
-    };
-    /**
-     * Stack up
-     * Operation "В↑"
-     */
-    MK52Core.prototype.exec0E = function () {
-        if (this.mode === CoreMode.AddToMagnitude || this.mode === CoreMode.AddToMantissa) {
-            this.x = this.fromBuffer();
-            this.mode = CoreMode.Default;
-        }
-        this.t = new register_1.Register(this.z);
-        this.z = new register_1.Register(this.y);
-        this.y = new register_1.Register(this.x);
-        this.x1 = new register_1.Register(this.x);
-        this.mode = CoreMode.Added;
-    };
-    /**
-     * Умножение
-     * Operation "×"
-     */
-    MK52Core.prototype.exec12 = function () {
-        var x = this.x;
-        var y = this.y;
-        this.stackDown();
-        this.x = x.mul(y);
-    };
-    /**
-     * Деление
-     * Operation "÷"
-     */
-    MK52Core.prototype.exec13 = function () {
-        var x = this.x;
-        var y = this.y;
-        this.stackDown();
-        this.x = y.div(x);
-    };
-    return MK52Core;
-}());
-exports.MK52Core = MK52Core;
-
-},{"./register":13}],12:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var MK52Core_1 = require("./MK52Core");
-var MK52_1 = require("./MK52");
-var ControllerMode;
-(function (ControllerMode) {
-    ControllerMode[ControllerMode["Loading"] = 0] = "Loading";
-    ControllerMode[ControllerMode["User"] = 1] = "User";
-    ControllerMode[ControllerMode["Programming"] = 2] = "Programming";
-    ControllerMode[ControllerMode["Run"] = 3] = "Run";
-})(ControllerMode = exports.ControllerMode || (exports.ControllerMode = {}));
-var MKController = /** @class */ (function () {
-    function MKController() {
-        this._mode = ControllerMode.Loading;
-        this.core = new MK52Core_1.MK52Core();
-    }
-    Object.defineProperty(MKController.prototype, "display", {
-        get: function () {
-            if (this._mode === ControllerMode.Loading)
-                return new MK52_1.MKDisplay(MK52_1.DisplayMode.Loading);
-            switch (this.core.mode) {
-                //            case CoreMode.AddToMantissa:
-                //                return new
-                //            case CoreMode.AddToMagnitude:
-                case MK52Core_1.CoreMode.Default:
-                default:
-                    return new MK52_1.MKDisplay(this.core.display);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MKController.prototype, "mode", {
-        get: function () {
-            return this._mode;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MKController.prototype, "stack", {
-        get: function () {
-            return {
-                x1: this.core.x1,
-                x: this.core.x,
-                y: this.core.y,
-                z: this.core.z,
-                t: this.core.t,
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MKController.prototype.start = function () {
-        this._mode = ControllerMode.User;
-    };
-    MKController.prototype.press = function (code) {
-        console.log("CODE " + code);
-        this.core.exec(code);
-    };
-    return MKController;
-}());
-exports.MKController = MKController;
-
-},{"./MK52":10,"./MK52Core":11}],13:[function(require,module,exports){
+},{"./register":12}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Digit;
@@ -982,9 +598,7 @@ var Register = /** @class */ (function () {
                 delta--;
             }
             var smant = '' + mant;
-            console.log(smant, mant);
             for (var i = smant.length - 1; smant[i] === '0'; i--) {
-                console.log(i, smant[i]);
                 delta++;
             }
             return delta;
@@ -1058,7 +672,122 @@ var Register = /** @class */ (function () {
 }());
 exports.Register = Register;
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = require("react");
+var ReactDOM = require("react-dom");
+var Redux = require("redux");
+var react_redux_1 = require("react-redux");
+var App_1 = require("./components/App");
+//import { reducer } from "./app/store";
+//import { DisplayMode, MKDisplay } from "./emk/mkdisplay";
+//import { Mk52 } from "./emk/mk52";
+var reducers_1 = require("./reducers");
+var actions_1 = require("./actions");
+var mk52_1 = require("./actions/mk52");
+var emk_1 = require("./emk");
+var store = Redux.createStore(reducers_1.default);
+store.dispatch({
+    type: actions_1.ActionTypes.SET_STATE,
+    state: {
+        //        calc    : null,//new Mk52(),
+        //        display : null,//new MKDisplay(DisplayMode.Loading),
+        counter: 0,
+    },
+});
+store.dispatch({
+    type: mk52_1.MkEvents.SetState,
+    state: {
+        keyboard: emk_1.MK52Keyboard,
+        //        calc    : null,//new Mk52(),
+        //        display : null,//new MKDisplay(DisplayMode.Loading),
+        counter: 0,
+    },
+});
+setInterval(function () {
+    store.dispatch({
+        type: actions_1.ActionTypes.ADD_ITEM,
+    });
+    console.log('add item');
+}, 1500);
+///// Оканчиваем "Загрузку"
+//setTimeout(() => store.dispatch({
+//    type : ActionTypes.LOAD,
+//    state: {
+//        calc    : new Mk52(),
+//        display : new MKDisplay(DisplayMode.Loading),
+//        counter : 0,
+//        counter2: 1,
+//    },
+//}), 500);
+ReactDOM.render(React.createElement(react_redux_1.Provider, { store: store },
+    React.createElement(App_1.App, null)), document.getElementById('app'));
+
+},{"./actions":1,"./actions/mk52":2,"./components/App":3,"./emk":9,"./reducers":15,"react":71,"react-dom":42,"react-redux":53,"redux":78}],14:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var filter = function (state, action) {
+    if (state === void 0) { state = 'SHOW_ALL'; }
+    switch (action.type) {
+        case 'SET_VISIBILITY_FILTER':
+            return action.filter;
+        default:
+            return state;
+    }
+};
+exports.default = filter;
+
+},{}],15:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var redux_1 = require("redux");
+var filter_1 = require("./filter");
+var mk52_1 = require("./mk52");
+exports.default = redux_1.combineReducers({
+    mk52: mk52_1.mk52,
+    filter: filter_1.default,
+});
+
+},{"./filter":14,"./mk52":16,"redux":78}],16:[function(require,module,exports){
+"use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var actions_1 = require("../actions");
+var mk52_1 = require("../actions/mk52");
+exports.mk52 = function (state, action) {
+    if (state === void 0) { state = null; }
+    console.log('ACT', action);
+    switch (action.type) {
+        case mk52_1.MkEvents.SetState:
+            return action.state;
+        case actions_1.ActionTypes.ADD_ITEM:
+            return __assign({}, state, { counter: state.counter + 1 });
+        //        case ActionTypes.LOAD:
+        //            state = Object.assign({}, state);
+        //            state.calc.start();
+        //            state.display = state.calc.display;
+        //            return state;
+        //
+        //        case ActionTypes.PRESS_BUTTON:
+        //            state = Object.assign({}, state);
+        //            state.calc.press(action.code);
+        //            state.display = state.calc.display;
+        //            console.log('-----', state.display);
+        //            return state;
+        default:
+            return state;
+    }
+};
+
+},{"../actions":1,"../actions/mk52":2}],17:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -1092,7 +821,7 @@ var ExecutionEnvironment = {
 };
 
 module.exports = ExecutionEnvironment;
-},{}],15:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 "use strict";
 
 /**
@@ -1122,7 +851,7 @@ function camelize(string) {
 }
 
 module.exports = camelize;
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -1160,7 +889,7 @@ function camelizeStyleName(string) {
 }
 
 module.exports = camelizeStyleName;
-},{"./camelize":15}],17:[function(require,module,exports){
+},{"./camelize":18}],20:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1198,7 +927,7 @@ function containsNode(outerNode, innerNode) {
 }
 
 module.exports = containsNode;
-},{"./isTextNode":25}],18:[function(require,module,exports){
+},{"./isTextNode":28}],21:[function(require,module,exports){
 "use strict";
 
 /**
@@ -1235,7 +964,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 };
 
 module.exports = emptyFunction;
-},{}],19:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -1255,7 +984,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = emptyObject;
 }).call(this,require('_process'))
-},{"_process":30}],20:[function(require,module,exports){
+},{"_process":33}],23:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1292,7 +1021,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 }
 
 module.exports = getActiveElement;
-},{}],21:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1323,7 +1052,7 @@ function hyphenate(string) {
 }
 
 module.exports = hyphenate;
-},{}],22:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -1360,7 +1089,7 @@ function hyphenateStyleName(string) {
 }
 
 module.exports = hyphenateStyleName;
-},{"./hyphenate":21}],23:[function(require,module,exports){
+},{"./hyphenate":24}],26:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -1416,7 +1145,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 }).call(this,require('_process'))
-},{"_process":30}],24:[function(require,module,exports){
+},{"_process":33}],27:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1439,7 +1168,7 @@ function isNode(object) {
 }
 
 module.exports = isNode;
-},{}],25:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1462,7 +1191,7 @@ function isTextNode(object) {
 }
 
 module.exports = isTextNode;
-},{"./isNode":24}],26:[function(require,module,exports){
+},{"./isNode":27}],29:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -1528,7 +1257,7 @@ function shallowEqual(objA, objB) {
 }
 
 module.exports = shallowEqual;
-},{}],27:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
@@ -1593,7 +1322,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = warning;
 }).call(this,require('_process'))
-},{"./emptyFunction":18,"_process":30}],28:[function(require,module,exports){
+},{"./emptyFunction":21,"_process":33}],31:[function(require,module,exports){
 /**
  * Copyright 2015, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
@@ -1667,7 +1396,7 @@ module.exports = warning;
     };
 })));
 
-},{}],29:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -1720,7 +1449,7 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 }).call(this,require('_process'))
-},{"_process":30}],30:[function(require,module,exports){
+},{"_process":33}],33:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1906,7 +1635,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],31:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -1969,7 +1698,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 module.exports = checkPropTypes;
 
 }).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":35,"_process":30,"fbjs/lib/invariant":23,"fbjs/lib/warning":27}],32:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":38,"_process":33,"fbjs/lib/invariant":26,"fbjs/lib/warning":30}],35:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2029,7 +1758,7 @@ module.exports = function() {
   return ReactPropTypes;
 };
 
-},{"./lib/ReactPropTypesSecret":35,"fbjs/lib/emptyFunction":18,"fbjs/lib/invariant":23}],33:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":38,"fbjs/lib/emptyFunction":21,"fbjs/lib/invariant":26}],36:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -2575,7 +2304,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 };
 
 }).call(this,require('_process'))
-},{"./checkPropTypes":31,"./lib/ReactPropTypesSecret":35,"_process":30,"fbjs/lib/emptyFunction":18,"fbjs/lib/invariant":23,"fbjs/lib/warning":27,"object-assign":36}],34:[function(require,module,exports){
+},{"./checkPropTypes":34,"./lib/ReactPropTypesSecret":38,"_process":33,"fbjs/lib/emptyFunction":21,"fbjs/lib/invariant":26,"fbjs/lib/warning":30,"object-assign":39}],37:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -2607,7 +2336,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./factoryWithThrowingShims":32,"./factoryWithTypeCheckers":33,"_process":30}],35:[function(require,module,exports){
+},{"./factoryWithThrowingShims":35,"./factoryWithTypeCheckers":36,"_process":33}],38:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2621,7 +2350,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],36:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -2713,7 +2442,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],37:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 (function (process){
 /** @license React v16.3.0
  * react-dom.development.js
@@ -19237,7 +18966,7 @@ module.exports = reactDom;
 }
 
 }).call(this,require('_process'))
-},{"_process":30,"fbjs/lib/ExecutionEnvironment":14,"fbjs/lib/camelizeStyleName":16,"fbjs/lib/containsNode":17,"fbjs/lib/emptyFunction":18,"fbjs/lib/emptyObject":19,"fbjs/lib/getActiveElement":20,"fbjs/lib/hyphenateStyleName":22,"fbjs/lib/invariant":23,"fbjs/lib/shallowEqual":26,"fbjs/lib/warning":27,"object-assign":40,"prop-types/checkPropTypes":31,"react":68}],38:[function(require,module,exports){
+},{"_process":33,"fbjs/lib/ExecutionEnvironment":17,"fbjs/lib/camelizeStyleName":19,"fbjs/lib/containsNode":20,"fbjs/lib/emptyFunction":21,"fbjs/lib/emptyObject":22,"fbjs/lib/getActiveElement":23,"fbjs/lib/hyphenateStyleName":25,"fbjs/lib/invariant":26,"fbjs/lib/shallowEqual":29,"fbjs/lib/warning":30,"object-assign":43,"prop-types/checkPropTypes":34,"react":71}],41:[function(require,module,exports){
 /** @license React v16.3.0
  * react-dom.production.min.js
  *
@@ -19484,7 +19213,7 @@ var Gg={createPortal:Fg,findDOMNode:function(a){if(null==a)return null;if(1===a.
 D("40");return a._reactRootContainer?(X.unbatchedUpdates(function(){Eg(null,null,a,!1,function(){a._reactRootContainer=null})}),!0):!1},unstable_createPortal:function(){return Fg.apply(void 0,arguments)},unstable_batchedUpdates:X.batchedUpdates,unstable_deferredUpdates:X.deferredUpdates,flushSync:X.flushSync,unstable_flushControlled:X.flushControlled,__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED:{EventPluginHub:Qa,EventPluginRegistry:xa,EventPropagators:jb,ReactControlledComponent:Zb,ReactDOMComponentTree:ab,
 ReactDOMEventListener:Zd},unstable_createRoot:function(a,b){return new sg(a,!0,null!=b&&!0===b.hydrate)}};X.injectIntoDevTools({findFiberByHostInstance:Ta,bundleType:0,version:"16.3.0",rendererPackageName:"react-dom"});var Hg=Object.freeze({default:Gg}),Ig=Hg&&Gg||Hg;module.exports=Ig["default"]?Ig["default"]:Ig;
 
-},{"fbjs/lib/ExecutionEnvironment":14,"fbjs/lib/containsNode":17,"fbjs/lib/emptyFunction":18,"fbjs/lib/emptyObject":19,"fbjs/lib/getActiveElement":20,"fbjs/lib/shallowEqual":26,"object-assign":40,"react":68}],39:[function(require,module,exports){
+},{"fbjs/lib/ExecutionEnvironment":17,"fbjs/lib/containsNode":20,"fbjs/lib/emptyFunction":21,"fbjs/lib/emptyObject":22,"fbjs/lib/getActiveElement":23,"fbjs/lib/shallowEqual":29,"object-assign":43,"react":71}],42:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -19526,9 +19255,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":37,"./cjs/react-dom.production.min.js":38,"_process":30}],40:[function(require,module,exports){
-arguments[4][36][0].apply(exports,arguments)
-},{"dup":36}],41:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":40,"./cjs/react-dom.production.min.js":41,"_process":33}],43:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39}],44:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -19617,7 +19346,7 @@ function createProvider() {
 
 exports.default = createProvider();
 }).call(this,require('_process'))
-},{"../utils/PropTypes":51,"../utils/warning":55,"_process":30,"prop-types":34,"react":68}],42:[function(require,module,exports){
+},{"../utils/PropTypes":54,"../utils/warning":58,"_process":33,"prop-types":37,"react":71}],45:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -19926,7 +19655,7 @@ selectorFactory) {
   };
 }
 }).call(this,require('_process'))
-},{"../utils/PropTypes":51,"../utils/Subscription":52,"_process":30,"hoist-non-react-statics":28,"invariant":29,"react":68}],43:[function(require,module,exports){
+},{"../utils/PropTypes":54,"../utils/Subscription":55,"_process":33,"hoist-non-react-statics":31,"invariant":32,"react":71}],46:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20055,7 +19784,7 @@ function createConnect() {
 }
 
 exports.default = createConnect();
-},{"../components/connectAdvanced":42,"../utils/shallowEqual":53,"./mapDispatchToProps":44,"./mapStateToProps":45,"./mergeProps":46,"./selectorFactory":47}],44:[function(require,module,exports){
+},{"../components/connectAdvanced":45,"../utils/shallowEqual":56,"./mapDispatchToProps":47,"./mapStateToProps":48,"./mergeProps":49,"./selectorFactory":50}],47:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20084,7 +19813,7 @@ function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
 }
 
 exports.default = [whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject];
-},{"./wrapMapToProps":49,"redux":75}],45:[function(require,module,exports){
+},{"./wrapMapToProps":52,"redux":78}],48:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20104,7 +19833,7 @@ function whenMapStateToPropsIsMissing(mapStateToProps) {
 }
 
 exports.default = [whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing];
-},{"./wrapMapToProps":49}],46:[function(require,module,exports){
+},{"./wrapMapToProps":52}],49:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -20165,7 +19894,7 @@ function whenMergePropsIsOmitted(mergeProps) {
 
 exports.default = [whenMergePropsIsFunction, whenMergePropsIsOmitted];
 }).call(this,require('_process'))
-},{"../utils/verifyPlainObject":54,"_process":30}],47:[function(require,module,exports){
+},{"../utils/verifyPlainObject":57,"_process":33}],50:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -20281,7 +20010,7 @@ function finalPropsSelectorFactory(dispatch, _ref2) {
   return selectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, options);
 }
 }).call(this,require('_process'))
-},{"./verifySubselectors":48,"_process":30}],48:[function(require,module,exports){
+},{"./verifySubselectors":51,"_process":33}],51:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20308,7 +20037,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
   verify(mapDispatchToProps, 'mapDispatchToProps', displayName);
   verify(mergeProps, 'mergeProps', displayName);
 }
-},{"../utils/warning":55}],49:[function(require,module,exports){
+},{"../utils/warning":58}],52:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -20389,7 +20118,7 @@ function wrapMapToPropsFunc(mapToProps, methodName) {
   };
 }
 }).call(this,require('_process'))
-},{"../utils/verifyPlainObject":54,"_process":30}],50:[function(require,module,exports){
+},{"../utils/verifyPlainObject":57,"_process":33}],53:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20413,7 +20142,7 @@ exports.Provider = _Provider2.default;
 exports.createProvider = _Provider.createProvider;
 exports.connectAdvanced = _connectAdvanced2.default;
 exports.connect = _connect2.default;
-},{"./components/Provider":41,"./components/connectAdvanced":42,"./connect/connect":43}],51:[function(require,module,exports){
+},{"./components/Provider":44,"./components/connectAdvanced":45,"./connect/connect":46}],54:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20437,7 +20166,7 @@ var storeShape = exports.storeShape = _propTypes2.default.shape({
   dispatch: _propTypes2.default.func.isRequired,
   getState: _propTypes2.default.func.isRequired
 });
-},{"prop-types":34}],52:[function(require,module,exports){
+},{"prop-types":37}],55:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -20534,7 +20263,7 @@ var Subscription = function () {
 }();
 
 exports.default = Subscription;
-},{}],53:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20569,7 +20298,7 @@ function shallowEqual(objA, objB) {
 
   return true;
 }
-},{}],54:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20590,7 +20319,7 @@ function verifyPlainObject(value, displayName, methodName) {
     (0, _warning2.default)(methodName + '() in ' + displayName + ' must return a plain object. Instead received ' + value + '.');
   }
 }
-},{"./warning":55,"lodash/isPlainObject":65}],55:[function(require,module,exports){
+},{"./warning":58,"lodash/isPlainObject":68}],58:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20616,7 +20345,7 @@ function warning(message) {
   } catch (e) {}
   /* eslint-enable no-empty */
 }
-},{}],56:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 var root = require('./_root');
 
 /** Built-in value references. */
@@ -20624,7 +20353,7 @@ var Symbol = root.Symbol;
 
 module.exports = Symbol;
 
-},{"./_root":63}],57:[function(require,module,exports){
+},{"./_root":66}],60:[function(require,module,exports){
 var Symbol = require('./_Symbol'),
     getRawTag = require('./_getRawTag'),
     objectToString = require('./_objectToString');
@@ -20654,7 +20383,7 @@ function baseGetTag(value) {
 
 module.exports = baseGetTag;
 
-},{"./_Symbol":56,"./_getRawTag":60,"./_objectToString":61}],58:[function(require,module,exports){
+},{"./_Symbol":59,"./_getRawTag":63,"./_objectToString":64}],61:[function(require,module,exports){
 (function (global){
 /** Detect free variable `global` from Node.js. */
 var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
@@ -20662,7 +20391,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 module.exports = freeGlobal;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],59:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 var overArg = require('./_overArg');
 
 /** Built-in value references. */
@@ -20670,7 +20399,7 @@ var getPrototype = overArg(Object.getPrototypeOf, Object);
 
 module.exports = getPrototype;
 
-},{"./_overArg":62}],60:[function(require,module,exports){
+},{"./_overArg":65}],63:[function(require,module,exports){
 var Symbol = require('./_Symbol');
 
 /** Used for built-in method references. */
@@ -20718,7 +20447,7 @@ function getRawTag(value) {
 
 module.exports = getRawTag;
 
-},{"./_Symbol":56}],61:[function(require,module,exports){
+},{"./_Symbol":59}],64:[function(require,module,exports){
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
 
@@ -20742,7 +20471,7 @@ function objectToString(value) {
 
 module.exports = objectToString;
 
-},{}],62:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 /**
  * Creates a unary function that invokes `func` with its argument transformed.
  *
@@ -20759,7 +20488,7 @@ function overArg(func, transform) {
 
 module.exports = overArg;
 
-},{}],63:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 var freeGlobal = require('./_freeGlobal');
 
 /** Detect free variable `self`. */
@@ -20770,7 +20499,7 @@ var root = freeGlobal || freeSelf || Function('return this')();
 
 module.exports = root;
 
-},{"./_freeGlobal":58}],64:[function(require,module,exports){
+},{"./_freeGlobal":61}],67:[function(require,module,exports){
 /**
  * Checks if `value` is object-like. A value is object-like if it's not `null`
  * and has a `typeof` result of "object".
@@ -20801,7 +20530,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],65:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 var baseGetTag = require('./_baseGetTag'),
     getPrototype = require('./_getPrototype'),
     isObjectLike = require('./isObjectLike');
@@ -20865,7 +20594,7 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"./_baseGetTag":57,"./_getPrototype":59,"./isObjectLike":64}],66:[function(require,module,exports){
+},{"./_baseGetTag":60,"./_getPrototype":62,"./isObjectLike":67}],69:[function(require,module,exports){
 (function (process){
 /** @license React v16.3.0
  * react.development.js
@@ -22282,7 +22011,7 @@ module.exports = react;
 }
 
 }).call(this,require('_process'))
-},{"_process":30,"fbjs/lib/emptyFunction":18,"fbjs/lib/emptyObject":19,"fbjs/lib/invariant":23,"fbjs/lib/warning":27,"object-assign":69,"prop-types/checkPropTypes":31}],67:[function(require,module,exports){
+},{"_process":33,"fbjs/lib/emptyFunction":21,"fbjs/lib/emptyObject":22,"fbjs/lib/invariant":26,"fbjs/lib/warning":30,"object-assign":72,"prop-types/checkPropTypes":34}],70:[function(require,module,exports){
 /** @license React v16.3.0
  * react.production.min.js
  *
@@ -22306,7 +22035,7 @@ _calculateChangedBits:b,_defaultValue:a,_currentValue:a,_changedBits:0,Provider:
 c)&&!J.hasOwnProperty(c)&&(d[c]=void 0===b[c]&&void 0!==k?k[c]:b[c])}c=arguments.length-2;if(1===c)d.children=e;else if(1<c){k=Array(c);for(var l=0;l<c;l++)k[l]=arguments[l+2];d.children=k}return{$$typeof:r,type:a.type,key:g,ref:h,props:d,_owner:f}},createFactory:function(a){var b=K.bind(null,a);b.type=a;return b},isValidElement:L,version:"16.3.0",__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED:{ReactCurrentOwner:H,assign:m}},W=Object.freeze({default:V}),X=W&&V||W;
 module.exports=X["default"]?X["default"]:X;
 
-},{"fbjs/lib/emptyFunction":18,"fbjs/lib/emptyObject":19,"object-assign":69}],68:[function(require,module,exports){
+},{"fbjs/lib/emptyFunction":21,"fbjs/lib/emptyObject":22,"object-assign":72}],71:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -22317,9 +22046,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react.development.js":66,"./cjs/react.production.min.js":67,"_process":30}],69:[function(require,module,exports){
-arguments[4][36][0].apply(exports,arguments)
-},{"dup":36}],70:[function(require,module,exports){
+},{"./cjs/react.development.js":69,"./cjs/react.production.min.js":70,"_process":33}],72:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39}],73:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22378,7 +22107,7 @@ function applyMiddleware() {
     };
   };
 }
-},{"./compose":73}],71:[function(require,module,exports){
+},{"./compose":76}],74:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22430,7 +22159,7 @@ function bindActionCreators(actionCreators, dispatch) {
   }
   return boundActionCreators;
 }
-},{}],72:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -22576,7 +22305,7 @@ function combineReducers(reducers) {
   };
 }
 }).call(this,require('_process'))
-},{"./createStore":74,"./utils/warning":76,"_process":30,"lodash/isPlainObject":86}],73:[function(require,module,exports){
+},{"./createStore":77,"./utils/warning":79,"_process":33,"lodash/isPlainObject":89}],76:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -22613,7 +22342,7 @@ function compose() {
     };
   });
 }
-},{}],74:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22875,7 +22604,7 @@ var ActionTypes = exports.ActionTypes = {
     replaceReducer: replaceReducer
   }, _ref2[_symbolObservable2['default']] = observable, _ref2;
 }
-},{"lodash/isPlainObject":86,"symbol-observable":87}],75:[function(require,module,exports){
+},{"lodash/isPlainObject":89,"symbol-observable":90}],78:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -22924,7 +22653,7 @@ exports.bindActionCreators = _bindActionCreators2['default'];
 exports.applyMiddleware = _applyMiddleware2['default'];
 exports.compose = _compose2['default'];
 }).call(this,require('_process'))
-},{"./applyMiddleware":70,"./bindActionCreators":71,"./combineReducers":72,"./compose":73,"./createStore":74,"./utils/warning":76,"_process":30}],76:[function(require,module,exports){
+},{"./applyMiddleware":73,"./bindActionCreators":74,"./combineReducers":75,"./compose":76,"./createStore":77,"./utils/warning":79,"_process":33}],79:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22950,27 +22679,27 @@ function warning(message) {
   } catch (e) {}
   /* eslint-enable no-empty */
 }
-},{}],77:[function(require,module,exports){
-arguments[4][56][0].apply(exports,arguments)
-},{"./_root":84,"dup":56}],78:[function(require,module,exports){
-arguments[4][57][0].apply(exports,arguments)
-},{"./_Symbol":77,"./_getRawTag":81,"./_objectToString":82,"dup":57}],79:[function(require,module,exports){
-arguments[4][58][0].apply(exports,arguments)
-},{"dup":58}],80:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 arguments[4][59][0].apply(exports,arguments)
-},{"./_overArg":83,"dup":59}],81:[function(require,module,exports){
+},{"./_root":87,"dup":59}],81:[function(require,module,exports){
 arguments[4][60][0].apply(exports,arguments)
-},{"./_Symbol":77,"dup":60}],82:[function(require,module,exports){
+},{"./_Symbol":80,"./_getRawTag":84,"./_objectToString":85,"dup":60}],82:[function(require,module,exports){
 arguments[4][61][0].apply(exports,arguments)
 },{"dup":61}],83:[function(require,module,exports){
 arguments[4][62][0].apply(exports,arguments)
-},{"dup":62}],84:[function(require,module,exports){
+},{"./_overArg":86,"dup":62}],84:[function(require,module,exports){
 arguments[4][63][0].apply(exports,arguments)
-},{"./_freeGlobal":79,"dup":63}],85:[function(require,module,exports){
+},{"./_Symbol":80,"dup":63}],85:[function(require,module,exports){
 arguments[4][64][0].apply(exports,arguments)
 },{"dup":64}],86:[function(require,module,exports){
 arguments[4][65][0].apply(exports,arguments)
-},{"./_baseGetTag":78,"./_getPrototype":80,"./isObjectLike":85,"dup":65}],87:[function(require,module,exports){
+},{"dup":65}],87:[function(require,module,exports){
+arguments[4][66][0].apply(exports,arguments)
+},{"./_freeGlobal":82,"dup":66}],88:[function(require,module,exports){
+arguments[4][67][0].apply(exports,arguments)
+},{"dup":67}],89:[function(require,module,exports){
+arguments[4][68][0].apply(exports,arguments)
+},{"./_baseGetTag":81,"./_getPrototype":83,"./isObjectLike":88,"dup":68}],90:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -23002,7 +22731,7 @@ if (typeof self !== 'undefined') {
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./ponyfill.js":88}],88:[function(require,module,exports){
+},{"./ponyfill.js":91}],91:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23026,4 +22755,4 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-},{}]},{},[9]);
+},{}]},{},[13]);

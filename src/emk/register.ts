@@ -31,9 +31,7 @@ export class Register {
             delta--;
         }
         let smant = '' + mant;
-        console.log(smant, mant);
         for (let i = smant.length - 1; smant[i] === '0'; i--) {
-            console.log(i, smant[i]);
             delta++;
         }
         return delta;
