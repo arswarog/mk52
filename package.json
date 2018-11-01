@@ -103,7 +103,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "/srv/mk52/tsconfig.test.json"
+        "tsConfigFile": "./tsconfig.test.json"
       }
     }
   },

@@ -1,7 +1,7 @@
-import { Stack } from './stack';
-import { Registers } from './registers';
-import { Programm } from './programm';
-import { ICore, Cmd } from './core.interface';
+import {Stack} from './stack';
+import {Registers} from './registers';
+import {Programm} from './programm';
+import {ICore, Cmd} from './core.interface';
 
 export enum CoreStatus {
     Standart,
@@ -16,6 +16,7 @@ export class MKCore implements ICore {
     public stack: Stack = null;
     public registers: Registers = null;
     public programm: Programm = null;
+    private keys: string[] = [];
 
     public constructor(state?: ICore) {
         this.status = state ? state.status : CoreStatus.Standart;
@@ -29,7 +30,16 @@ export class MKCore implements ICore {
     }
 
     public keyPress(key: string) {
-        return ;
+        let func = 'key' + key;
+
+        if (func in this)
+            this[func]();
+        else
+            throw new Error(`Unknown key ${key}`)
+    }
+
+    public keyA1() {
+
     }
 
     public exec(code: Cmd): MKCore {
