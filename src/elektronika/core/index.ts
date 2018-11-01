@@ -28,6 +28,10 @@ export class MKCore implements ICore {
         return this;
     }
 
+    public keyPress(key: string) {
+        return ;
+    }
+
     public exec(code: Cmd): MKCore {
         code = code.toUpperCase();
         let func = 'exec' + code;
