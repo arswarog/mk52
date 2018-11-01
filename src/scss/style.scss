@@ -1,0 +1,27 @@
+#snake table {
+    border: solid 0.1em black;
+
+    td {
+        background-color: #E7E7E7;
+        width: 1em;
+        height: 1em;
+        border: none;
+        transition: top 1s ease-out 0.5s;
+    }
+
+    td.head {
+        background-color: #6599ff;
+    }
+
+    td.snake {
+        background-color: #ff9900;
+    }
+
+    td.portal {
+        background-color: #D4AF37;
+    }
+
+    td.food {
+        background-color: #097054;
+    }
+}

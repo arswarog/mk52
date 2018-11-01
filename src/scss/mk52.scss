@@ -1,0 +1,22 @@
+@font-face {
+  font-family: Led; /* Гарнитура шрифта */
+  src: url(../fonts/led.ttf); /* Путь к файлу со шрифтом */
+}
+
+
+
+.programm {
+  border: 1px solid grey;
+  width: 770px;
+}
+.programm tr th,
+.programm tr td {
+  border: 1px solid grey;
+  width: 70px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+}
+.programm tr th {
+  font-weight: bold;
+}

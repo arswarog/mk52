@@ -1,0 +1,26 @@
+import * as React from "react";
+import { MKButton } from "../elektronika/common";
+
+export interface IButton {
+    config: MKButton,
+    press: (key: MKButton) => void;
+}
+
+export class Button extends React.Component<IButton> {
+    constructor(props: IButton) {
+        super(props);
+    }
+
+    public render() {
+        const cfg   = this.props.config;
+        const press = () => this.props.press(cfg);
+
+        return (
+            <td>
+                {cfg.f}&nbsp;<i>{cfg.k}</i>
+                <span onClick={press} className={cfg.color}>{cfg.text}</span>
+                <b>&nbsp;{cfg.register}&nbsp;</b>
+            </td>
+        );
+    }
+}
