@@ -3,7 +3,8 @@ import { Key } from '../core-utils/Key';
 import { Stack } from './stack';
 import { Registers } from './registers';
 import { Programm } from './programm';
-import { ICore, Cmd } from './core.interface';
+import { ICore } from './core.interface';
+import { Cmd } from "./commands";
 
 export enum CoreStatus {
     Standart,
@@ -65,14 +66,14 @@ export class MKCore implements ICore {
     }
 
     public exec(code: Cmd): MKCore {
-        code     = code.toUpperCase();
+        // code     = code.toUpperCase();
         let func = 'exec' + code;
         if (func in this)
             return this[func]();
 
-        func = 'exec' + code.substr(0, 1);
+        func = 'exec' + (''+code).substr(0, 1);
         if (func in this)
-            return this[func](code.substr(1, 1));
+            return this[func]((''+code).substr(1, 1));
 
         throw new Error(`Unknown command "${code}"`);
     }

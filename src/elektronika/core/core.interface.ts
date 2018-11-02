@@ -2,6 +2,7 @@ import { CoreStatus } from './index';
 import { Stack } from './stack';
 import { Registers } from './registers';
 import { Programm } from './programm';
+import { Cmd } from "./commands";
 
 export interface ICore {
     status: CoreStatus;

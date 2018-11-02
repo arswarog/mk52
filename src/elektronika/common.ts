@@ -1,3 +1,7 @@
+import {Cmd} from "./core/commands";
+
+console.log(Cmd)
+
 export class MKButton {
     constructor(
         public key: string,
