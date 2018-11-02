@@ -16,11 +16,12 @@
     "noImplicitAny": true,
     "importHelpers": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules",
-    "build",
+    "docs",
     "scripts",
     "acceptance-tests",
     "webpack",

@@ -6,9 +6,9 @@ describe('MKCore', () => {
             it('Single keys', (done) => {
                 let core = new MKCore()
 
-                core.keyA4 = () => {
+                core.keyA4 = (() => {
                     done();
-                };
+                }) as any;
 
                 core.keyPress('A4');
             })
@@ -24,9 +24,9 @@ describe('MKCore', () => {
             it('Single keys', (done) => {
                 let core = new MKCore()
 
-                core.keyA4 = () => {
+                core.keyA4 = (() => {
                     done();
-                };
+                }) as any;
 
                 core.keyPress('A4');
             })
@@ -42,9 +42,9 @@ describe('MKCore', () => {
             it('Single keys', (done) => {
                 let core = new MKCore()
 
-                core.keyA4 = () => {
+                core.keyA4 = (() => {
                     done();
-                };
+                }) as any;
 
                 core.keyPress('A4');
             })
