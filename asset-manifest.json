@@ -1,7 +1,10 @@
 {
-  "main.js": "static/js/main.955a9dc1.js",
-  "main.js.map": "static/js/main.955a9dc1.js.map",
-  "static/media/App.scss": "static/media/App.642d0b47.scss",
-  "static/media/Calculator.scss": "static/media/Calculator.a5ec601e.scss",
-  "static/media/index.scss": "static/media/index.4b9e4155.scss"
+  "main.css": "static/css/main.877f9caf.css",
+  "main.css.map": "static/css/main.877f9caf.css.map",
+  "main.js": "static/js/main.36e554b4.js",
+  "main.js.map": "static/js/main.36e554b4.js.map",
+  "static/media/a0.png": "static/media/a0.cd2bfe9a.png",
+  "static/media/b1.png": "static/media/b1.d7abfa36.png",
+  "static/media/d1.png": "static/media/d1.6a3b4d95.png",
+  "static/media/led.ttf": "static/media/led.3dee4f6e.ttf"
 }
