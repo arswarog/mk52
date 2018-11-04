@@ -17,7 +17,7 @@ export class Button extends React.Component<IButton> {
 
         return (
             <td>
-                {cfg.f}&nbsp;<i>{cfg.k}</i>
+                {cfg.textf}&nbsp;<i>{cfg.textk}</i>
                 <span onClick={press} className={cfg.color}>{cfg.text}</span>
                 <b>&nbsp;{cfg.register}&nbsp;</b>
             </td>

@@ -1,10 +1,11 @@
 import * as React from "react";
+import { Cmd } from '../elektronika/core/commands';
 import { Button } from "./Button";
 import { MKButton } from "../elektronika/common";
 
 export interface IKeyboardProps {
     keyboard: MKButton[][];
-    pressButton: (code: string) => void;
+    pressButton: (cmd: Cmd) => void;
 }
 
 export interface IKeyboardState {
@@ -41,11 +42,11 @@ export class Keyboard extends React.Component<IKeyboardProps, IKeyboardState> {
 
     private press(btn: MKButton) {
         if (btn.key !== 'A1' && btn.key !== 'B1') {
-            let key = btn.code;
-            if (this.state.modeF && btn.f)
-                key = btn.codef;
-            if (this.state.modeK && btn.k)
-                key = btn.codek;
+            let key = btn.cmd;
+            if (this.state.modeF && btn.cmdf)
+                key = btn.cmdf;
+            if (this.state.modeK && btn.cmdk)
+                key = btn.cmdk;
             this.setState({
                 modeK: false,
                 modeF: false,

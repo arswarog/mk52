@@ -1,5 +1,7 @@
-import { MKButton } from '../common';
+import { makeButton } from '../common';
 import { MKCore } from '../core';
+import { Cmd } from '../core/commands';
+import { keyLabels } from '../l18n';
 
 export function Key(config: object): any {
     return (core: MKCore, name: string, value: () => MKCore) => {
@@ -12,11 +14,8 @@ export function Key(config: object): any {
         if (!core.keyboard[0])
             core.keyboard[0] = [];
 
-        core.keyboard[0].push(new MKButton(
-            'X',
-            'Text',
-            'b',
-            'A1',
+        core.keyboard[0].push(makeButton(keyLabels)(
+            'f', Cmd.abs, Cmd.abs, Cmd.abs, 'a',
         ));
     };
 }

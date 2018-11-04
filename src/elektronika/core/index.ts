@@ -1,5 +1,6 @@
 import { MKButton } from '../common';
 import { Key } from '../core-utils/Key';
+import { MK52Keyboard } from '../models/mk52';
 import { Stack } from './stack';
 import { Registers } from './registers';
 import { Programm } from './programm';
@@ -19,7 +20,7 @@ export class MKCore implements ICore {
     public stack: Stack         = null;
     public registers: Registers = null;
     public programm: Programm   = null;
-    public keyboard: MKButton[][];
+    public keyboard: MKButton[][] = MK52Keyboard;
     private keys: string[]      = [];
 
     public constructor(state?: ICore) {

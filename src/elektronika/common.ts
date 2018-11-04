@@ -1,18 +1,34 @@
-import {Cmd} from "./core/commands";
-
-console.log(Cmd)
+import { Cmd } from './core/commands';
 
 export class MKButton {
-    constructor(
-        public key: string,
-        public text: string,
-        public color: 'f' | 'k' | 'b' | 'w' | 'r' = 'b',
-        public code: string,
-        public f?: string,
-        public codef?: string,
-        public k?: string,
-        public codek?: string,
-        public register?: string,
-    ) {
-    }
+    public key: string;
+    public text: string;
+    public color: 'f' | 'k' | 'b' | 'w' | 'r' = 'b';
+    public cmd: Cmd;
+    public cmdf?: Cmd;
+    public textf?: string;
+    public cmdk?: Cmd;
+    public textk?: string;
+    public register?: string;
+}
+
+export function makeButton(labels: {[key: string]: string}) {
+    return (
+        color: 'f' | 'k' | 'b' | 'w' | 'r' = 'b',
+        main: Cmd,
+        f?: Cmd,
+        k?: Cmd,
+        reg?: string,
+    ) => {
+        const button    = new MKButton();
+        button.color    = color;
+        button.cmd      = main;
+        button.text     = labels[main];
+        button.cmdf     = f;
+        button.textf    = labels[f];
+        button.cmdk     = k;
+        button.textk    = labels[k];
+        button.register = reg;
+        return button;
+    };
 }

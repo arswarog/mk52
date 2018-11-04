@@ -50,6 +50,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "predeploy": "node scripts/build.js",
+    "deploy": "gh-pages -d build",
     "test": "node scripts/test.js --env=jsdom",
     "cmd-list": "node scripts/cmd-list.js"
   },
@@ -58,6 +60,7 @@
     "@types/node": "^10.12.1",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.9.4",
     "sass-loader": "^7.1.0",
     "typescript": "^3.1.4"
@@ -111,5 +114,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "homepage": "https://arswarog.github.io/mk52"
 }

@@ -1,15 +1,16 @@
 import * as React from 'react';
+import { Cmd } from '../elektronika/core/commands';
+import { MK52Keyboard } from '../elektronika/models/mk52';
 import { Keyboard } from "./Keyboard";
 import { connect } from "react-redux";
 
 import './Calculator.scss';
-import { Mk52 } from "../elektronika/models/mk52keyboard";
 
 interface IProps {
     display: any;
     keyboard: any;
     className: string;
-    pressButton: (code: string) => any;
+    pressButton: (cmd: Cmd) => any;
     reset: () => any;
 }
 
@@ -17,7 +18,7 @@ export const Calculator = connect(
     state => ( {
         display  : null,//new MKDisplay(state.mk52.display),
         className: '',//getDisplayClassName(state.mk),
-        keyboard : Mk52,// state.mk.keyboard,
+        keyboard : MK52Keyboard,// state.mk.keyboard,
     } ),
     dispatch => ( {
         pressButton: () => ( {type: 'any'} ),
