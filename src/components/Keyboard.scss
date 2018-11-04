@@ -1,0 +1,103 @@
+table.keyboard {
+    font-size: 14px;
+    background: #2F2B39;
+    border: none;
+
+    background-image: url(../images/noise.png);
+
+    tr {
+        height: 3em;
+        border: none;
+    }
+
+    tr td {
+        font-size: 0.8em;
+        border: none;
+        margin: 0px;
+        padding: 0em 0.3em;
+        width: 4.5em;
+        max-width: 4.5em;
+        height: 3em;
+        max-height: 3em;
+        // width:5 em;
+        // max-width:5 em;
+        // height:4 em;
+        // max-height:5 em;
+        text-align: center;
+        vertical-align: center;
+        color: #EBD108;
+    }
+
+    tr td i {
+        color: #4BA9F3;
+        font-style: normal;
+    }
+
+    tr td b {
+        color: #ECF0E4;
+        font-weight: normal;
+        font-style: italic;
+        position: absolute;
+    }
+
+    tr:not(:last-child) td b {
+        margin: -18px 29px;
+    }
+
+    tr td span,
+    tr td span:active,
+    tr td span:focus,
+    tr td span:hover {
+        font-size: 1.2em;
+        display: block;
+        text-align: center;
+        cursor: pointer;
+        color: #ECF0E4;
+        font-weight: bold;
+        vertical-align: middle;
+        box-shadow: 1px 1px 3px black, 2px 2px 3px black; /*, 3px 3px 3px black;*/
+        transition: 0.3s;
+
+        border-radius: 3px;
+        border: 0px solid #adadad29;
+        border-top-width: 1px;
+        border-left-width: 1px;
+
+        background-image: url(../images/noise.png);
+    }
+
+    tr td span:focus,
+    tr td span:hover {
+        box-shadow: 1px 1px 3px black;
+    }
+
+    tr td span.outer {
+        padding: 2px;
+        border-radius: 4px;
+        box-shadow: inset 1px 1px 0px black;
+        border: none;
+        background-color: #272b2e;
+    }
+
+    tr td span.w {
+        color: #2F2B39;
+        background-color: #EFEFED;
+        border-color: #fff;
+    }
+
+    tr td span.f {
+        color: #2F2B39;
+        background-color: #ddd26c;
+    }
+
+    tr td span.k {
+        color: #ECF0E4;
+        background-color: #79c0ea;
+    }
+
+    tr td span.r {
+        color: #ECF0E4;
+        background-color: red;
+    }
+
+}

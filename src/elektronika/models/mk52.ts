@@ -23,7 +23,7 @@ export const MK52Keyboard  = [
         btn('w', Cmd.Num5, Cmd.acos, Cmd.sign, '5'),
         btn('w', Cmd.Num6, Cmd.atg, Cmd.tau_m, '6'),
         btn('w', Cmd.Plus, Cmd.pi, Cmd.tau_m),
-        btn('w', Cmd.Mul, Cmd.sqr, null, 'i'),
+        btn('w', Cmd.Mul, Cmd.sqr, null),
     ],
     [
         btn('b', Cmd.EPROM_TRANSFERR),

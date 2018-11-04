@@ -1,13 +1,16 @@
 .display {
     font-family: Led, 'Comic Sans MS', cursive;
     white-space: pre-wrap;
+    text-transform: uppercase;
 }
 
 table.mk52 {
+    margin: 20px auto;
     background: #3F3F49;
     border-collapse: collapse;
     border-spacing: 0;
-    border-radius: 7px;
+    box-shadow: 10px 10px 20px black;
+    border-radius: 5px;
 
     td {
         padding: 0;
@@ -25,88 +28,6 @@ table.mk52 {
     .display.wait {
         opacity: 0.2 !important;
         filter: "alpha(opacity=20)" !important;
-    }
-
-    .keyboard {
-        font-size: 12pt;
-        background: #2F2B39;
-        border: none;
-
-        tr {
-            height: 50px;
-            border: none;
-        }
-
-        tr td {
-            font-size: 0.8em;
-            border: none;
-            margin: 0px;
-            padding: 0px 5px;
-            width: 58px;
-            max-width: 58px;
-            height: 50px;
-            max-height: 50px;
-            // width:5 em;
-            // max-width:5 em;
-            // height:4 em;
-            // max-height:5 em;
-            text-align: center;
-            vertical-align: center;
-            color: #EBD108;
-        }
-
-        tr td i {
-            color: #4BA9F3;
-            font-style: normal;
-        }
-
-        tr td b {
-            color: #ECF0E4;
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        tr td span,
-        tr td span:active,
-        tr td span:focus,
-        tr td span:hover {
-            font-size: 1.2em;
-            display: block;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 4px;
-            border: 1px solid #adadad;
-            color: #ECF0E4;
-            font-weight: bold;
-            vertical-align: middle;
-            box-shadow: 3px 3px 3px black;
-            transition: 0.3s;
-        }
-
-        tr td span:focus,
-        tr td span:hover {
-            box-shadow: 1px 1px 3px black;
-        }
-        tr td span.w {
-            color: #2F2B39;
-            background-color: #ECF0E4;
-        }
-
-        tr td span.f {
-            color: #2F2B39;
-            background-color: yellow;
-        }
-
-        tr td span.k {
-            color: #ECF0E4;
-            background-color: #4BA9F3;
-        }
-
-        tr td span.r {
-            color: #ECF0E4;
-            background-color: red;
-        }
-
     }
 
     .mk_a0 {
@@ -140,6 +61,10 @@ table.mk52 {
     .mk_b2 {
         background: url(calc/b2.png) repeat-y;
         width: 55px;
+    }
+
+    .mk_b3 {
+        vertical-align: top;
     }
 
     .mk_b4 {

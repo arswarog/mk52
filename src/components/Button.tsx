@@ -1,5 +1,5 @@
-import * as React from "react";
-import { MKButton } from "../elektronika/common";
+import * as React from 'react';
+import { MKButton } from '../elektronika/common';
 
 export interface IButton {
     config: MKButton,
@@ -18,8 +18,10 @@ export class Button extends React.Component<IButton> {
         return (
             <td>
                 {cfg.textf}&nbsp;<i>{cfg.textk}</i>
-                <span onClick={press} className={cfg.color}>{cfg.text}</span>
-                <b>&nbsp;{cfg.register}&nbsp;</b>
+                <span className="outer">
+                    <span onClick={press} className={cfg.color}>{cfg.text}</span>
+                </span>
+                <b>{cfg.registerText}</b>
             </td>
         );
     }

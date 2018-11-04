@@ -38,7 +38,7 @@ export const Calculator = connect(
                 <tr>
                     <td className="mk_b0">&nbsp;</td>
                     <td className="mk_b1">
-                        <span className="display">01234.5 6789FEDCBA</span>
+                        <span className="display">-8.abcdef0-19</span>
                         {/*<span className="display" ng-class="{wait: wait, run: run}">{this.props.display.real}</span>*/}
                     </td>
                     <td className="mk_b2">&nbsp;</td>

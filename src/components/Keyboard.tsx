@@ -3,6 +3,8 @@ import { Cmd } from '../elektronika/core/commands';
 import { Button } from "./Button";
 import { MKButton } from "../elektronika/common";
 
+import './Keyboard.scss';
+
 export interface IKeyboardProps {
     keyboard: MKButton[][];
     pressButton: (cmd: Cmd) => void;

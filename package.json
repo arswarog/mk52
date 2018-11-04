@@ -52,8 +52,7 @@
     "build": "node scripts/build.js",
     "predeploy": "node scripts/build.js",
     "deploy": "gh-pages -d build",
-    "test": "node scripts/test.js --env=jsdom",
-    "cmd-list": "node scripts/cmd-list.js"
+    "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
