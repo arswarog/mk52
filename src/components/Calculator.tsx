@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Cmd } from '../elektronika/core/commands';
 import { MK52Keyboard } from '../elektronika/models/mk52';
-import { Keyboard } from "./Keyboard";
-import { connect } from "react-redux";
+import { Keyboard } from './Keyboard';
+import { connect } from 'react-redux';
 
 import './Calculator.scss';
 
@@ -15,16 +15,16 @@ interface IProps {
 }
 
 export const Calculator = connect(
-    state => ( {
+    state => ({
         display  : null,//new MKDisplay(state.mk52.display),
         className: '',//getDisplayClassName(state.mk),
         keyboard : MK52Keyboard,// state.mk.keyboard,
-    } ),
-    dispatch => ( {
-        pressButton: () => ( {type: 'any'} ),
-        reset      : () => ( {type: 'reset'} ),
+    }),
+    dispatch => ({
+        pressButton: () => ({type: 'any'}),
+        reset      : () => ({type: 'reset'}),
 //        pressButton: code => dispatch(pressButton(code)),
-    } ),
+    }),
 )(
     ({keyboard, display, className, pressButton, reset}: IProps) => {
         return (
@@ -43,7 +43,11 @@ export const Calculator = connect(
                     </td>
                     <td className="mk_b2">&nbsp;</td>
                     <td className="mk_b3" rowSpan={3}>
-                        <Keyboard keyboard={keyboard} pressButton={pressButton}/>
+                        <div className="inset">
+                            <div className="key-area">
+                                <Keyboard keyboard={keyboard} pressButton={pressButton}/>
+                            </div>
+                        </div>
                     </td>
                     <td className="mk_b4" rowSpan={3}>&nbsp;</td>
                 </tr>

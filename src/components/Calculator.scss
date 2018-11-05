@@ -65,6 +65,8 @@ table.mk52 {
 
     .mk_b3 {
         vertical-align: top;
+        background: #2F2B39;
+        background-image: url(../images/noise.png);
     }
 
     .mk_b4 {
@@ -133,4 +135,17 @@ table.mk52 {
         width: 33px;
         height: 17px;
     }
+}
+
+.inset {
+    border-radius: 7px;
+    box-shadow: inset 4px 4px 2px rgba(0, 0, 0, 0.5), 2px 2px 1px rgba(255, 255, 255, 0.25);
+    padding: 5px;
+    padding: 20px;
+}
+
+.outset {
+    border-radius: 7px;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+    padding: 5px;
 }

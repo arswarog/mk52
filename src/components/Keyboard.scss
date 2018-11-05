@@ -1,9 +1,13 @@
 table.keyboard {
-    font-size: 14px;
-    background: #2F2B39;
+    font-size: 13px;
     border: none;
-
+    background-color: #36362e;
     background-image: url(../images/noise.png);
+    padding: 0 25px 15px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8),
+    0px -2px 1px rgba(0, 0, 0, 0.8),
+    inset 0px -2px 2px rgba(0, 0, 0, 0.8),
+    inset 0px 1px 3px rgba(255, 255, 255, 0.2);
 
     tr {
         height: 3em;
@@ -11,7 +15,7 @@ table.keyboard {
     }
 
     tr td {
-        font-size: 0.8em;
+        font-size: 1em;
         border: none;
         margin: 0px;
         padding: 0em 0.3em;
@@ -48,7 +52,7 @@ table.keyboard {
     tr td span:active,
     tr td span:focus,
     tr td span:hover {
-        font-size: 1.2em;
+        font-size: 1.1em;
         display: block;
         text-align: center;
         cursor: pointer;
@@ -77,6 +81,8 @@ table.keyboard {
         box-shadow: inset 1px 1px 0px black;
         border: none;
         background-color: #272b2e;
+        max-width: 3em;
+        min-width: 3em;
     }
 
     tr td span.w {
