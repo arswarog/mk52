@@ -1,5 +1,11 @@
+import { ICore } from '../calculator.interface';
+import { Cmd } from '../core/commands';
+import { BaseMKCore } from '../core/core';
+import { keyLabels } from '../l18n';
 
-export const Mk61 = [
+export const MK61Core: ICore = BaseMKCore;
+
+export const MK61Keyboard1 = [
     [
         ['FF', 'F', 'f', null],
         ['SF', 'ШГ→', 'b', null, 'x<0', null],
@@ -38,3 +44,23 @@ export const Mk61 = [
         ['RX', 'СX', 'r', null, 'CF', null, 'ИНВ', null, 'd'],
     ],
 ];
+
+
+const labels: any = {};
+Object.keys(keyLabels).forEach(
+    key => labels[keyLabels[key]] = 'Cmd.' + Cmd[key],
+);
+
+console.log(labels);
+
+const aaa = MK61Keyboard1.map(
+    row => row.map(
+        button => button.map(
+            key => key in labels ? labels[key] : key,
+        ),
+    ),
+);
+
+console.log(JSON.stringify(aaa, null, 2));
+
+console.log(aaa);

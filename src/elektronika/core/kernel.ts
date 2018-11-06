@@ -1,11 +1,11 @@
-import { ICore } from './core.interface';
+import { ICalculator } from '../calculator.interface';
 
 export class KernelMK52 {
-    public exec(core: ICore): ICore {
+    public exec(core: ICalculator): ICalculator {
         return this.exec01(core);
     }
 
-    private exec01(core: ICore) {
+    private exec01(core: ICalculator) {
         return core;
     }
 } 

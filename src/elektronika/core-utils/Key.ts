@@ -1,10 +1,10 @@
 import { makeButton } from '../common';
-import { MKCore } from '../core';
+import { Calculator } from '../index';
 import { Cmd } from '../core/commands';
 import { keyLabels } from '../l18n';
 
 export function Key(config: object): any {
-    return (core: MKCore, name: string, value: () => MKCore) => {
+    return (core: Calculator, name: string, value: () => Calculator) => {
         if (!core.keyboard)
             core.keyboard = [];
         console.log(core.keyboard);

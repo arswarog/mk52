@@ -1,8 +1,8 @@
 import * as React from "react";
-import { MKCore } from "../elektronika/core";
+import { Calculator } from "../elektronika/index";
 
 interface IHistoryView {
-    history: MKCore[]
+    history: Calculator[]
 }
 
 export class HistoryView extends React.Component<IHistoryView> {

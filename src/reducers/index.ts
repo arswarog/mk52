@@ -1,14 +1,15 @@
-import { MKCore } from "../elektronika/core";
-import { AnyAction } from "redux";
+import { Calculator } from '../elektronika/index';
+import { AnyAction } from 'redux';
+import { MK52Core } from '../elektronika/models/mk52';
 
 export interface IGlobalState {
-    mk: MKCore;
+    mk: Calculator;
 }
 
 export function globalReducer(state: IGlobalState, action: AnyAction): IGlobalState {
     if (!state)
         state = {
-            mk: new MKCore(),
+            mk: new Calculator(MK52Core),
         };
     return state;
 }
