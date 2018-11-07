@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.scss';
-//import original from './images/original.jpg';
+import original from './images/original.jpg';
 
 import { Calculator } from './components/Calculator';
 import { HistoryView } from './components/HistoryView';
@@ -11,7 +11,7 @@ class App extends React.Component {
         return (
             <div>
                 <Calculator/>
-                {/*<img src={original} width="100%"/>*/}
+                <img src={original} width="100%"/>
                 <div className="paper">
                     <div className="content">
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
