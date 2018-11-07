@@ -1,4 +1,5 @@
 import { Cmd } from './core/commands';
+import { keyLabels } from './l18n';
 
 export class MKButton {
     public key: string;
@@ -13,24 +14,24 @@ export class MKButton {
     public registerText?: string;
 }
 
-export function makeButton(labels: {[key: string]: string}) {
-    return (
-        color: 'f' | 'k' | 'b' | 'w' | 'r' = 'b',
-        main: Cmd,
-        f?: Cmd,
-        k?: Cmd,
-        reg?: string,
-    ) => {
-        const button        = new MKButton();
-        button.color        = color;
-        button.cmd          = main;
-        button.text         = labels[main];
-        button.cmdf         = f;
-        button.textf        = labels[f];
-        button.cmdk         = k;
-        button.textk        = labels[k];
-        button.register     = reg;
-        button.registerText = (reg && Number.isNaN(+reg)) ? reg : null;
-        return button;
-    };
+let labels = keyLabels;
+
+export function makeButton(
+    color: 'f' | 'k' | 'b' | 'w' | 'r' = 'b',
+    main: Cmd,
+    f?: Cmd,
+    k?: Cmd,
+    reg?: string,
+) {
+    const button = new MKButton();
+    button.color = color;
+    button.cmd = main;
+    button.text = labels[main];
+    button.cmdf = f;
+    button.textf = labels[f];
+    button.cmdk = k;
+    button.textk = labels[k];
+    button.register = reg;
+    button.registerText = (reg && Number.isNaN(+reg)) ? reg : null;
+    return button;
 }

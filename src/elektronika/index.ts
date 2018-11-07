@@ -16,19 +16,19 @@ export enum CalculatorStatus {
 
 export class Calculator implements ICalculator {
     public status: CalculatorStatus = null;
-    public stack: Stack             = null;
-    public registers: Registers     = null;
-    public programm: Programm       = null;
-    public keyboard: MKButton[][]   = MK52Keyboard;
-    public keys: string[]           = [];
+    public stack: Stack = null;
+    public registers: Registers = null;
+    public programm: Programm = null;
+    public keyboard: MKButton[][] = MK52Keyboard;
+    public keys: string[] = [];
 
     constructor(private core: ICore, init: boolean = true) {
         if (init) {
-            this.status    = CalculatorStatus.Standart;
-            this.stack     = new Stack();
-            this.programm  = new Programm();
+            this.status = CalculatorStatus.Standart;
+            this.stack = new Stack();
+            this.programm = new Programm();
             this.registers = new Registers();
-            this.keys      = [];
+            this.keys = [];
         }
     }
 
@@ -38,7 +38,7 @@ export class Calculator implements ICalculator {
 
     public clone(state?: object) {
         const calc: object = {};
-        let changes        = 0;
+        let changes = 0;
         if (state)
             ['status', 'stack', 'programm', 'registers', 'keys'].forEach(
                 key => {
@@ -78,7 +78,13 @@ export class Calculator implements ICalculator {
                 return this.clone({
                     keys: ['K'],
                 });
+
             cmd = key.cmd;
+
+            if (cmd in this.core)
+                return this.clone(this.core[cmd](this, cmd));
+            else
+                throw new Error(`Unknown cmd "${Cmd[cmd]}" (code ${cmd})`);
         }
 
         if (this.keys.length === 1) {
@@ -95,9 +101,11 @@ export class Calculator implements ICalculator {
             }
         }
 
+        cmd = this.keys[0];
+
         if (cmd in this.core)
-            return this.clone(this.core[cmd](this));
+            return this.clone(this.core[cmd](this, key.cmd));
         else
-            throw new Error(`Unknown cmd ${Cmd[cmd]} (${cmd})`);
+            throw new Error(`Unknown cmd "${Cmd[cmd]}" (code ${cmd})`);
     }
 }

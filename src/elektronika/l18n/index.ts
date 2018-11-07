@@ -1,6 +1,6 @@
 import { Cmd } from '../core/commands';
 
-export const keyLabels: {[key: string]: string} = {
+export const keyLabels: { [key: string]: string } = {
     [Cmd.F]              : 'F',
     [Cmd.K]              : 'K',
     [Cmd.AUTO]           : 'АВТ',
