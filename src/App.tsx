@@ -15,31 +15,31 @@ class App extends React.Component {
                 <div className="paper">
                     <div className="content">
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                         <HistoryView history={[]}/>
                         <StackView/>
                         asdasdasdasdasasdaaasssssssssssssssssssssd<br/>
-                    ______________________________________________<br/>
+                        ______________________________________________<br/>
                     </div>
                 </div>
             </div>
