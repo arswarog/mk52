@@ -10,8 +10,21 @@ export interface ICalculator {
     registers: Registers;
     programm: Programm;
     keys: string[];
+
+    stat: {
+        executed: number;
+        lastRunExecuted: number;
+    }
 }
 
+export interface ICalculatorCtrl {
+    _exec(execute: string, cmd: Cmd): ICalcCtrl;
+    _commandComplete(state: ICalculator): ICalcCtrl;
+    _commandRunOther(state: ICalculator, cmd: Cmd): ICalcCtrl;
+}
+
+export type ICalcCtrl = ICalculator & ICalculatorCtrl;
+
 export interface ICore {
-    [key: string]: (calc: ICalculator, command?: Cmd) => ICalculator;
+    [key: string]: (calc: ICalcCtrl, command?: Cmd) => ICalcCtrl;
 }

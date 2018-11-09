@@ -1,5 +1,6 @@
 import { Cmd } from './core/commands';
 import { keyLabels } from './l18n';
+import { Calculator } from './index';
 
 export class MKButton {
     public key: string;
@@ -34,4 +35,9 @@ export function makeButton(
     button.register = reg;
     button.registerText = (reg && Number.isNaN(+reg)) ? reg : null;
     return button;
+}
+
+export interface ICalculatorState {
+    core: Calculator;
+    keyboard: MKButton[][];
 }

@@ -1,7 +1,8 @@
 import { ICore } from '../calculator.interface';
-import { makeButton } from '../common';
+import { ICalculatorState, makeButton } from '../common';
 import { Cmd } from '../core/commands';
 import { BaseMKCore } from '../core/core';
+import { Calculator } from '../index';
 
 export const MK52Core: ICore = BaseMKCore;
 
@@ -47,3 +48,8 @@ export const MK52Keyboard = [
         makeButton('r', Cmd.CX, Cmd.CF, Cmd.not, 'd'),
     ],
 ];
+
+export const MK52: ICalculatorState = {
+    core    : new Calculator(BaseMKCore),
+    keyboard: MK52Keyboard,
+};

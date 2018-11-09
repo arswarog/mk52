@@ -68,12 +68,25 @@ export enum Cmd {
     xor = '',
     and = '',
     not = '',
-    NOP = '',
     random = '',
     fau_m = '',
     tau_m = '',
     fau_ms = '',
     tau_ms = '',
+    NOP = '',
 }
 
-console.log(Cmd);
+export const CmdCodes: { [code: string]: string } = {};
+
+export const CmdAsm: { [code: string]: Cmd } = {};
+
+Object.keys(Cmd).forEach(
+    cmd => {
+        const code = Cmd[cmd];
+        CmdCodes[code] = cmd;
+        CmdAsm[cmd.toLowerCase()] = code;
+    },
+);
+
+console.log(CmdCodes);
+console.log(CmdAsm);
