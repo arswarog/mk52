@@ -28,32 +28,6 @@ export const Calculator = connect(
 )(
     ({keyboard, display, className, pressButton, reset}: IProps) => {
         return (
-            <div>
-                <div className="mk52">
-                    <div className="top">
-                        <div/>
-                        <div/>
-                        <div/>
-                        <div/>
-                    </div>
-                    <div className="main">
-                        <div className="left">
-                            <div className="logo"><span>ЭЛЕКТРОНИКА</span><span>МК52</span></div>
-                            <div className="display inset">
-                                <div>-8.abcdef0-19</div>
-                            </div>
-                            <div className="switches">
-                                <div className="switch"/>
-                                <div className="switch"/>
-                                <div className="switch"/>
-                                <div className="switch"/>
-                            </div>
-                        </div>
-                        <div className="keyboard">
-                            <Keyboard keyboard={keyboard} pressButton={pressButton}/>
-                        </div>
-                    </div>
-                </div>
                 <table className="mk52">
                     <tbody>
                     <tr>
@@ -69,7 +43,11 @@ export const Calculator = connect(
                         </td>
                         <td className="mk_b2">&nbsp;</td>
                         <td className="mk_b3" rowSpan={3}>
-                            <div className="inset"/>
+                        {/*<div className="inset">*/}
+                            <div className="key-area">
+                                <Keyboard keyboard={keyboard} pressButton={pressButton}/>
+                            </div>
+                        {/*</div>*/}
                         </td>
                         <td className="mk_b4" rowSpan={3}>&nbsp;</td>
                     </tr>
@@ -94,7 +72,6 @@ export const Calculator = connect(
                     </tr>
                     </tbody>
                 </table>
-            </div>
         );
     },
 );

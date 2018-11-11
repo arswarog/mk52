@@ -1,101 +1,9 @@
-
 .display {
     font-family: Led, 'Comic Sans MS', cursive;
     white-space: pre-wrap;
     text-transform: uppercase;
 }
 
-.inset {
-    border-radius: 7px;
-    box-shadow: inset 4px 4px 2px rgba(0, 0, 0, 0.5), 2px 2px 1px rgba(255, 255, 255, 0.25);
-    padding: 6px;
-    margin: 3px;
-}
-
-.outset {
-    border-radius: 7px;
-    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
-    padding: 5px;
-    margin: 3px;
-}
-
-div.mk52 {
-    display: flex;
-    flex-direction: column;
-    background-color: #494343;
-    background-image: url(../images/noise.png);
-    background-size: 220px;
-
-    border-radius: 7px;
-    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
-    padding: 0 3px;
-
-    > .top {
-        display: flex;
-        flex-direction: row;
-
-        > div {
-            border: 1px solid black;
-            min-height: 20px;
-            min-width: 50px;
-        }
-    }
-
-    > .main {
-        display: flex;
-        flex-direction: row;
-
-        > div {
-            margin-bottom: 0 !important;
-        }
-
-        > .left {
-            display: flex;
-            flex-direction: column;
-            flex: 22 0;
-
-            > .display {
-                padding: 12px 26px;
-
-                > div {
-                    padding: 30px 60px;
-                    background: #001416;
-
-                    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.75), -1px -1px 10px rgba(255, 255, 255, 0.35);
-
-                    letter-spacing: 4px;
-                    color: #9fd3ed;
-                    text-shadow: 0px 0px 7px #9fd3ed;
-                    font-size: 22px;
-                }
-            }
-
-            > .switches {
-                display: flex;
-                flex-direction: row;
-
-                .switch {
-                    border: 1px solid black;
-                    min-height: 20px;
-                    min-width: 50px;
-                }
-            }
-        }
-
-        > .keyboard {
-            flex: 27 0;
-            margin: 3px;
-
-            border-radius: 7px;
-            box-shadow: inset 4px 4px 2px rgba(0, 0, 0, 0.5), 2px 0px 1px rgba(255, 255, 255, 0.25);
-            padding: 6px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-    }
-}
-
-/*
 table.mk52 {
     margin: 20px auto;
     background: #3F3F49;
@@ -227,4 +135,17 @@ table.mk52 {
         width: 33px;
         height: 17px;
     }
-}*/
+}
+
+.inset {
+    border-radius: 7px;
+    box-shadow: inset 4px 4px 2px rgba(0, 0, 0, 0.5), 2px 2px 1px rgba(255, 255, 255, 0.25);
+    padding: 5px;
+    padding: 20px;
+}
+
+.outset {
+    border-radius: 7px;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+    padding: 5px;
+}
