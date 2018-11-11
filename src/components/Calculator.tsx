@@ -43,11 +43,11 @@ export const Calculator = connect(
                     </td>
                     <td className="mk_b2">&nbsp;</td>
                     <td className="mk_b3" rowSpan={3}>
-                        <div className="inset">
+                        {/*<div className="inset">*/}
                             <div className="key-area">
                                 <Keyboard keyboard={keyboard} pressButton={pressButton}/>
                             </div>
-                        </div>
+                        {/*</div>*/}
                     </td>
                     <td className="mk_b4" rowSpan={3}>&nbsp;</td>
                 </tr>

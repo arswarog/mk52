@@ -29,7 +29,7 @@ export class Keyboard extends React.Component<IKeyboardProps, IKeyboardState> {
     public render() {
         let html = this.props.keyboard.map((btns, index) => (
             <tr key={`row${index}`}>
-                {btns.map(btn => <Button key={btn.key} config={btn} press={this.press}/>)}
+                {btns.map((btn, kindex) => <Button key={btn.key || kindex} config={btn} press={this.press}/>)}
             </tr>
         ));
 
