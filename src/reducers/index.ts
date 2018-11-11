@@ -1,15 +1,11 @@
-import { Calculator } from '../elektronika/index';
-import { AnyAction } from 'redux';
-import { MK52Core } from '../elektronika/models/mk52';
+import { ICalculatorState } from '../elektronika/common';
+import { calc } from './calc';
+import { combineReducers } from 'redux';
 
 export interface IGlobalState {
-    mk: Calculator;
+    calc: ICalculatorState;
 }
 
-export function globalReducer(state: IGlobalState, action: AnyAction): IGlobalState {
-    if (!state)
-        state = {
-            mk: new Calculator(MK52Core),
-        };
-    return state;
-}
+export const globalReducer = combineReducers({
+    calc,
+});

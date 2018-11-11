@@ -36,13 +36,98 @@
     width: 758px;
     height: 800px;
     box-sizing: border-box;
-    margin: 30px auto 30px 0;
-    padding: 47px 99px;
+    margin: 30px auto 30px 0px;
+    padding: 51px 99px;
+    display: flex;
 }
 
 .content {
     width: 100%;
     height: 100%;
     transform: rotate(1.85deg);
-    font-size: 14.91px;
+    font-size: 22px;
+    line-height: 32px;
+
+    font-family: 'Caveat', cursive;
+
+    a,
+    a:link,
+    a:hover,
+    a:visited {
+        text-decoration: none;
+    }
+
+    p {
+        margin: 0;
+        margin-bottom: 18px;
+    }
+}
+
+.stickers {
+    width: 0px;
+    margin-top: -16px;
+
+    font-size: 16px;
+    font-family: 'Bad Script', cursive;
+
+    .sticker {
+        height: 100px;
+        transform-origin: 50% 50%;
+        transition: 0.5s;
+
+        div {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            box-sizing: border-box;
+            padding: 19px 19px 32px 32px;
+        }
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+
+            transform: rotate(-6deg) translate(-5px, -15px);
+
+            &:nth-child(2n) {
+                transform: rotate(6deg) translate(5px, -40px);
+            }
+        }
+
+        a {
+            display: block;
+            height: 100%;
+            transform: rotate(-3deg);
+            text-align: center;
+            line-height: 21px;
+
+            transition: 0.3s;
+            cursor: pointer;
+
+            h5 {
+                font-size: 25px;
+                line-height: 25px;
+                font-weight: normal;
+                padding: 0;
+                margin: 0;
+            }
+
+            &.active img {
+                opacity: 1;
+            }
+        }
+
+        a,
+        a:hover,
+        a:link,
+        a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+        img {
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+    }
 }

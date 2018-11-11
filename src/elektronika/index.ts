@@ -3,8 +3,8 @@ import { MK52Keyboard } from './models/mk52';
 import { Stack } from './core/stack';
 import { Registers } from './core/registers';
 import { Programm } from './core/programm';
-import { ICalculator, ICore } from './calculator.interface';
-import { Cmd } from './core/commands';
+import { ICalcCtrl, ICalculator, ICore } from './calculator.interface';
+import { Cmd, CmdCodes } from './core/commands';
 
 export enum CalculatorStatus {
     Standart,
@@ -16,19 +16,24 @@ export enum CalculatorStatus {
 
 export class Calculator implements ICalculator {
     public status: CalculatorStatus = null;
-    public stack: Stack             = null;
-    public registers: Registers     = null;
-    public programm: Programm       = null;
-    public keyboard: MKButton[][]   = MK52Keyboard;
-    public keys: string[]           = [];
+    public stack: Stack = null;
+    public registers: Registers = null;
+    public programm: Programm = null;
+    public keyboard: MKButton[][] = MK52Keyboard;
+    public keys: string[] = [];
+
+    public stat = {
+        executed       : 0,
+        lastRunExecuted: 0,
+    };
 
     constructor(private core: ICore, init: boolean = true) {
         if (init) {
-            this.status    = CalculatorStatus.Standart;
-            this.stack     = new Stack();
-            this.programm  = new Programm();
+            this.status = CalculatorStatus.Standart;
+            this.stack = new Stack();
+            this.programm = new Programm();
             this.registers = new Registers();
-            this.keys      = [];
+            this.keys = [];
         }
     }
 
@@ -38,7 +43,7 @@ export class Calculator implements ICalculator {
 
     public clone(state?: object) {
         const calc: object = {};
-        let changes        = 0;
+        let changes = 0;
         if (state)
             ['status', 'stack', 'programm', 'registers', 'keys'].forEach(
                 key => {
@@ -63,6 +68,7 @@ export class Calculator implements ICalculator {
             registers: this.registers,
             programm : this.programm,
             keys     : this.keys,
+            stat     : this.stat,
         }, state);
     }
 
@@ -78,7 +84,14 @@ export class Calculator implements ICalculator {
                 return this.clone({
                     keys: ['K'],
                 });
+
             cmd = key.cmd;
+
+            return this._exec(cmd, cmd);
+            // if (cmd in this.core)
+            //     return this.clone(this.core[cmd](this, cmd));
+            // else
+            //     throw new Error(`Unknown cmd "${CmdCodes[cmd]}" (code ${cmd})`);
         }
 
         if (this.keys.length === 1) {
@@ -86,18 +99,52 @@ export class Calculator implements ICalculator {
             if (this.keys[0] === 'K') cmd = key.cmdk;
             if (cmd in this.core) {
                 return this.clone(
-                    this.core[cmd](
-                        this.toObject({
-                            keys: [],
-                        }),
-                    ),
+                    this.core[cmd]({
+                        ...this as any,
+                        keys: [],
+                    }),
                 );
             }
         }
 
-        if (cmd in this.core)
-            return this.clone(this.core[cmd](this));
+        cmd = this.keys[0];
+
+        return this._exec(cmd, key.cmd);
+        // if (cmd in this.core)
+        //     return this.clone(this.core[cmd](this, key.cmd));
+        // else
+        //     throw new Error(`Unknown cmd "${CmdCodes[cmd]}" (code ${cmd})`);
+    }
+
+    public _exec(execute: string, cmd: Cmd): Calculator {
+        if (execute in this.core)
+            return this.clone(this.core[execute](this, cmd));
         else
-            throw new Error(`Unknown cmd ${Cmd[cmd]} (${cmd})`);
+            throw new Error(`Unknown cmd "${CmdCodes[execute]}" (code ${execute})`);
+    }
+
+    /**
+     * FIXME
+     * @param state
+     * @private
+     */
+    public _commandComplete(state: ICalcCtrl): Calculator {
+        state.stat = {
+            ...this.stat,
+            executed: this.stat.executed + 1,
+        };
+        state.keys = [];
+        return this.clone(state);
+    }
+
+    /**
+     * FIXME
+     * @param state
+     * @param cmd
+     * @private
+     */
+    public _commandRunOther(state: ICalcCtrl, cmd: Cmd): Calculator {
+        const calc = this.clone(state);
+        return calc._exec(cmd, cmd);
     }
 }
