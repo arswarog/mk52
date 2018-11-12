@@ -1,8 +1,13 @@
 .page-programm {
+    padding-right: 40px;
+
+    .center {
+        text-align: center;
+    }
+
     table {
         width: 100%;
         margin-top: 5px;
-        padding-right: 40px;
 
         td, th {
             width: 9%;

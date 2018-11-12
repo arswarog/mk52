@@ -5,60 +5,51 @@ export enum Cmd {
     PROGRAMM        = '',
     EPROM_TRANSFERR = '',
     EPROM_ADDRESS   = '',
-    SST             = '', //step ->
+    SST             = '', // step ->
     BST             = '', // step <-
-    RTN             = '', // Return
-    R_S             = '', // Stop start
-    GT              = '59',//x >=0
-    LT              = '5c', // x<0
-    EQ              = '5e', // x==0
-    NEQ             = '57', // X!=0
-    L0              = '',
-    L1              = '',
-    L2              = '',
-    L3              = '',
-    goto            = '51',
-    RtX             = '', // П->X
-    XtR             = '', // X->П
-    Sub             = '', // procedure
-    Num1            = '01',// = '01',
-    Num2            = '02',// = '02',
-    Num3            = '03',// = '03',
-    Num4            = '04',// = '04',
-    Num5            = '05',// = '05',
-    Num6            = '06',// = '06',
-    Num7            = '07',// = '07',
-    Num8            = '08',// = '08',
-    Num9            = '09',// = '09',
-    Num0            = '00',// = '00',
-    Dot             = '',
-    Sign            = '',
-    Minus           = '',
-    Plus            = '',
-    Mul             = '',
-    Div             = '',
-    Enter           = '',
-    Swap            = '',
-    Ring            = '',
-    RestoreX        = '',
-    EE              = '', // Enter Exp
-    CX              = '', // Clear X
-    max             = '',
-    sin             = '',
-    cos             = '',
-    tg              = '',
-    asin            = '',
-    acos            = '',
-    atg             = '',
-    sqr             = '',
-    sqrt            = '',
+    Num0            = '00',
+    Num1            = '01',
+    Num2            = '02',
+    Num3            = '03',
+    Num4            = '04',
+    Num5            = '05',
+    Num6            = '06',
+    Num7            = '07',
+    Num8            = '08',
+    Num9            = '09',
+    Dot             = '0a',
+    Sign            = '0b',
+    EntExp          = '0c', // Enter Exp
+    ClX             = '0d', // Clear X
+    Enter           = '0e',
+    RestoreX        = '0f',
+    Plus            = '10',
+    Minus           = '11',
+    Mul             = '12',
+    Div             = '13',
+    Swap            = '14',
+    r10x            = '15', // 10^x
+    lg              = '17',
+    ln              = '18',
+    asin            = '19',
+    acos            = '1a',
+    atg             = '1b',
+    sin             = '1c',
+    cos             = '1d',
+    tg              = '1e',
     pi              = '20',
-    antifunc        = '',
+    sqrt            = '21',
+    sqr             = '22',
+    antifunc        = '23',
+    rXY             = '24', // x^y
+
+    XtR             = '4x', // X->П
+
+    RtX             = '6x', // П->X
+
+    Ring            = '',
+    max             = '',
     exp             = '',
-    lg              = '',
-    ln              = '',
-    rXY             = '', // x^y
-    r10x            = '', // 10^x
     CF              = '',
     int             = '', // [x]
     frac            = '', // {x}
@@ -74,6 +65,18 @@ export enum Cmd {
     fau_ms          = '',
     tau_ms          = '',
     NOP             = '',
+    RTN             = '', // Return
+    R_S             = '', // Stop start
+    GT              = '59',//x >=0
+    LT              = '5c', // x<0
+    EQ              = '5e', // x==0
+    NEQ             = '57', // X!=0
+    L0              = '',
+    L1              = '5b',
+    L2              = '',
+    L3              = '',
+    goto            = '51',
+    Sub             = '', // procedure
 }
 
 export const CmdCodes: {[code: string]: string} = {};

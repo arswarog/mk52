@@ -8,6 +8,7 @@ import underline from './images/underline.png';
 import { Calculator } from './components/Calculator';
 import { About } from './pages/About';
 import { AllProgramms } from './pages/AllProgramms';
+import { CmdSet } from './pages/CmdSet';
 import { Debug } from './pages/Debug';
 import { Programm } from './pages/Programm';
 import { Programms } from './pages/Programms';
@@ -35,9 +36,9 @@ class App extends React.Component {
                 text     : 'Программа',
                 desc     : 'Надеюсь, будет работать',
             },
-            //{
-            //    rotate   : 5,
-            //    hueRotate: 31,
+            {
+                rotate   : 5,
+                hueRotate: 31,
             //    link     : '/debug',
             //    text     : 'Отладка',
             //    desc     : 'Регистры, стек и др.',
@@ -52,10 +53,10 @@ class App extends React.Component {
             //{
             //    rotate   : 16,
             //    hueRotate: 60,
-            //    link     : '/shared',
-            //    text     : 'Другие программы',
-            //    desc     : 'Не только мои творения',
-            //},
+                link     : '/shared',
+                text     : 'Другие программы',
+                desc     : 'Не только мои творения',
+            },
         ];
 
         return (
@@ -70,6 +71,7 @@ class App extends React.Component {
                             <Route path="/programms" component={Programms}/>
                             <Route path="/debug" component={Debug}/>
                             <Route path="/shared" component={AllProgramms}/>
+                            <Route path="/commands" component={CmdSet}/>
                             <Redirect path="/" exact={true} to="/about"/>
                         </Switch>
                     </div>

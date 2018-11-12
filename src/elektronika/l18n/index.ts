@@ -1,6 +1,6 @@
 import { Cmd } from '../core/commands';
 
-export const keyLabels: { [key: string]: string } = {
+export const keyLabels: {[key: string]: string} = {
     [Cmd.F]              : 'F',
     [Cmd.K]              : 'K',
     [Cmd.AUTO]           : 'АВТ',
@@ -11,10 +11,10 @@ export const keyLabels: { [key: string]: string } = {
     [Cmd.BST]            : 'ШГ←',
     [Cmd.RTN]            : 'В/О',
     [Cmd.R_S]            : 'С/П',
-    [Cmd.GT]             : 'x>=0',//'x⩾0',
+    [Cmd.GT]             : 'x⩾0',
     [Cmd.LT]             : 'x<0',
     [Cmd.EQ]             : 'x=0',
-    [Cmd.NEQ]            : 'x!=0',//'x≠0',
+    [Cmd.NEQ]            : 'x≠0',
     [Cmd.L0]             : 'L0',
     [Cmd.L1]             : 'L1',
     [Cmd.L2]             : 'L2',
@@ -43,8 +43,8 @@ export const keyLabels: { [key: string]: string } = {
     [Cmd.Swap]           : '↔',
     [Cmd.RestoreX]       : 'Bx',
     [Cmd.Ring]           : '⟳',
-    [Cmd.EE]             : 'ВП',
-    [Cmd.CX]             : 'СX',
+    [Cmd.EntExp]         : 'ВП',
+    [Cmd.ClX]            : 'СX',
     [Cmd.sin]            : 'sin',
     [Cmd.cos]            : 'cos',
     [Cmd.tg]             : 'tg',

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import './Programm.scss';
+import './CmdSet.scss';
 import { Cmd } from '../elektronika/core/commands';
 import { Programm as CoreProgramm } from '../elektronika/core/programm';
 import { programmToView } from '../elektronika/viewTools';
 
-export const Programm = connect()(
+export const CmdSet = connect()(
     () => {
         // tslint:disable
         const prg = programmToView({

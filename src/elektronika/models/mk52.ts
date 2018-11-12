@@ -44,8 +44,8 @@ export const MK52Keyboard = [
         makeButton('w', Cmd.Num0, Cmd.r10x, Cmd.NOP, '0'),
         makeButton('w', Cmd.Dot, Cmd.Ring, Cmd.and, 'a'),
         makeButton('w', Cmd.Sign, Cmd.AUTO, Cmd.or, 'b'),
-        makeButton('w', Cmd.EE, Cmd.PROGRAMM, Cmd.xor, 'c'),
-        makeButton('r', Cmd.CX, Cmd.CF, Cmd.not, 'd'),
+        makeButton('w', Cmd.EntExp, Cmd.PROGRAMM, Cmd.xor, 'c'),
+        makeButton('r', Cmd.ClX, Cmd.CF, Cmd.not, 'd'),
     ],
 ];
 
