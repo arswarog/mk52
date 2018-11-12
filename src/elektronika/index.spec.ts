@@ -1,7 +1,3 @@
-//import { makeButton } from './common';
-//import { keyLabels } from './l18n/index';
-//import { Calculator } from './index';
-
 import { ICalcCtrl, ICore } from './calculator.interface';
 import { makeButton } from './common';
 import { Cmd } from './core/commands';

@@ -90,6 +90,3 @@ Object.keys(Cmd).forEach(
         CmdAsm[cmd.toLowerCase()] = code;
     },
 );
-
-console.log(CmdCodes);
-console.log(CmdAsm);

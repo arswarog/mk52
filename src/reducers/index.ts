@@ -1,9 +1,8 @@
-import { ICalculatorState } from '../elektronika/common';
-import { calc } from './calc';
+import { calc, ICalcState } from './calc';
 import { combineReducers } from 'redux';
 
 export interface IGlobalState {
-    calc: ICalculatorState;
+    calc: ICalcState;
 }
 
 export const globalReducer = combineReducers({

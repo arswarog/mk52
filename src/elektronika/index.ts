@@ -1,5 +1,4 @@
 import { MKButton } from './common';
-import { MK52Keyboard } from './models/mk52';
 import { Stack } from './core/stack';
 import { Registers } from './core/registers';
 import { Programm } from './core/programm';
@@ -19,7 +18,6 @@ export class Calculator implements ICalculator {
     public stack: Stack = null;
     public registers: Registers = null;
     public programm: Programm = null;
-    public keyboard: MKButton[][] = MK52Keyboard;
     public keys: string[] = [];
 
     public stat = {
