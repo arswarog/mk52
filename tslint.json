@@ -18,7 +18,6 @@
       "warning",
       "multi"
     ],
-    "sort-imports": "any",
     "ordered-imports": false,
     "comment-format": [
       false
@@ -31,6 +30,9 @@
     ],
     "no-string-literal": [
       "warning"
+    ],
+    "max-classes-per-file": [
+      false
     ]
   }
 }
