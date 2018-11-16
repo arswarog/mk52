@@ -10,6 +10,13 @@ import { Provider } from 'react-redux';
 
 const store = createStore(globalReducer);
 
+document.addEventListener('keydown', (event: KeyboardEvent) => {
+    store.dispatch({
+        type: 'KEYBOARD_EVENT',
+        code: event.code,
+    });
+});
+
 ReactDOM.render(
     <Provider store={store}>
         <HashRouter>
@@ -19,3 +26,4 @@ ReactDOM.render(
     document.getElementById('root') as HTMLElement,
 );
 registerServiceWorker();
+

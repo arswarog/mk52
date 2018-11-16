@@ -52,6 +52,12 @@ export const CmdSet = connect()(
                     <th>7</th>
                     <th>8</th>
                     <th>9</th>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>D</th>
+                    <th>E</th>
+                    <th>F</th>
                 </tr>
                 </thead>
                 <tbody>
