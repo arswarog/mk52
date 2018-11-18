@@ -13,14 +13,42 @@ export const Debug = connect(
 )(
     ({programm, registers, stack}: any) => {
         return <div className="page-debug">
-            <div className="center">ПРОГРАММА</div>
-            <p>
-                t: &nbsp;"<code>{stack.t.toString()}</code>"<br/>
-                z: &nbsp;"<code>{stack.z.toString()}</code>"<br/>
-                y: &nbsp;"<code>{stack.y.toString()}</code>"<br/>
-                x: &nbsp;"<code>{stack.x.toString()}</code>"<br/>
-                x1: "<code>{stack.x1.toString()}</code>"
-            </p>
+            asdasdasd<br/>
+            asdasdasd<br/>
+            {/*<div className="center">ПРОГРАММА</div>*/}
+            {/*asdasdasd<br/>*/}
+            {/*asdasdasd<br/>*/}
+            {/*asdasdasd<br/>*/}
+            {/*asdasdasd<br/>*/}
+            {/*asdasdasd<br/>*/}
+            <table>
+                <tr>
+                    <td>t:</td>
+                    <td>"<code>{stack.t.toString()}</code>"</td>
+                </tr>
+                <tr>
+                    <td>z:</td>
+                    <td>"<code>{stack.z.toString()}</code>"</td>
+                </tr>
+                <tr>
+                    <td>y:</td>
+                    <td>"<code>{stack.y.toString()}</code>"</td>
+                </tr>
+                <tr>
+                    <td>x:</td>
+                    <td>"<code>{stack.x.toString()}</code>"</td>
+                </tr>
+                <tr>
+                    <td>x1:</td>
+                    <td>"<code>{stack.x1.toString()}</code>"</td>
+                </tr>
+            </table>
+            asdasdasd<br/>
+            asdasdasd<br/>
+            asdasdasd<br/>
+            asdasdasd<br/>
+            asdasdasd<br/>
+            asdasdasd<br/>
             <table>
                 <thead>
                 <tr>

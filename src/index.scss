@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Bad+Script|Caveat');
 
 @font-face {
-    font-family: Led; /* Гарнитура шрифта */
-    src: url(fonts/led.ttf); /* Путь к файлу со шрифтом */
+    font-family: Led;
+    src: url(fonts/led.ttf);
 }
 
 body {
@@ -12,4 +12,41 @@ body {
     font-family: sans-serif;
 
     background: url(images/bg.jpg);
+}
+
+.paper {
+    table {
+        border-spacing: 0;
+        padding: 3px;
+        tr {
+            height: 30px;
+
+            td {
+                line-height: 30px;
+                &:not(:first-child):before {
+                    content: ' | ';
+                }
+            }
+
+            &:before {
+                width: 100px;
+                display: block;
+                position: absolute;
+
+                /**/
+                content: '';
+                height: 1px;
+                background-color: black;
+                /*/
+                height: 0px;
+                content: '|';
+                transform: scaleX(7) rotate(-106deg) translate(12px, -22px);
+                //*/
+            }
+
+            &:first-child:before {
+                height: 0px;
+            }
+        }
+    }
 }

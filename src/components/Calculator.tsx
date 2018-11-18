@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Cmd } from '../elektronika/core/commands';
-import { MK52Keyboard } from '../elektronika/models/mk52';
+import { IGlobalState } from '../reducers';
 import { Keyboard } from './Keyboard';
 import { connect } from 'react-redux';
 
@@ -15,10 +15,10 @@ interface IProps {
 }
 
 export const Calculator = connect(
-    state => ({
-        display  : null,//new MKDisplay(state.mk52.display),
+    (state: IGlobalState) => ({
+        display  : state.calc.core.display(),
         className: '',//getDisplayClassName(state.mk),
-        keyboard : MK52Keyboard,// state.mk.keyboard,
+        keyboard : state.calc.keyboard,
     }),
     dispatch => ({
         pressButton: () => ({type: 'any'}),
@@ -38,7 +38,8 @@ export const Calculator = connect(
                     <tr>
                         <td className="mk_b0">&nbsp;</td>
                         <td className="mk_b1">
-                            <span className="display">-8.abcdef0-19</span>
+                            {/*<span className="display">-8.abcdef0-19</span>*/}
+                            <span className="display">{display}</span>
                             {/*<span className="display" ng-class="{wait: wait, run: run}">{this.props.display.real}</span>*/}
                         </td>
                         <td className="mk_b2">&nbsp;</td>

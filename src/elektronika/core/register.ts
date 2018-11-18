@@ -1,71 +1,201 @@
-export class Register {
-    public sign: boolean    = false;
-    public mantissa: string = '0       ';
-    public dot: number      = 0;
-    public exp: number      = 0;
+import { Error } from 'tslint/lib/error';
 
-    constructor(value?: number | Register) {
-        if (typeof value === 'number')
-            if (value === 0 ||
-                value > 10 ** 0 && value < 10 ** 8 ||
-                value < -(10 ** 0) && value > -(10 ** 8))
-                this.fromNumber(value);
+export interface IRegister {
+    mantissa: number;
+    exp: number;
+    negative: boolean;
+}
+
+export class Register implements IRegister {
+    private static intNormalize(value: number): IRegister {
+        if (!value)
+            return {mantissa: 0, exp: 0, negative: false};
+
+        let exp      = 0;
+        let negative = false;
+
+        if (value < 0) {
+            negative = true;
+            value    = -value;
+        }
+
+        // Приводим к целочисленной мантисе из 8 цифр
+
+        if (value < 10 ** 8)
+            while (value * 10 ** (-exp) < 10 ** 7)
+                exp--;
+        else
+            while (value * 10 ** (-exp) >= 10 ** 8)
+                exp++;
+
+        let mantissa = Math.round(value * 10 ** (-exp));
+
+        // Избавляемся от незначащих нулей
+
+        if (mantissa % 10000 === 0) {
+            exp += 4;
+            mantissa /= 10000;
+        }
+
+        if (mantissa % 100 === 0) {
+            exp += 2;
+            mantissa /= 100;
+        }
+
+        if (mantissa % 10 === 0) {
+            exp += 1;
+            mantissa /= 10;
+        }
+
+        return {
+            mantissa,
+            exp,
+            negative,
+        };
+    }
+
+    private static toString(reg: IRegister): string {
+        const sum = reg.exp + reg.mantissa.toString().length;
+
+        if (sum > 8 || sum < -6) {
+            let mant = reg.mantissa.toString();
+            let exp  = reg.exp + mant.length - 1;
+            mant     = mant.substr(0, 1) + '.' + mant.substr(1);
+            return buildString(
+                reg.negative,
+                mant,
+                exp,
+            );
+        }
+
+        if (sum >= 0) {
+            return buildString(
+                reg.negative,
+                (reg.mantissa * 10 ** reg.exp).toString().substr(0, 9),
+                0,
+            );
+        } else {
+            let mant = '0.' + '0'.repeat(-1 - reg.exp) + reg.mantissa.toString();
+            return buildString(
+                reg.negative,
+                mant,
+                0,
+            );
+        }
+    }
+
+    public mantissa: number  = 0;
+    public exp: number       = 0;
+    public negative: boolean = false;
+
+    constructor(value?: number | IRegister | IInputRegister) {
+        if (value)
+            if (typeof value === 'number')
+                Object.assign(this, Register.intNormalize(value));
+            else if ('text' in value)
+                Object.assign(this, {
+                    mantissa: parseInt((value as IInputRegister).text, 10),
+                    exp     : 0,//value.exp,
+                    negative: false,//value.negative,
+                });
             else
-                this.fromExpNumber(value);
+                Object.assign(this, {
+                    mantissa: value.mantissa,
+                    exp     : value.exp,
+                    negative: value.negative,
+                });
 
-        Object.freeze(this);
+        //Object.freeze(this);
     }
 
     public toString(): string {
-        return (this.sign ? '-' : ' ')
-            + `${this.mantissa.substr(0, this.dot + 1)}.${this.mantissa.substr(this.dot + 1)}`
-            + numberToExpString(this.exp, 2);
+        return Register.toString(this);
     }
 
-    private fromNumber(value: number): void {
-        let m   = value.toString();
-        let dot = m.indexOf('.');
-        if (dot !== -1) {
-            value = parseFloat(m.substr(0, 9));
-            m     = value.toString();
-            dot   = m.indexOf('.');
-        }
-        if (dot === -1) {
-            this.dot      = m.length - 1;
-            this.mantissa = m;
-        } else {
-            this.dot      = dot - 1;
-            this.mantissa = m.replace('.', '');
-        }
-
-        while (this.mantissa.length < 8)
-            this.mantissa += ' ';
+    public input(num: number): Register {
+        return (new InputRegister()).input(num);
     }
 
-    private fromExpNumber(value: number): void {
-        this.exp = 0;
-        while (value >= 10 || value <= -10) {
-            value /= 10;
-            this.exp++;
-        }
-        // FIXME https://stackoverflow.com/questions/9383593/extracting-the-exponent-and-mantissa-of-a-javascript-number
-        while (value > -1 && value < 1) {
-            value *= 10;
-            this.exp--;
-        }
-        this.fromNumber(value);
+    public changeSign(): Register {
+        return new Register({
+            mantissa: this.mantissa,
+            exp     : this.exp,
+            negative: !this.negative,
+        });
     }
 }
 
-function numberToExpString(value: number, len: number): string {
-    if (value === 0)
-        return ' '.repeat(len + 1);
+interface IInputRegister {
+    text: string;
+    dot: number;
+}
 
-    const negative = value < 0;
-    let res        = Math.abs(value).toString();
+export class InputRegister extends Register implements IInputRegister {
+    public text: string = '';
+    public dot: number  = 0;
 
-    while (res.length < len)
-        res = '0' + res;
+    constructor(value?: IInputRegister) {
+        super();
+        Object.assign(this, value);
+    }
 
-    return (negative ? '-' : ' ') + res;
+    public input(num: number): InputRegister {
+        let text = this.text;
+        let dot  = this.dot;
+        if (num >= 0) {
+            if (text.length < 8)
+                text += num;
+
+            return new InputRegister({
+                text,
+                dot,
+            });
+        } else {
+            if (dot)
+                return this;
+
+            return new InputRegister({
+                text: this.text,
+                dot : text.length,
+            });
+        }
+    }
+
+    public toString(): string {
+        if (this.dot) {
+            let text = this.text;
+            text     = text.substr(0, this.dot) + '.' + text.substr(this.dot);
+            return buildString(this.negative, text, this.exp);
+        } else {
+            let text = this.text;
+            if (!text)
+                text = '0';
+            return buildString(this.negative, text + '.', this.exp);
+        }
+    }
+}
+
+function buildString(negative: boolean, mant: string, exponent: number): string {
+    if (mant.length > 9)
+        throw new Error(`Max length of "mant" must <= 9 symbols, but "${mant}:`);
+    if (mant.indexOf('.') === -1) mant += '.';
+    if (mant.length < 9) mant += ' '.repeat(9 - mant.length);
+    let exp = 'err';
+
+    if (exponent === 0)
+        exp = '   ';
+    else if (exponent <= -100)
+        exp = '-er';
+    else if (exponent <= -10)
+        exp = exponent.toString();
+    else if (exponent < 0)
+        exp = '-0' + (-exponent);
+    else if (exponent < 10)
+        exp = ' 0' + exponent;
+    else if (exponent < 100)
+        exp = ' ' + exponent;
+    else
+        exp = '+er';
+
+    return (negative ? '-' : ' ') + mant + exp;
 }

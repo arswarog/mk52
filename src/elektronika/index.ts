@@ -15,10 +15,10 @@ export enum CalculatorStatus {
 
 export class Calculator implements ICalculator {
     public status: CalculatorStatus = null;
-    public stack: Stack = null;
-    public registers: Registers = null;
-    public programm: Programm = null;
-    public keys: string[] = [];
+    public stack: Stack             = null;
+    public registers: Registers     = null;
+    public programm: Programm       = null;
+    public keys: string[]           = [];
 
     public stat = {
         executed       : 0,
@@ -27,11 +27,11 @@ export class Calculator implements ICalculator {
 
     constructor(private core: ICore, init: boolean = true) {
         if (init) {
-            this.status = CalculatorStatus.Standart;
-            this.stack = new Stack();
-            this.programm = new Programm();
+            this.status    = CalculatorStatus.Standart;
+            this.stack     = new Stack();
+            this.programm  = new Programm();
             this.registers = new Registers();
-            this.keys = [];
+            this.keys      = [];
         }
     }
 
@@ -41,7 +41,7 @@ export class Calculator implements ICalculator {
 
     public clone(state?: object) {
         const calc: object = {};
-        let changes = 0;
+        let changes        = 0;
         if (state)
             ['status', 'stack', 'programm', 'registers', 'keys'].forEach(
                 key => {
@@ -57,6 +57,10 @@ export class Calculator implements ICalculator {
             return Object.assign(new Calculator(this.core, false), calc);
         else
             return this;
+    }
+
+    public display(): string {
+        return this.stack.x.toString();
     }
 
     public toObject(state: object = {}): ICalculator {
