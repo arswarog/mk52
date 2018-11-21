@@ -121,6 +121,38 @@ describe('Register', () => {
             //expect(res).toEqual({mantissa: 10, exp: 0, negative: false});
             expect(toString(res)).toEqual(' 10.         ');
         });
+        it('57320', () => {
+            const reg = new Register(57320);
+            expect(reg.toString()).toEqual(' 57320.      ');
+        });
+        it('5732', () => {
+            const reg = new Register(5732);
+            expect(reg.toString()).toEqual(' 5732.       ');
+        });
+        it('573.2', () => {
+            const reg = new Register(573.2);
+            expect(reg.toString()).toEqual(' 573.2       ');
+        });
+        it('57.32', () => {
+            const reg = new Register(57.32);
+            expect(reg.toString()).toEqual(' 57.32       ');
+        });
+        it('57352', () => {
+            const reg = new Register(57352);
+            expect(reg.toString()).toEqual(' 57352.      ');
+        });
+        it('5735.2', () => {
+            const reg = new Register(5735.2);
+            expect(reg.toString()).toEqual(' 5735.2      ');
+        });
+        it('573.52', () => {
+            const reg = new Register(573.52);
+            expect(reg.toString()).toEqual(' 573.52      ');
+        });
+        it('5735.23', () => {
+            const reg = new Register(5735.23);
+            expect(reg.toString()).toEqual(' 5735.23     ');
+        });
         it('5.8462846268465465421684 * 10 ** 3', () => {
             const res = {mantissa: 58462846, exp: -4, negative: false};
             //expect(res).toEqual({mantissa: 5846.2846, exp: 0, negative: false});

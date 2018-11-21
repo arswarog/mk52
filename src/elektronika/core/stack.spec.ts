@@ -22,7 +22,7 @@ describe('Stack', () => {
             expect(res.t.toString()).toEqual(' 1.        26');
             expect(res.z.toString()).toEqual(' 67835.344   ');
             expect(res.y.toString()).toEqual(' 3.4536344 16');
-            expect(res.x.toString()).toEqual(' 5735.2300   ');
+            expect(res.x.toString()).toEqual(' 5735.23     ');
             expect(res.x1.toString()).toEqual(' 5.6723   -08');
         });
 
@@ -31,9 +31,9 @@ describe('Stack', () => {
 
             expect(res.t.toString()).toEqual(' 67835.344   ');
             expect(res.z.toString()).toEqual(' 3.4536344 16');
-            expect(res.y.toString()).toEqual(' 5735.2300   ');
-            expect(res.x.toString()).toEqual(' 5735.2300   ');
-            expect(res.x1.toString()).toEqual(' 5735.2300   ');
+            expect(res.y.toString()).toEqual(' 5735.23     ');
+            expect(res.x.toString()).toEqual(' 5735.23     ');
+            expect(res.x1.toString()).toEqual(' 5735.23     ');
 
             expect(res.t).toEqual(stack.z);
             expect(res.z).toEqual(stack.y);
@@ -43,10 +43,10 @@ describe('Stack', () => {
             res = res.enter();
 
             expect(res.t.toString()).toEqual(' 3.4536344 16');
-            expect(res.z.toString()).toEqual(' 5735.2300   ');
-            expect(res.y.toString()).toEqual(' 5735.2300   ');
-            expect(res.x.toString()).toEqual(' 5735.2300   ');
-            expect(res.x1.toString()).toEqual(' 5735.2300   ');
+            expect(res.z.toString()).toEqual(' 5735.23     ');
+            expect(res.y.toString()).toEqual(' 5735.23     ');
+            expect(res.x.toString()).toEqual(' 5735.23     ');
+            expect(res.x1.toString()).toEqual(' 5735.23     ');
 
             expect(res.t).toEqual(stack.y);
             expect(res.z).toEqual(stack.x);
@@ -61,7 +61,7 @@ describe('Stack', () => {
             expect(res.z.toString()).toEqual(' 67835.344   ');
             expect(res.y.toString()).toEqual(' 3.4536344 16');
             expect(res.x.toString()).toEqual(' 123.        ');
-            expect(res.x1.toString()).toEqual(' 5735.2300   ');
+            expect(res.x1.toString()).toEqual(' 5735.23     ');
 
             expect(res.t).toEqual(stack.t);
             expect(res.z).toEqual(stack.z);
@@ -76,7 +76,7 @@ describe('Stack', () => {
             expect(res.z.toString()).toEqual(' 1.        26');
             expect(res.y.toString()).toEqual(' 67835.344   ');
             expect(res.x.toString()).toEqual(' 123.        ');
-            expect(res.x1.toString()).toEqual(' 5735.2300   ');
+            expect(res.x1.toString()).toEqual(' 5735.23     ');
 
             expect(res.t).toEqual(stack.t);
             expect(res.z).toEqual(stack.t);
@@ -94,9 +94,9 @@ describe('Stack', () => {
 
             expect(res.t.toString()).toEqual(' 67835.344   ');
             expect(res.z.toString()).toEqual(' 3.4536344 16');
-            expect(res.y.toString()).toEqual(' 5735.2300   ');
+            expect(res.y.toString()).toEqual(' 5735.23     ');
             expect(res.x.toString()).toEqual(' 1.          ');
-            expect(res.x1.toString()).toEqual(' 5735.2300   ');
+            expect(res.x1.toString()).toEqual(' 5735.23     ');
 
             expect(res.t).toEqual(stack.z);
             expect(res.z).toEqual(stack.y);
@@ -107,9 +107,9 @@ describe('Stack', () => {
 
             expect(res.t.toString()).toEqual(' 67835.344   ');
             expect(res.z.toString()).toEqual(' 3.4536344 16');
-            expect(res.y.toString()).toEqual(' 5735.2300   ');
+            expect(res.y.toString()).toEqual(' 5735.23     ');
             expect(res.x.toString()).toEqual(' 12.         ');
-            expect(res.x1.toString()).toEqual(' 5735.2300   ');
+            expect(res.x1.toString()).toEqual(' 5735.23     ');
 
             expect(res.t).toEqual(stack.z);
             expect(res.z).toEqual(stack.y);
@@ -121,7 +121,7 @@ describe('Stack', () => {
             expect(res.canInput).toEqual(true);
 
             expect(res.t.toString()).toEqual(' 3.4536344 16');
-            expect(res.z.toString()).toEqual(' 5735.2300   ');
+            expect(res.z.toString()).toEqual(' 5735.23     ');
             expect(res.y.toString()).toEqual(' 12.         ');
             expect(res.x.toString()).toEqual(' 12.         ');
             expect(res.x1.toString()).toEqual(' 12.         ');

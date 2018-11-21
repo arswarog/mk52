@@ -11,10 +11,10 @@ interface IStack {
 
 export class Stack implements IStack {
     public x1: Register = new Register(0.000000056723);
-    public x: Register  = new Register(5735.23);
-    public y: Register  = new Register(34536343634534535);
-    public z: Register  = new Register(67835.3437345634534);
-    public t: Register  = new Register(100000000000000000000000000);
+    public x: Register = new Register(5735.23);
+    public y: Register = new Register(34536343634534535);
+    public z: Register = new Register(67835.3437345634534);
+    public t: Register = new Register(100000000000000000000000000);
 
     public canInput: boolean = false;
 
@@ -25,16 +25,15 @@ export class Stack implements IStack {
 
     public input(num: number): Stack {
         let stack: Stack = this;
-        if (!(this.x instanceof InputRegister || this.canInput))
+        if (!this.canInput)
             stack = stack.enter();
-        console.log(stack);
         return new Stack({
             t       : stack.t,
             z       : stack.z,
             y       : stack.y,
             x       : stack.x.input(num),
             x1      : stack.x1,
-            canInput: false,
+            canInput: true,
         });
     }
 

@@ -1,5 +1,6 @@
 import { ICalcCtrl, ICore } from '../calculator.interface';
 import { Cmd } from './commands';
+import { Register } from './register';
 
 export const BaseMKCore: ICore = {
     [Cmd.Enter]: (calc: ICalcCtrl): ICalcCtrl => ({...calc, stack: calc.stack.enter()}),
@@ -31,8 +32,31 @@ export const BaseMKCore: ICore = {
     [Cmd.Minus]: (calc) => {
         return calc;
     },
-    [Cmd.Mul]  : (calc) => {
-        return calc;
+    [Cmd.Mul]  : (calc: ICalcCtrl) => {
+        const x = calc.stack.x.mantissa;
+        const y = calc.stack.y.mantissa;
+        let exp = 0;
+        let mant = 0;
+        for (; ;) {
+            mant = x * y;
+            if (mant >= 10 ** 8) {
+                exp++;
+                if (x > y)
+                    x /= 10;
+                else
+                    y /= 10;
+            } else
+                break;
+        }
+        const res = {
+            mantissa: Math.round(mant),
+            exp     : exp + calc.stack.x.exp + calc.stack.y.exp,
+            negative: calc.stack.x.negative !== calc.stack.y.negative,
+        };
+        return {
+            ...calc,
+            stack: calc.stack.op2(new Register(res)),
+        };
     },
     [Cmd.Div]  : (calc) => {
         return calc;
