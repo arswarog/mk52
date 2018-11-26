@@ -6,15 +6,15 @@ import './Debug.scss';
 
 export const Debug = connect(
     (state: IGlobalState) => ({
+        keys     : state.calc.core.keys,
         stack    : state.calc.core.stack,
         registers: state.calc.core.registers,
         programm : state.calc.core.programm,
     }),
 )(
-    ({programm, registers, stack}: any) => {
+    ({programm, registers, stack, keys}: any) => {
         return <div className="page-debug">
-            asdasdasd<br/>
-            asdasdasd<br/>
+            Keys: {keys}<br/>
             {/*<div className="center">ПРОГРАММА</div>*/}
             {/*asdasdasd<br/>*/}
             {/*asdasdasd<br/>*/}
@@ -22,6 +22,7 @@ export const Debug = connect(
             {/*asdasdasd<br/>*/}
             {/*asdasdasd<br/>*/}
             <table>
+                <tbody>
                 <tr>
                     <td>t:</td>
                     <td>"<code>{stack.t.toString()}</code>"</td>
@@ -42,6 +43,7 @@ export const Debug = connect(
                     <td>x1:</td>
                     <td>"<code>{stack.x1.toString()}</code>"</td>
                 </tr>
+                </tbody>
             </table>
             asdasdasd<br/>
             asdasdasd<br/>

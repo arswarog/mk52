@@ -1,4 +1,4 @@
-import { Calculator } from '../elektronika';
+import { Calculator } from '../elektronika/calculator';
 import { MKButton } from '../elektronika/common';
 import { AnyAction } from 'redux';
 import { MK52Core, MK52Keyboard } from '../elektronika/models/mk52';
@@ -21,6 +21,8 @@ export function calc(state: ICalcState, action: AnyAction): ICalcState {
         };
         initKeyboard(state.keyboard);
     }
+
+    console.log('action:', action);
 
     switch (action.type) {
         case 'KEY_PRESS':

@@ -1,5 +1,5 @@
 import { ICalcCtrl } from '../calculator.interface';
-import { CalculatorStatus } from '../index';
+import { CalculatorStatus } from '../calculator';
 import { Cmd } from './commands';
 import { BaseMKCore } from './core';
 import { Programm } from './programm';
@@ -226,81 +226,147 @@ describe('Core', () => {
         });
     });
 
+    describe('Operations', () => {
+        describe('multiply', () => {
+            it('normal', () => {
+                mk.stack = new Stack({
+                    t       : new Register(-10),
+                    z       : new Register(10),
+                    y       : new Register(-780),
+                    x       : new Register(5735.231),
+                    x1      : new Register(0.000000056723),
+                    canInput: true,
+                });
 
-    describe('Input', () => {
-        it('canInput = true', () => {
+                expect(mk.stack.t.toString()).toEqual('-10.         ');
+                expect(mk.stack.z.toString()).toEqual(' 10.         ');
+                expect(mk.stack.y.toString()).toEqual('-780.        ');
+                expect(mk.stack.x.toString()).toEqual(' 5735.231    ');
+                expect(mk.stack.x1.toString()).toEqual(' 5.6723   -08');
+
+                let res = core[Cmd.Mul](mk);
+                expect(res.stack.t.toString()).toEqual('-10.         ');
+                expect(res.stack.z.toString()).toEqual('-10.         ');
+                expect(res.stack.y.toString()).toEqual(' 10.         ');
+                expect(res.stack.x.toString()).toEqual('-4473480.2   ');
+                expect(res.stack.x1.toString()).toEqual(' 5735.231    ');
+
+                res = core[Cmd.Mul](res);
+                expect(res.stack.t.toString()).toEqual('-10.         ');
+                expect(res.stack.z.toString()).toEqual('-10.         ');
+                expect(res.stack.y.toString()).toEqual('-10.         ');
+                expect(res.stack.x.toString()).toEqual('-44734802.   ');
+                expect(res.stack.x1.toString()).toEqual('-4473480.2   ');
+
+                res = core[Cmd.Mul](res);
+                expect(res.stack.t.toString()).toEqual('-10.         ');
+                expect(res.stack.z.toString()).toEqual('-10.         ');
+                expect(res.stack.y.toString()).toEqual('-10.         ');
+                expect(res.stack.x.toString()).toEqual(' 4.4734802 08');
+                expect(res.stack.x1.toString()).toEqual('-44734802.   ');
+            });
+            it('small', () => {
+                // FIXME
+                //mk.stack = new Stack({
+                //    t       : new Register(-10),
+                //    z       : new Register(10),
+                //    y       : new Register(-780),
+                //    x       : new Register(0.000000056723),
+                //    x1      : new Register(5735.231),
+                //    canInput: true,
+                //});
+                //
+                //expect(mk.stack.t.toString()).toEqual('-10.         ');
+                //expect(mk.stack.z.toString()).toEqual(' 10.         ');
+                //expect(mk.stack.y.toString()).toEqual('-780.        ');
+                //expect(mk.stack.x.toString()).toEqual(' 5.6723   -08');
+                //expect(mk.stack.x1.toString()).toEqual(' 5735.231    ');
+                //
+                //let res = core[Cmd.Mul](mk);
+                //expect(res.stack.t.toString()).toEqual('-10.         ');
+                //expect(res.stack.z.toString()).toEqual('-10.         ');
+                //expect(res.stack.y.toString()).toEqual(' 10.         ');
+                //expect(res.stack.x.toString()).toEqual('-44.24394    ');
+                //expect(res.stack.x1.toString()).toEqual(' 5.6723   -08');
+                //
+                //res = core[Cmd.Mul](res);
+                //expect(res.stack.t.toString()).toEqual('-10.         ');
+                //expect(res.stack.z.toString()).toEqual('-10.         ');
+                //expect(res.stack.y.toString()).toEqual('-10.         ');
+                //expect(res.stack.x.toString()).toEqual('-44734802.   ');
+                //expect(res.stack.x1.toString()).toEqual('-4473480.2   ');
+                //
+                //res = core[Cmd.Mul](res);
+                //expect(res.stack.t.toString()).toEqual('-10.         ');
+                //expect(res.stack.z.toString()).toEqual('-10.         ');
+                //expect(res.stack.y.toString()).toEqual('-10.         ');
+                //expect(res.stack.x.toString()).toEqual(' 4.4734802 08');
+                //expect(res.stack.x1.toString()).toEqual('-44734802.   ');
+            });
+        });
+
+        describe('multiply', () => {
+            it('normal', () => {
+                mk.stack = new Stack({
+                    t       : new Register(-2),
+                    z       : new Register(2),
+                    y       : new Register(-2),
+                    x       : new Register(4),
+                    x1      : new Register(0.000000056723),
+                    canInput: true,
+                });
+
+                expect(mk.stack.t.toString()).toEqual('-2.          ');
+                expect(mk.stack.z.toString()).toEqual(' 2.          ');
+                expect(mk.stack.y.toString()).toEqual('-2.          ');
+                expect(mk.stack.x.toString()).toEqual(' 4.          ');
+                expect(mk.stack.x1.toString()).toEqual(' 5.6723   -08');
+
+                let res = core[Cmd.sqr](mk);
+                expect(res.stack.t.toString()).toEqual('-2.          ');
+                expect(res.stack.z.toString()).toEqual(' 2.          ');
+                expect(res.stack.y.toString()).toEqual('-2.          ');
+                expect(res.stack.x.toString()).toEqual(' 16.         ');
+                expect(res.stack.x1.toString()).toEqual(' 4.          ');
+
+                res = core[Cmd.sqr](res);
+                expect(res.stack.t.toString()).toEqual('-2.          ');
+                expect(res.stack.z.toString()).toEqual(' 2.          ');
+                expect(res.stack.y.toString()).toEqual('-2.          ');
+                expect(res.stack.x.toString()).toEqual(' 256.        ');
+                expect(res.stack.x1.toString()).toEqual(' 16.         ');
+
+                res = core[Cmd.sqr](res);
+                expect(res.stack.t.toString()).toEqual('-2.          ');
+                expect(res.stack.z.toString()).toEqual(' 2.          ');
+                expect(res.stack.y.toString()).toEqual('-2.          ');
+                expect(res.stack.x.toString()).toEqual(' 65536.      ');
+                expect(res.stack.x1.toString()).toEqual(' 256.        ');
+            });
+        });
+
+        it('const PI', () => {
             mk.stack = new Stack({
-                t       : new Register(-10),
-                z       : new Register(10),
-                y       : new Register(-780),
-                x       : new Register(5735.231),
+                t       : new Register(-2),
+                z       : new Register(2),
+                y       : new Register(-2),
+                x       : new Register(4),
                 x1      : new Register(0.000000056723),
                 canInput: true,
             });
 
-            expect(mk.stack.t.toString()).toEqual('-10.         ');
-            expect(mk.stack.z.toString()).toEqual(' 10.         ');
-            expect(mk.stack.y.toString()).toEqual('-780.        ');
-            expect(mk.stack.x.toString()).toEqual(' 5735.231    ');
+            expect(mk.stack.t.toString()).toEqual('-2.          ');
+            expect(mk.stack.z.toString()).toEqual(' 2.          ');
+            expect(mk.stack.y.toString()).toEqual('-2.          ');
+            expect(mk.stack.x.toString()).toEqual(' 4.          ');
             expect(mk.stack.x1.toString()).toEqual(' 5.6723   -08');
 
-            let res = core[Cmd.Mul](mk);
-            expect(res.stack.t.toString()).toEqual('-10.         ');
-            expect(res.stack.z.toString()).toEqual('-10.         ');
-            expect(res.stack.y.toString()).toEqual(' 10.         ');
-            expect(res.stack.x.toString()).toEqual('-4473480.2   ');
-            expect(res.stack.x1.toString()).toEqual(' 5735.231    ');
-
-            res = core[Cmd.Mul](res);
-            expect(res.stack.t.toString()).toEqual('-10.         ');
-            expect(res.stack.z.toString()).toEqual('-10.         ');
-            expect(res.stack.y.toString()).toEqual('-10.         ');
-            expect(res.stack.x.toString()).toEqual('-44734802.   ');
-            expect(res.stack.x1.toString()).toEqual('-4473480.2   ');
-
-            res = core[Cmd.Mul](res);
-            expect(res.stack.t.toString()).toEqual('-10.         ');
-            expect(res.stack.z.toString()).toEqual('-10.         ');
-            expect(res.stack.y.toString()).toEqual('-10.         ');
-            expect(res.stack.x.toString()).toEqual(' 4.4734802 08');
-            expect(res.stack.x1.toString()).toEqual('-44734802.   ');
-        });
-        it('canInput = true', () => {
-            mk.stack = new Stack({
-                t       : new Register(-10),
-                z       : new Register(10),
-                y       : new Register(-780),
-                x       : new Register(0.000000056723),
-                x1      : new Register(5735.231),
-                canInput: true,
-            });
-
-            expect(mk.stack.t.toString()).toEqual('-10.         ');
-            expect(mk.stack.z.toString()).toEqual(' 10.         ');
-            expect(mk.stack.y.toString()).toEqual('-780.        ');
-            expect(mk.stack.x.toString()).toEqual(' 5.6723   -08');
-            expect(mk.stack.x1.toString()).toEqual(' 5735.231    ');
-
-            let res = core[Cmd.Mul](mk);
-            expect(res.stack.t.toString()).toEqual('-10.         ');
-            expect(res.stack.z.toString()).toEqual('-10.         ');
-            expect(res.stack.y.toString()).toEqual(' 10.         ');
-            expect(res.stack.x.toString()).toEqual('-44.24394    ');
-            expect(res.stack.x1.toString()).toEqual(' 5.6723   -08');
-
-            res = core[Cmd.Mul](res);
-            expect(res.stack.t.toString()).toEqual('-10.         ');
-            expect(res.stack.z.toString()).toEqual('-10.         ');
-            expect(res.stack.y.toString()).toEqual('-10.         ');
-            expect(res.stack.x.toString()).toEqual('-44734802.   ');
-            expect(res.stack.x1.toString()).toEqual('-4473480.2   ');
-
-            res = core[Cmd.Mul](res);
-            expect(res.stack.t.toString()).toEqual('-10.         ');
-            expect(res.stack.z.toString()).toEqual('-10.         ');
-            expect(res.stack.y.toString()).toEqual('-10.         ');
-            expect(res.stack.x.toString()).toEqual(' 4.4734802 08');
-            expect(res.stack.x1.toString()).toEqual('-44734802.   ');
+            let res = core[Cmd.pi](mk);
+            expect(res.stack.t.toString()).toEqual(' 2.          ');
+            expect(res.stack.z.toString()).toEqual('-2.          ');
+            expect(res.stack.y.toString()).toEqual(' 4.          ');
+            expect(res.stack.x.toString()).toEqual(' 3.1415926   ');
+            expect(res.stack.x1.toString()).toEqual(' 4.          ');
         });
     });
 });

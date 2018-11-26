@@ -1,7 +1,7 @@
 import { ICalcCtrl, ICore } from './calculator.interface';
 import { makeButton } from './common';
 import { Cmd } from './core/commands';
-import { Calculator } from './index';
+import { Calculator } from './calculator';
 
 let calc: Calculator = null;
 let testCore: ICore  = null;
@@ -18,7 +18,10 @@ describe('Calculator', () => {
                 keys: ['F'],
             });
 
-            expect(calc2.keys).toEqual(['F']);
+            expect(calc2).toEqual({
+                ...calc,
+                keys: ['F'],
+            });
         });
     });
     describe('Keyboard controller', () => {

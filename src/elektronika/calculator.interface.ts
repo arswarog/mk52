@@ -1,4 +1,4 @@
-import { CalculatorStatus } from './index';
+import { CalculatorStatus } from './calculator';
 import { Stack } from './core/stack';
 import { Registers } from './core/registers';
 import { Programm } from './core/programm';
@@ -25,6 +25,18 @@ export interface ICalculatorCtrl {
 
 export type ICalcCtrl = ICalculator & ICalculatorCtrl;
 
+export type ICoreOperation = (calc: ICalcCtrl, command?: Cmd) => ICalcCtrl;
+
+export enum CoreCommandType {
+    Single,
+    WithAddress,
+}
+
+export interface ICoreCommand {
+    type: CoreCommandType;
+    operation: ICoreOperation;
+}
+
 export interface ICore {
-    [key: string]: (calc: ICalcCtrl, command?: Cmd) => ICalcCtrl;
+    [key: string]:  ICoreOperation | ICoreCommand;
 }

@@ -7,16 +7,17 @@ export interface IRegister {
 }
 
 export class Register implements IRegister {
-    private static intNormalize(value: number): IRegister {
+    private static intNormalize(value: number, exp: number = 0): IRegister {
         if (!value)
             return {mantissa: 0, exp: 0, negative: false};
 
-        let exp = 0;
+        //console.log(value, exp);
+
         let negative = false;
 
         if (value < 0) {
             negative = true;
-            value = -value;
+            value    = -value;
         }
 
         // Приводим к целочисленной мантисе из 8 цифр
@@ -59,7 +60,7 @@ export class Register implements IRegister {
 
         if (sum > 8 || sum < -6) {
             let mant = reg.mantissa.toString();
-            let exp = reg.exp + mant.length - 1;
+            let exp  = reg.exp + mant.length - 1;
             return buildString(
                 reg.negative,
                 mant.substr(0, 1) + '.' + mant.substr(1),
@@ -94,11 +95,11 @@ export class Register implements IRegister {
         }
     }
 
-    public mantissa: number = 0;
-    public exp: number = 0;
+    public mantissa: number  = 0;
+    public exp: number       = 0;
     public negative: boolean = false;
 
-    constructor(value?: number | IRegister | IInputRegister) {
+    constructor(value?: number | IRegister | IInputRegister, exp?: number) {
         if (value)
             if (typeof value === 'number')
                 Object.assign(this, Register.intNormalize(value));
@@ -122,6 +123,10 @@ export class Register implements IRegister {
         return Register.toString(this);
     }
 
+    public toNumber(): number {
+        return this.mantissa * 10 ** this.exp * (this.negative ? -1 : 1);
+    }
+
     public input(num: number): Register {
         return (new InputRegister()).input(num);
     }
@@ -142,7 +147,7 @@ interface IInputRegister {
 
 export class InputRegister extends Register implements IInputRegister {
     public text: string = '';
-    public dot: number = 0;
+    public dot: number  = 0;
 
     constructor(value?: IInputRegister) {
         super();
@@ -151,7 +156,7 @@ export class InputRegister extends Register implements IInputRegister {
 
     public input(num: number): InputRegister {
         let text = this.text;
-        let dot = this.dot;
+        let dot  = this.dot;
         if (num >= 0) {
             if (text.length < 8)
                 text += num;
@@ -174,7 +179,7 @@ export class InputRegister extends Register implements IInputRegister {
     public toString(): string {
         if (this.dot) {
             let text = this.text;
-            text = text.substr(0, this.dot) + '.' + text.substr(this.dot);
+            text     = text.substr(0, this.dot) + '.' + text.substr(this.dot);
             return buildString(this.negative, text, this.exp);
         } else {
             let text = this.text;

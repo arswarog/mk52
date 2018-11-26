@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Calculator } from "../elektronika/index";
+import { Calculator } from "../elektronika/calculator";
 
 interface IHistoryView {
     history: Calculator[]

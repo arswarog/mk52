@@ -1,5 +1,5 @@
 //import { makeButton } from '../common';
-import { Calculator } from '../index';
+import { Calculator } from '../calculator';
 //import { Cmd } from '../core/commands';
 
 export function Key(config: object): any {

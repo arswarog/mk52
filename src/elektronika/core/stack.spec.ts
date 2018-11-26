@@ -54,6 +54,21 @@ describe('Stack', () => {
             expect(res.x1).toEqual(stack.x);
         });
 
+        it('enter with value', () => {
+            let res = stack.enter(new Register(3.14));
+
+            expect(res.t.toString()).toEqual(' 67835.344   ');
+            expect(res.z.toString()).toEqual(' 3.4536344 16');
+            expect(res.y.toString()).toEqual(' 5735.23     ');
+            expect(res.x.toString()).toEqual(' 3.14        ');
+            expect(res.x1.toString()).toEqual(' 5735.23     ');
+
+            expect(res.t).toEqual(stack.z);
+            expect(res.z).toEqual(stack.y);
+            expect(res.y).toEqual(stack.x);
+            expect(res.x1).toEqual(stack.x);
+        });
+
         it('op1', () => {
             let res = stack.op1(new Register(123));
 
@@ -81,6 +96,22 @@ describe('Stack', () => {
             expect(res.t).toEqual(stack.t);
             expect(res.z).toEqual(stack.t);
             expect(res.y).toEqual(stack.z);
+            expect(res.x1).toEqual(stack.x);
+        });
+
+        it('swap', () => {
+            let res = stack.swap();
+
+            expect(res.t.toString()).toEqual(' 1.        26');
+            expect(res.z.toString()).toEqual(' 67835.344   ');
+            expect(res.y.toString()).toEqual(' 5735.23     ');
+            expect(res.x.toString()).toEqual(' 3.4536344 16');
+            expect(res.x1.toString()).toEqual(' 5735.23     ');
+
+            expect(res.t).toEqual(stack.t);
+            expect(res.z).toEqual(stack.z);
+            expect(res.y).toEqual(stack.x);
+            expect(res.x).toEqual(stack.y);
             expect(res.x1).toEqual(stack.x);
         });
     });

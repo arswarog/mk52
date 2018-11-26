@@ -1,6 +1,6 @@
 import { InputRegister, IRegister, Register } from './register';
 
-const intNormalize: (value: number) => IRegister = Register['intNormalize'];
+const intNormalize: (value: number, exp?: number ) => IRegister = Register['intNormalize'];
 const toString: (value: IRegister) => string     = Register['toString'];
 
 describe('Register', () => {
@@ -71,8 +71,8 @@ describe('Register', () => {
         });
 
         describe('Auto test', () => {
-            for (let i = 1, e = 3, n = false; i < 1000; i += 41, e--, n = !n)
-                it('number ' + (-1) ** +n + i + ' * 10^' + e, () => {
+            for (let i = 1, e = 3, n = false; i < 1000; i += 41, e--, n = !n) {
+                it('number ' + (n ? '-' : '') + i + ' * 10^' + e, () => {
                     const res = intNormalize((-1) ** +n * i * 10 ** e);
                     const ex  = {
                         mantissa: i,
@@ -87,6 +87,23 @@ describe('Register', () => {
 
                     expect(res).toEqual(ex);
                 });
+                // FIXME
+                //it('number (with exp) ' + (-1) ** +n + i + ' * 10^' + e, () => {
+                //    const res = intNormalize((-1) ** +n * i, e);
+                //    const ex  = {
+                //        mantissa: i,
+                //        exp     : e,
+                //        negative: n,
+                //    };
+                //    if (ex.mantissa)
+                //        while (ex.mantissa % 10 === 0) {
+                //            ex.mantissa /= 10;
+                //            ex.exp++;
+                //        }
+                //
+                //    expect(res).toEqual(ex);
+                //});
+            }
         });
     });
 
@@ -450,5 +467,20 @@ describe('Register', () => {
             expect(reg).toBeInstanceOf(InputRegister);
             expect(reg.toString()).toEqual(' 1234.5678   ');
         });
+    });
+
+    describe('toNumber - Auto test', () => {
+        for (let i = 1, e = 99, n = false; i < 199; i++, e--, n = !n) {
+            const m = +Math.random().toString().substr(0, 10);
+            const x = (-1) ** +n * m * 10 ** e;
+
+            it(`number ${m} ^ ${e}`, () => {
+                const res = new Register(x);
+
+                const check = 1 - res.toNumber() / x;
+
+                expect(Math.log10(Math.abs(check))).toBeLessThan(-15);
+            });
+        }
     });
 });
