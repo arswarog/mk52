@@ -38,5 +38,5 @@ export interface ICoreCommand {
 }
 
 export interface ICore {
-    [key: string]:  ICoreOperation | ICoreCommand;
+    [key: string]: ICoreCommand;
 }

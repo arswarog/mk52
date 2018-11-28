@@ -1,7 +1,7 @@
-import { ICalcCtrl, ICore } from './calculator.interface';
+import { Calculator } from './calculator';
+import { CoreCommandType, ICalcCtrl, ICore } from './calculator.interface';
 import { makeButton } from './common';
 import { Cmd } from './core/commands';
-import { Calculator } from './calculator';
 
 let calc: Calculator = null;
 let testCore: ICore  = null;
@@ -26,9 +26,12 @@ describe('Calculator', () => {
     });
     describe('Keyboard controller', () => {
         it('Single keys', (done) => {
-            testCore[Cmd.Num0] = (c) => {
-                done();
-                return c;
+            testCore[Cmd.Num0] = {
+                type     : CoreCommandType.Single,
+                operation: (c) => {
+                    done();
+                    return c;
+                },
             };
 
             calc.keyPress(makeButton('w', null, Cmd.Num0));
@@ -41,9 +44,12 @@ describe('Calculator', () => {
         });
 
         it('F key', (done) => {
-            testCore[Cmd.sin] = (c) => {
-                done();
-                return c;
+            testCore[Cmd.sin] = {
+                type     : CoreCommandType.Single,
+                operation: (c) => {
+                    done();
+                    return c;
+                },
             };
 
             calc = calc.keyPress(makeButton('f', null, Cmd.F));
@@ -56,9 +62,12 @@ describe('Calculator', () => {
         });
 
         it('K key', (done) => {
-            testCore[Cmd.abs] = (c) => {
-                done();
-                return c;
+            testCore[Cmd.abs] = {
+                type     : CoreCommandType.Single,
+                operation: (c) => {
+                    done();
+                    return c;
+                },
             };
 
             calc = calc.keyPress(makeButton('k', null, Cmd.K));
@@ -72,8 +81,11 @@ describe('Calculator', () => {
 
         describe('ICalculatrCtrl', () => {
             it('commandComplete', () => {
-                testCore[Cmd.goto] = (calculator: ICalcCtrl, cmd: Cmd): ICalcCtrl => {
-                    return calculator._commandComplete(calculator);
+                testCore[Cmd.goto] = {
+                    type     : CoreCommandType.WithAddress,
+                    operation: (calculator: ICalcCtrl, cmd: Cmd): ICalcCtrl => {
+                        return calculator._commandComplete(calculator);
+                    },
                 };
 
                 let calc1 = calc.keyPress(makeButton('w', null, Cmd.goto));
@@ -84,20 +96,26 @@ describe('Calculator', () => {
             it('commandRunOther', () => {
                 const cmds: Cmd[] = [];
 
-                testCore[Cmd.Num0] = (calculator: ICalcCtrl, cmd: Cmd): ICalcCtrl => {
-                    cmds.push(cmd);
-                    if (cmd === Cmd.Num0)
-                        return {
-                            ...calculator,
-                            keys: [cmd],
-                        };
-                    else
-                        return calculator._commandRunOther(calculator, cmd);
+                testCore[Cmd.Num0] = {
+                    type     : CoreCommandType.Single,
+                    operation: (calculator: ICalcCtrl, cmd: Cmd): ICalcCtrl => {
+                        cmds.push(cmd);
+                        if (cmd === Cmd.Num0)
+                            return {
+                                ...calculator,
+                                keys: [cmd],
+                            };
+                        else
+                            return calculator._commandRunOther(calculator, cmd);
+                    },
                 };
 
-                testCore[Cmd.goto] = (calculator: ICalcCtrl, cmd: Cmd): ICalcCtrl => {
-                    cmds.push(cmd);
-                    return calculator._commandComplete(calculator);
+                testCore[Cmd.goto] = {
+                    type     : CoreCommandType.WithAddress,
+                    operation: (calculator: ICalcCtrl, cmd: Cmd): ICalcCtrl => {
+                        cmds.push(cmd);
+                        return calculator._commandComplete(calculator);
+                    },
                 };
 
                 const calc1 = calc.keyPress(makeButton('w', null, Cmd.Num0));
@@ -113,20 +131,23 @@ describe('Calculator', () => {
 
         describe('GOTO', () => {
             it('GOTO 11', () => {
-                testCore[Cmd.goto] = (calculator: ICalcCtrl, cmd: Cmd): ICalcCtrl => {
-                    switch (calculator.keys.length) {
-                        case 0:
-                            calculator.keys.push(Cmd.goto);
-                            break;
-                        case 1:
-                            calculator.keys.push(cmd.toString().substr(1, 1));
-                            break;
-                        case 2:
-                            const address       = calculator.keys[1] + cmd.toString().substr(1, 1);
-                            calculator.programm = calculator.programm.goto(address);
-                            return calculator._commandComplete(calculator);
-                    }
-                    return calculator;
+                testCore[Cmd.goto] = {
+                    type     : CoreCommandType.WithAddress,
+                    operation: (calculator: ICalcCtrl, cmd: Cmd): ICalcCtrl => {
+                        switch (calculator.keys.length) {
+                            case 0:
+                                calculator.keys.push(Cmd.goto);
+                                break;
+                            case 1:
+                                calculator.keys.push(cmd.toString().substr(1, 1));
+                                break;
+                            case 2:
+                                const address       = calculator.keys[1] + cmd.toString().substr(1, 1);
+                                calculator.programm = calculator.programm.goto(address);
+                                return calculator._commandComplete(calculator);
+                        }
+                        return calculator;
+                    },
                 };
 
                 expect(calc.programm.address).toBe(0);

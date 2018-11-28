@@ -2,7 +2,7 @@ import { MKButton } from './common';
 import { Stack } from './core/stack';
 import { Registers } from './core/registers';
 import { Programm } from './core/programm';
-import { ICalcCtrl, ICalculator, ICore } from './calculator.interface';
+import { ICalcCtrl, ICalculator, ICore, ICoreCommand } from './calculator.interface';
 import { Cmd, CmdCodes } from './core/commands';
 
 export enum CalculatorStatus {
@@ -19,6 +19,7 @@ export class Calculator implements ICalculator {
     public registers: Registers     = null;
     public programm: Programm       = null;
     public keys: string[]           = [];
+    public command: ICoreCommand    = null;
 
     public stat = {
         executed       : 0,
@@ -32,6 +33,7 @@ export class Calculator implements ICalculator {
             this.programm  = new Programm();
             this.registers = new Registers();
             this.keys      = [];
+            this.command   = null;
         }
     }
 
@@ -43,7 +45,7 @@ export class Calculator implements ICalculator {
         const calc: object = {};
         let changes        = 0;
         if (state)
-            ['status', 'stack', 'programm', 'registers', 'keys'].forEach(
+            ['status', 'stack', 'programm', 'registers', 'keys', 'command'].forEach(
                 key => {
                     if (state[key] && state[key] !== this[key]) {
                         calc[key] = state[key];
@@ -107,7 +109,7 @@ export class Calculator implements ICalculator {
 
             if (cmd in this.core) {
                 return this.clone(
-                    this.core[cmd]({
+                    this.core[cmd].operation({
                         ...this as any,
                         keys: [],
                     }),
@@ -126,7 +128,7 @@ export class Calculator implements ICalculator {
 
     public _exec(execute: string, cmd: Cmd): Calculator {
         if (execute in this.core)
-            return this.clone(this.core[execute](this, cmd));
+            return this.clone(this.core[execute].operation(this, cmd));
         else
             throw new Error(`Unknown cmd "${CmdCodes[execute]}" (code ${execute})`);
     }

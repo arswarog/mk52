@@ -37,7 +37,7 @@ describe('Core', () => {
                 canInput: false,
             });
 
-            const res = core[Cmd.Enter](mk);
+            const res = core[Cmd.Enter].operation(mk);
 
             expect(res.stack.t.toString()).toEqual(' 67835.344   ');
             expect(res.stack.z.toString()).toEqual(' 3.4536344 16');
@@ -61,7 +61,7 @@ describe('Core', () => {
                 canInput: false,
             });
 
-            let res = core[Cmd.Enter](mk);
+            let res = core[Cmd.Enter].operation(mk);
 
             expect(res.stack.t.toString()).toEqual(' 67835.344   ');
             expect(res.stack.z.toString()).toEqual(' 3.4536344 16');
@@ -75,7 +75,7 @@ describe('Core', () => {
             expect(res.stack.x).toEqual(mk.stack.x);
             expect(res.stack.x1).toEqual(mk.stack.x);
 
-            res = core[Cmd.Enter](res);
+            res = core[Cmd.Enter].operation(res);
 
             expect(res.stack.t.toString()).toEqual(' 3.4536344 16');
             expect(res.stack.z.toString()).toEqual(' 5735.23     ');
@@ -108,7 +108,7 @@ describe('Core', () => {
             expect(mk.stack.x.toString()).toEqual(' 5735.23     ');
             expect(mk.stack.x1.toString()).toEqual(' 5.6723   -08');
 
-            let res = core[Cmd.Num1](mk);
+            let res = core[Cmd.Num1].operation(mk);
 
             expect(res.stack.canInput).toEqual(true);
 
@@ -123,7 +123,7 @@ describe('Core', () => {
             expect(res.stack.y).toEqual(mk.stack.y);
             expect(res.stack.x1).toEqual(mk.stack.x1);
 
-            res = core[Cmd.Num2](res);
+            res = core[Cmd.Num2].operation(res);
 
             expect(mk.stack.t.toString()).toEqual(' 1.        26');
             expect(mk.stack.z.toString()).toEqual(' 67835.344   ');
@@ -136,7 +136,7 @@ describe('Core', () => {
             expect(res.stack.y).toEqual(mk.stack.y);
             expect(res.stack.x1).toEqual(mk.stack.x1);
 
-            res = core[Cmd.Dot](res);
+            res = core[Cmd.Dot].operation(res);
 
             expect(mk.stack.t.toString()).toEqual(' 1.        26');
             expect(mk.stack.z.toString()).toEqual(' 67835.344   ');
@@ -149,7 +149,7 @@ describe('Core', () => {
             expect(res.stack.y).toEqual(mk.stack.y);
             expect(res.stack.x1).toEqual(mk.stack.x1);
 
-            res = core[Cmd.Num3](res);
+            res = core[Cmd.Num3].operation(res);
 
             expect(mk.stack.t.toString()).toEqual(' 1.        26');
             expect(mk.stack.z.toString()).toEqual(' 67835.344   ');
@@ -172,7 +172,7 @@ describe('Core', () => {
                 canInput: false,
             });
 
-            let res = core[Cmd.Num1](mk);
+            let res = core[Cmd.Num1].operation(mk);
 
             expect(res.stack.t.toString()).toEqual(' 67835.344   ');
             expect(res.stack.z.toString()).toEqual(' 3.4536344 16');
@@ -185,7 +185,7 @@ describe('Core', () => {
             expect(res.stack.y).toEqual(mk.stack.x);
             expect(res.stack.x1).toEqual(mk.stack.x);
 
-            res = core[Cmd.Num2](res);
+            res = core[Cmd.Num2].operation(res);
 
             expect(res.stack.t.toString()).toEqual(' 67835.344   ');
             expect(res.stack.z.toString()).toEqual(' 3.4536344 16');
@@ -198,7 +198,7 @@ describe('Core', () => {
             expect(res.stack.y).toEqual(mk.stack.x);
             expect(res.stack.x1).toEqual(mk.stack.x);
 
-            res = core[Cmd.Dot](res);
+            res = core[Cmd.Dot].operation(res);
 
             expect(res.stack.t.toString()).toEqual(' 67835.344   ');
             expect(res.stack.z.toString()).toEqual(' 3.4536344 16');
@@ -211,7 +211,7 @@ describe('Core', () => {
             expect(res.stack.y).toEqual(mk.stack.x);
             expect(res.stack.x1).toEqual(mk.stack.x);
 
-            res = core[Cmd.Num0](res);
+            res = core[Cmd.Num0].operation(res);
 
             expect(res.stack.t.toString()).toEqual(' 67835.344   ');
             expect(res.stack.z.toString()).toEqual(' 3.4536344 16');
@@ -244,21 +244,21 @@ describe('Core', () => {
                 expect(mk.stack.x.toString()).toEqual(' 5735.231    ');
                 expect(mk.stack.x1.toString()).toEqual(' 5.6723   -08');
 
-                let res = core[Cmd.Mul](mk);
+                let res = core[Cmd.Mul].operation(mk);
                 expect(res.stack.t.toString()).toEqual('-10.         ');
                 expect(res.stack.z.toString()).toEqual('-10.         ');
                 expect(res.stack.y.toString()).toEqual(' 10.         ');
                 expect(res.stack.x.toString()).toEqual('-4473480.2   ');
                 expect(res.stack.x1.toString()).toEqual(' 5735.231    ');
 
-                res = core[Cmd.Mul](res);
+                res = core[Cmd.Mul].operation(res);
                 expect(res.stack.t.toString()).toEqual('-10.         ');
                 expect(res.stack.z.toString()).toEqual('-10.         ');
                 expect(res.stack.y.toString()).toEqual('-10.         ');
                 expect(res.stack.x.toString()).toEqual('-44734802.   ');
                 expect(res.stack.x1.toString()).toEqual('-4473480.2   ');
 
-                res = core[Cmd.Mul](res);
+                res = core[Cmd.Mul].operation(res);
                 expect(res.stack.t.toString()).toEqual('-10.         ');
                 expect(res.stack.z.toString()).toEqual('-10.         ');
                 expect(res.stack.y.toString()).toEqual('-10.         ');
@@ -322,21 +322,21 @@ describe('Core', () => {
                 expect(mk.stack.x.toString()).toEqual(' 4.          ');
                 expect(mk.stack.x1.toString()).toEqual(' 5.6723   -08');
 
-                let res = core[Cmd.sqr](mk);
+                let res = core[Cmd.sqr].operation(mk);
                 expect(res.stack.t.toString()).toEqual('-2.          ');
                 expect(res.stack.z.toString()).toEqual(' 2.          ');
                 expect(res.stack.y.toString()).toEqual('-2.          ');
                 expect(res.stack.x.toString()).toEqual(' 16.         ');
                 expect(res.stack.x1.toString()).toEqual(' 4.          ');
 
-                res = core[Cmd.sqr](res);
+                res = core[Cmd.sqr].operation(res);
                 expect(res.stack.t.toString()).toEqual('-2.          ');
                 expect(res.stack.z.toString()).toEqual(' 2.          ');
                 expect(res.stack.y.toString()).toEqual('-2.          ');
                 expect(res.stack.x.toString()).toEqual(' 256.        ');
                 expect(res.stack.x1.toString()).toEqual(' 16.         ');
 
-                res = core[Cmd.sqr](res);
+                res = core[Cmd.sqr].operation(res);
                 expect(res.stack.t.toString()).toEqual('-2.          ');
                 expect(res.stack.z.toString()).toEqual(' 2.          ');
                 expect(res.stack.y.toString()).toEqual('-2.          ');
@@ -361,7 +361,7 @@ describe('Core', () => {
             expect(mk.stack.x.toString()).toEqual(' 4.          ');
             expect(mk.stack.x1.toString()).toEqual(' 5.6723   -08');
 
-            let res = core[Cmd.pi](mk);
+            let res = core[Cmd.pi].operation(mk);
             expect(res.stack.t.toString()).toEqual(' 2.          ');
             expect(res.stack.z.toString()).toEqual('-2.          ');
             expect(res.stack.y.toString()).toEqual(' 4.          ');
