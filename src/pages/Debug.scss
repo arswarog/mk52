@@ -1,7 +1,13 @@
 .page-debug {
     code {
         white-space: pre;
-        font-family: inherit;
+        //font-family: inherit;
         //font-family: Led;
+    }
+    .program {
+        td {
+            font-family: Led;
+            text-align: center;
+        }
     }
 }

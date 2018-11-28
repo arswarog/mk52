@@ -1,5 +1,5 @@
 import { Cmd } from './core/commands';
-import { Programm } from './core/programm';
+import { Program } from './core/program';
 import { keyLabels } from './l18n';
 
 const addressCommands: string[] = [
@@ -16,7 +16,7 @@ export const codeLabels: {[key: string]: string} = {
     [Cmd.XtR]: 'XП',
 };
 
-export function programmToView(program: Programm): string[][] {
+export function programToView(program: Program): string[][] {
     let isNextAddress = false;
 
     return program.bytes.reduce(

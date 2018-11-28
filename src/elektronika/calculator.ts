@@ -1,24 +1,32 @@
 import { MKButton } from './common';
 import { Stack } from './core/stack';
 import { Registers } from './core/registers';
-import { Programm } from './core/programm';
-import { ICalcCtrl, ICalculator, ICore } from './calculator.interface';
+import { Program } from './core/program';
+import {
+    CoreCommandType,
+    ICalcCtrl,
+    ICalculator,
+    ICore,
+    ICoreCommand,
+    IVariousCalculator,
+} from './calculator.interface';
 import { Cmd, CmdCodes } from './core/commands';
 
 export enum CalculatorStatus {
     Standart,
     Input,
     InputEx,
-    Programm,
+    Program,
     Run,
 }
 
 export class Calculator implements ICalculator {
     public status: CalculatorStatus = null;
-    public stack: Stack             = null;
-    public registers: Registers     = null;
-    public programm: Programm       = null;
-    public keys: string[]           = [];
+    public stack: Stack = null;
+    public registers: Registers = null;
+    public program: Program = null;
+    public keys: string[] = [];
+    public command: ICoreCommand = null;
 
     public stat = {
         executed       : 0,
@@ -27,11 +35,12 @@ export class Calculator implements ICalculator {
 
     constructor(private core: ICore, init: boolean = true) {
         if (init) {
-            this.status    = CalculatorStatus.Standart;
-            this.stack     = new Stack();
-            this.programm  = new Programm();
+            this.status = CalculatorStatus.Standart;
+            this.stack = new Stack();
+            this.program = new Program();
             this.registers = new Registers();
-            this.keys      = [];
+            this.keys = [];
+            this.command = null;
         }
     }
 
@@ -39,13 +48,13 @@ export class Calculator implements ICalculator {
         return new Calculator(this.core, true);
     }
 
-    public clone(state?: object) {
+    public clone(state?: IVariousCalculator) {
         const calc: object = {};
-        let changes        = 0;
+        let changes = 0;
         if (state)
-            ['status', 'stack', 'programm', 'registers', 'keys'].forEach(
+            ['status', 'stack', 'program', 'registers', 'keys', 'command', 'stat'].forEach(
                 key => {
-                    if (state[key] && state[key] !== this[key]) {
+                    if (key in state && state[key] !== this[key]) {
                         calc[key] = state[key];
                         changes++;
                     }
@@ -69,64 +78,102 @@ export class Calculator implements ICalculator {
             status   : this.status,
             stack    : this.stack,
             registers: this.registers,
-            programm : this.programm,
+            program : this.program,
             keys     : this.keys,
             stat     : this.stat,
+            command  : this.command,
         }, state);
     }
 
+    // tslint:disable
     public keyPress(key: MKButton): Calculator {
-        let cmd = null;
+        let result: Calculator = null;
+        if (this.command && (result = this._keyPress(key.cmd)))
+            return result;
 
         if (this.keys.length === 0) {
-            if (key.cmd === Cmd.F) {
+            if (key.cmd === Cmd.F)
                 return this.clone({
                     keys: ['F'],
                 });
-                return this.clone({
-                    keys: ['F'],
-                });
-            }
             if (key.cmd === Cmd.K)
                 return this.clone({
                     keys: ['K'],
                 });
-
-            cmd = key.cmd;
-
-            return this._exec(cmd, cmd);
-            // if (cmd in this.core)
-            //     return this.clone(this.core[cmd](this, cmd));
-            // else
-            //     throw new Error(`Unknown cmd "${CmdCodes[cmd]}" (code ${cmd})`);
         }
 
         if (this.keys.length === 1) {
-            if (this.keys[0] === 'F') cmd = key.cmdf;
-            if (this.keys[0] === 'K') cmd = key.cmdk;
-
-            if (cmd in this.core) {
-                return this.clone(
-                    this.core[cmd]({
-                        ...this as any,
-                        keys: [],
-                    }),
-                );
-            }
+            if (this.keys[0] === 'F' && (result = this._keyPress(key.cmdf)))
+                return result.clone({keys: []});
+            if (this.keys[0] === 'K' && (result = this._keyPress(key.cmdk)))
+                return result.clone({keys: []});
         }
 
-        cmd = this.keys[0];
+        if (result = this._keyPress(key.cmd)) return result;
 
-        return this._exec(cmd, key.cmd);
-        // if (cmd in this.core)
-        //     return this.clone(this.core[cmd](this, key.cmd));
-        // else
-        //     throw new Error(`Unknown cmd "${CmdCodes[cmd]}" (code ${cmd})`);
+        return this;
     }
 
+    private _keyPress(cmd: Cmd): Calculator | null {
+        if (!this.command) {
+            const command = this.core[cmd];
+
+            if (!command)
+                return null;
+
+            switch (command.type) {
+                case CoreCommandType.Single:
+                    return this._exec(cmd, cmd);
+                default:
+                    return this.clone({command});
+            }
+        }
+        if (this.command) {
+            switch (this.command.type) {
+                case CoreCommandType.WithRegister:
+                    if (isCmdNumber(cmd))
+                        return this.clone({
+                            ...this.command.operation(this, cmdToNumber(cmd)),
+                            command: null,
+                            keys   : [],
+                            stat   : {
+                                ...this.stat,
+                                executed: this.stat.executed + 1,
+                            },
+                        });
+                case CoreCommandType.WithAddress:
+                    if (isCmdNumber(cmd))
+                        if (this.keys.length === 1)
+                            return this.clone({
+                                ...this.command.operation(this, cmdToNumber(this.keys[0] as Cmd) + cmdToNumber(cmd)),
+                                command: null,
+                                keys   : [],
+                                stat   : {
+                                    ...this.stat,
+                                    executed: this.stat.executed + 1,
+                                },
+                            });
+                        else
+                            return this.clone({
+                                keys: [cmd],
+                            });
+                case CoreCommandType.Single:
+                default:
+                    throw new Error('Invalid command');
+            }
+            return null;
+        }
+        return null;
+        // if (execute in this.core)
+        //     return this.clone(this.core[execute].operation(this, cmd));
+        // else
+        //     throw new Error(`Unknown cmd "${CmdCodes[execute]}" (code ${execute})`);
+    }
+
+    /// TODO need refactoring
     public _exec(execute: string, cmd: Cmd): Calculator {
         if (execute in this.core)
-            return this.clone(this.core[execute](this, cmd));
+            return this.clone(this.core[execute].operation(this, cmd));
         else
             throw new Error(`Unknown cmd "${CmdCodes[execute]}" (code ${execute})`);
     }
@@ -155,4 +202,13 @@ export class Calculator implements ICalculator {
         const calc = this.clone(state);
         return calc._exec(cmd, cmd);
     }
+}
+
+
+function isCmdNumber(cmd: Cmd): boolean {
+    return !!cmd.match(/^0\d$/);
+}
+
+function cmdToNumber(cmd: Cmd): string {
+    return cmd.substr(1, 1);
 }

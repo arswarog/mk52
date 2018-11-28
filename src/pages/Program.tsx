@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import './Programm.scss';
+import './Program.scss';
 import { Cmd } from '../elektronika/core/commands';
-import { Programm as CoreProgramm } from '../elektronika/core/programm';
-import { programmToView } from '../elektronika/viewTools';
+import { Program as CoreProgram } from '../elektronika/core/program';
+import { programToView } from '../elektronika/viewTools';
 
-export const Programm = connect()(
+export const Program = connect()(
     () => {
         // tslint:disable
-        const prg = programmToView({
+        const prg = programToView({
             bytes: [
                 'КППЕ', '48', 'КППЕ', '6В', '67', Cmd.Num2, Cmd.Mul, 'ПП', 'A0', 'В↑',
                 'КПх8', Cmd.Plus, 'КхП8', Cmd.Swap, Cmd.Num7, Cmd.r10x, Cmd.Plus, '68', '6С', Cmd.Div,
@@ -34,9 +34,9 @@ export const Programm = connect()(
                 //'0e', '5b', '0e', '03', '1c', '20', '51', '06', '20', '1c',
                 //'04', '51', '0e', '51', '1c',
             ],
-        } as CoreProgramm);
+        } as CoreProgram);
 
-        return <div className="page-programm">
+        return <div className="page-program">
             <div className="center">ПРОГРАММА</div>
             <table>
                 <thead>

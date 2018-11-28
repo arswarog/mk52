@@ -1,22 +1,25 @@
 @font-face {
   font-family: Led; /* Гарнитура шрифта */
-  src: url(../fonts/led.ttf); /* Путь к файлу со шрифтом */
+  src: url(fonts/led.ttf); /* Путь к файлу со шрифтом */
 }
 
+//.program {
+//  border: 1px solid grey;
+//  width: 770px;
+//}
+//.program tr th,
+//.program tr td {
+//  border: 1px solid grey;
+//  width: 70px;
+//  height: 30px;
+//  text-align: center;
+//  vertical-align: middle;
+//}
+//.program tr th {
+//  font-weight: bold;
+//}
 
-
-.programm {
-  border: 1px solid grey;
-  width: 770px;
-}
-.programm tr th,
-.programm tr td {
-  border: 1px solid grey;
-  width: 70px;
-  height: 30px;
-  text-align: center;
-  vertical-align: middle;
-}
-.programm tr th {
-  font-weight: bold;
+code {
+    font-family: Led;
+    font-size: 18px;
 }

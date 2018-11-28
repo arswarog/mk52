@@ -1,15 +1,30 @@
 import { CalculatorStatus } from './calculator';
-import { Stack } from './core/stack';
+import { IStack, Stack } from './core/stack';
 import { Registers } from './core/registers';
-import { Programm } from './core/programm';
+import { Program } from './core/program';
 import { Cmd } from './core/commands';
 
-export interface ICalculator {
+export interface IVariousCalculator {
+    status?: CalculatorStatus;
+    stack?: IStack;
+    registers?: Registers;
+    program?: Program;
+    keys?: string[];
+    command?: ICoreCommand;
+
+    stat?: {
+        executed?: number;
+        lastRunExecuted?: number;
+    }
+}
+
+export interface ICalculator extends IVariousCalculator {
     status: CalculatorStatus;
     stack: Stack;
     registers: Registers;
-    programm: Programm;
+    program: Program;
     keys: string[];
+    command: ICoreCommand;
 
     stat: {
         executed: number;
@@ -25,11 +40,12 @@ export interface ICalculatorCtrl {
 
 export type ICalcCtrl = ICalculator & ICalculatorCtrl;
 
-export type ICoreOperation = (calc: ICalcCtrl, command?: Cmd) => ICalcCtrl;
+export type ICoreOperation = (calc: ICalcCtrl, option?: any) => IVariousCalculator;
 
 export enum CoreCommandType {
     Single,
     WithAddress,
+    WithRegister,
 }
 
 export interface ICoreCommand {
@@ -38,5 +54,5 @@ export interface ICoreCommand {
 }
 
 export interface ICore {
-    [key: string]:  ICoreOperation | ICoreCommand;
+    [key: string]: ICoreCommand;
 }

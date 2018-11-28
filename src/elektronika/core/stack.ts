@@ -1,6 +1,6 @@
 import { InputRegister, Register } from './register';
 
-interface IStack {
+export interface IStack {
     x1: Register;
     x: Register;
     y: Register;

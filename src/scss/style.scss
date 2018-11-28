@@ -1,27 +1,201 @@
-#snake table {
-    border: solid 0.1em black;
+@font-face {
+    font-family: Led;
+    src: url(./fonts/led.ttf);
+}
 
-    td {
-        background-color: #E7E7E7;
-        width: 1em;
-        height: 1em;
-        border: none;
-        transition: top 1s ease-out 0.5s;
+body {
+    margin: 30px auto;
+    padding: 0;
+    width: 900px;
+    font-family: sans-serif;
+
+    background: url(./images/bg.jpg);
+}
+
+.paper {
+    background: url(./images/paper2.png) repeat-y;
+    width: 758px;
+    min-height: 800px;
+    box-sizing: border-box;
+    margin: 30px auto 30px 0px;
+    padding: 51px 99px;
+    display: flex;
+
+    table {
+        width: 100%;
+
+        border-spacing: 0;
+        padding: 1px;
+        tr {
+            height: 30px;
+
+            td, th {
+                line-height: 30px;
+                font-size: 18px;
+            }
+            th {
+                text-align: center;
+            }
+            td {
+                //line-height: 30px;
+            }
+        }
+
+        &.bordered {
+            tr {
+                td {
+                    &:not(:first-child):before {
+                        content: ' | ';
+                        float: left;
+                    }
+                }
+
+                &:before {
+                    width: 100px;
+                    display: block;
+                    position: absolute;
+
+                    /**/
+                    content: '';
+                    height: 1px;
+                    background-color: black;
+                    /*/
+                    height: 0px;
+                    content: '|';
+                    transform: scaleX(7) rotate(-106deg) translate(12px, -22px);
+                    //*/
+                }
+
+                &:first-child:before {
+                    height: 0px;
+                }
+            }
+        }
+    }
+}
+
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.App-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    transform: rotate(1.85deg);
+    font-size: 22px;
+    line-height: 32px;
+
+    font-family: 'Caveat', cursive;
+
+    a,
+    a:link,
+    a:hover,
+    a:visited {
+        text-decoration: none;
     }
 
-    td.head {
-        background-color: #6599ff;
+    p {
+        margin: 0;
+        margin-bottom: 18px;
     }
+}
 
-    td.snake {
-        background-color: #ff9900;
-    }
+.stickers {
+    width: 0px;
+    margin-top: -16px;
 
-    td.portal {
-        background-color: #D4AF37;
-    }
+    font-size: 16px;
+    font-family: 'Bad Script', cursive;
 
-    td.food {
-        background-color: #097054;
+    .sticker {
+        height: 100px;
+        transform-origin: 50% 50%;
+        transition: 0.5s;
+
+        div {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            box-sizing: border-box;
+            padding: 19px 19px 32px 32px;
+        }
+
+        &:hover,
+        &.active {
+            background-color: rgba(0, 0, 0, 0.5);
+            height: 200px;
+
+            transform: rotate(-6deg) translate(-5px, -15px);
+
+            &:nth-child(2n) {
+                transform: rotate(6deg) translate(5px, -40px);
+            }
+        }
+
+        a {
+            display: block;
+            height: 100%;
+            transform: rotate(-3deg);
+            text-align: center;
+            line-height: 21px;
+
+            transition: 0.3s;
+            cursor: pointer;
+
+            h5 {
+                font-size: 25px;
+                line-height: 25px;
+                font-weight: normal;
+                padding: 0;
+                margin: 0;
+            }
+
+            &.active img {
+                opacity: 1;
+            }
+        }
+
+        a,
+        a:hover,
+        a:link,
+        a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+        img {
+            opacity: 0;
+            transition: 0.3s;
+        }
+
     }
 }

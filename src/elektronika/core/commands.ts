@@ -2,7 +2,7 @@ export enum Cmd {
     F               = 'F',
     K               = 'K',
     AUTO            = '',
-    PROGRAMM        = '',
+    PROGRAM        = '',
     EPROM_TRANSFERR = '',
     EPROM_ADDRESS   = '',
     SST             = '', // step ->

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './AllProgramms.scss';
+import './AllPrograms.scss';
 
-export const AllProgramms = connect()(
+export const AllPrograms = connect()(
     () => {
         const list: Array<{
             title: string;
@@ -18,7 +18,7 @@ export const AllProgramms = connect()(
             },
         ];
 
-        return <div className="page-all-programms">
+        return <div className="page-all-programs">
             <div className="center">ВСЕ ПРОГРАММЫ</div>
             {list.map(
                 (item, index) =>

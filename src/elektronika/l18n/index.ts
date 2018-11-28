@@ -4,7 +4,7 @@ export const keyLabels: {[key: string]: string} = {
     [Cmd.F]              : 'F',
     [Cmd.K]              : 'K',
     [Cmd.AUTO]           : 'АВТ',
-    [Cmd.PROGRAMM]       : 'ПРГ',
+    [Cmd.PROGRAM]       : 'ПРГ',
     [Cmd.EPROM_TRANSFERR]: '⇵',
     [Cmd.EPROM_ADDRESS]  : 'А↑',
     [Cmd.SST]            : 'ШГ→',
