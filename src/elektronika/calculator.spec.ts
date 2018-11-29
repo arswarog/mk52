@@ -2,6 +2,7 @@ import { Calculator } from './calculator';
 import { CoreCommandType, ICalcCtrl, ICore } from './calculator.interface';
 import { makeButton } from './common';
 import { Cmd } from './core/commands';
+import { Register } from './core/register';
 
 let calc: Calculator = null;
 let testCore: ICore  = null;
@@ -10,6 +11,15 @@ describe('Calculator', () => {
     beforeEach(() => {
         testCore = {};
         calc     = new Calculator(testCore);
+        calc     = calc.clone({
+            stack: {
+                x1: new Register(0.000000056723),
+                x : new Register(5735.23),
+                y : new Register(34536343634534535),
+                z : new Register(67835.3437345634534),
+                t : new Register(100000000000000000000000000),
+            },
+        });
     });
 
     describe('Clone', () => {
@@ -129,7 +139,26 @@ describe('Calculator', () => {
             });
         });
 
-        describe('GOTO', () => {
+        describe('Input numbers', () => {
+            it('Single keys', (done) => {
+                //calc.keyA4 = (() => {
+                done();
+                //}) as any;
+                //
+                //calc.keyPress('A4');
+            });
+            it('Single keys (negative)', () => {
+                //expect(() => {
+                //    calc.keyPress('A45');
+                //}).toThrow();
+            });
+        });
+
+        describe('Single commands', () => {
+
+        });
+
+        describe('Commands with address', () => {
             it('GOTO 11', () => {
                 testCore[Cmd.goto] = {
                     type     : CoreCommandType.WithAddress,
@@ -165,19 +194,58 @@ describe('Calculator', () => {
             });
         });
 
-        describe('Input numbers', () => {
-            it('Single keys', (done) => {
-                //calc.keyA4 = (() => {
-                done();
-                //}) as any;
-                //
-                //calc.keyPress('A4');
+        describe('Commands with register', () => {
+            it('GOTO 11', () => {
+                testCore[Cmd.XtR] = {
+                    type     : CoreCommandType.WithRegister,
+                    operation: (calculator: ICalcCtrl, cmd: Cmd, register: string): ICalcCtrl => {
+                        return {
+                            ...calculator,
+                            registers: calculator.registers.set(register, calculator.stack.x),
+                        };
+                    },
+                };
+
+                const displayX = ' 5735.23     ';
+                expect(calc.stack.x.toString()).toBe(displayX);
+                expect(calc.registers.get('1').toString()).toBe(' 0.          ');
+                expect(calc.command).toEqual(null);
+
+                let calc1 = calc.keyPress(makeButton('w', null, Cmd.XtR));
+                expect(calc1.command).toEqual(testCore[Cmd.XtR]);
+                expect(calc1.keys).toEqual([]);
+
+                let calc2 = calc1.keyPress(makeButton('w', null, Cmd.Num1));
+                expect(calc2.command).toEqual(null);
+                expect(calc2.keys).toEqual([]);
+
+                expect(calc2.registers.get('1').toString()).toBe(displayX);
+                expect(calc2.stat.executed).toBe(1);
+
+                expect(calc2).toBe(
+                    calc.clone({
+                        registers: calc.registers.set('1', calc.stack.x),
+                        stat     : {
+                            ...calc.stat,
+                            executed: calc.stat.executed + 1,
+                        },
+                    }),
+                );
             });
-            it('Single keys (negative)', () => {
-                //expect(() => {
-                //    calc.keyPress('A45');
-                //}).toThrow();
-            });
+        });
+    });
+
+    describe('Auto execute', () => {
+        describe('Single commands', () => {
+
+        });
+
+        describe('Commands with address', () => {
+
+        });
+
+        describe('Commands with register', () => {
+
         });
     });
 });

@@ -25,11 +25,12 @@ export interface ICalculatorCtrl {
 
 export type ICalcCtrl = ICalculator & ICalculatorCtrl;
 
-export type ICoreOperation = (calc: ICalcCtrl, command?: Cmd) => ICalcCtrl;
+export type ICoreOperation = (calc: ICalcCtrl, command?: Cmd, option?: any) => ICalcCtrl;
 
 export enum CoreCommandType {
     Single,
     WithAddress,
+    WithRegister,
 }
 
 export interface ICoreCommand {
