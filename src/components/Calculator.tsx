@@ -40,17 +40,22 @@ export const Calculator = connect(
                         <div className="left">
                             <div className="logo"><span>ЭЛЕКТРОНИКА</span><span>МК52</span></div>
                             <div className="display inset">
-                                <div>-8.abcdef0-19</div>
+                                <div>
+                                    <div className="phantom">-88888888-88</div>
+                                    <div>-8.abcdef0-19</div>
+                                </div>
                             </div>
-                            <div className="switches">
+                            <div className="switches inset">
                                 <div className="switch"/>
                                 <div className="switch"/>
                                 <div className="switch"/>
                                 <div className="switch"/>
                             </div>
                         </div>
-                        <div className="keyboard">
-                            <Keyboard keyboard={keyboard} pressButton={pressButton}/>
+                        <div className="right">
+                            <div className="keyboard">
+                                <Keyboard keyboard={keyboard} pressButton={pressButton}/>
+                            </div>
                         </div>
                     </div>
                 </div>
