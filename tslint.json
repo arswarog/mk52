@@ -33,6 +33,9 @@
     ],
     "max-classes-per-file": [
       false
+    ],
+    "no-conditional-assignment": [
+      false
     ]
   }
 }

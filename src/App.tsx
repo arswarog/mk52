@@ -8,9 +8,10 @@ import { IStickerProps, Sticker } from './components/Sticker';
 
 import { Calculator } from './components/Calculator';
 import { About } from './pages/About';
-import { AllPrograms } from './pages/AllPrograms';
+import { Github } from './pages/Github';
 import { CmdSet } from './pages/CmdSet';
 import { Debug } from './pages/Debug';
+import { GithubView } from './pages/GithubView';
 import { Program } from './pages/Program';
 import { Programs } from './pages/Programs';
 
@@ -48,7 +49,7 @@ class App extends React.Component {
                 //{
                 //    rotate   : 16,
                 //    hueRotate: 60,
-                link     : '/shared',
+                link     : '/github',
                 text     : 'Другие программы',
                 desc     : 'Не только мои творения',
             },
@@ -65,7 +66,8 @@ class App extends React.Component {
                             <Route path="/about" component={About}/>
                             <Route path="/programs" component={Programs}/>
                             <Route path="/debug" component={Debug}/>
-                            <Route path="/shared" component={AllPrograms}/>
+                            <Route path="/github" exact={true} component={Github}/>
+                            <Route path="/github/(.*)" component={GithubView}/>
                             <Route path="/commands" component={CmdSet}/>
                             <Redirect path="/" exact={true} to="/about"/>
                         </Switch>

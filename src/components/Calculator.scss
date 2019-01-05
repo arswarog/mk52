@@ -136,7 +136,8 @@ div.mk52 {
                 border-bottom: none;
 
                 .switch {
-                    border: 1px solid black;
+                    flex: 1 1;
+                    //border: 1px solid black;
                     min-height: 20px;
                     min-width: 50px;
                 }

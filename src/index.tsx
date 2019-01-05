@@ -4,12 +4,19 @@ import { HashRouter } from 'react-router-dom';
 import App from './App';
 import './scss/index.scss';
 import { keyboard } from './keyboard';
+import { loadList } from './reducers/actions/github';
 import registerServiceWorker from './registerServiceWorker';
-import { createStore } from 'redux';
-import { globalReducer } from './reducers';
+import { applyMiddleware, createStore, Store } from 'redux';
+import { globalReducer, IGlobalState } from './reducers';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
-const store = createStore(globalReducer);
+const store: Store<IGlobalState> = createStore(
+    globalReducer,
+    applyMiddleware(thunk),
+);
+
+loadList()(store.dispatch);
 
 document.addEventListener('keydown', keyboard(store.dispatch));
 

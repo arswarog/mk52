@@ -31,7 +31,6 @@ export function programToView(program: Program): string[][] {
                 isNextAddress = false;
             } else {
                 let code = codeLabels[cmd];
-                console.log(cmd);
                 if (!code)
                     if (codeLabels[cmd.substr(0, 1) + 'x'])
                         code = codeLabels[cmd.substr(0, 1) + 'x'] + cmd.substr(1).toLowerCase();

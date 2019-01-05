@@ -21,6 +21,21 @@ body {
     padding: 51px 99px;
     display: flex;
 
+    h2 {
+        margin: 16px 0 0 48px;
+        font-size: 22px;
+        line-height: 32px;
+    }
+
+    ul {
+        margin: 0;
+        padding-left: 32px;
+
+        li {
+            list-style-type: decimal;
+        }
+    }
+
     table {
         width: 100%;
 
@@ -203,3 +218,4 @@ body {
 
     }
 }
+
