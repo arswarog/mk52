@@ -1,0 +1,38 @@
+.page-github {
+    .center {
+        text-align: center;
+    }
+
+    form {
+        input {
+            width: calc(100% - 100px);
+            border: none;
+            border-bottom: 2px solid #212121;
+            background: transparent;
+        }
+        button {
+            width: 90px;
+        }
+    }
+
+    .url_info {
+        display: flex;
+        flex-direction: column;
+
+        .repository {
+            .repo {
+                .author {
+
+                }
+                .repo {
+
+                }
+            }
+        }
+        .path {
+            span {
+
+            }
+        }
+    }
+}
