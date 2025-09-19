@@ -1,0 +1,5 @@
+dist
+coverage
+*.d.ts
+node_modules
+.idea
